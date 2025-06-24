@@ -1,0 +1,26 @@
+.title {
+    font-size: 28px;
+    color: #2b2d2f;
+}
+
+.secondaryText {
+    font-size: 16px;
+    color: #2b2d2f;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2b2d2f;
+}
+
+a {
+    text-decoration: none;
+    font-size: 600;
+    color: #2b2d2f;
+}
+
+form {
+    max-width: 450px;
+}
+

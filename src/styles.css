@@ -1,1 +1,120 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+html, body {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400; /* regular */
+  color: #2b2d2f;
+}
+
+h1 {
+  font-weight: 700; /* bold */
+  color: #2b2d2f;
+}
+
+h2 {
+  font-weight: 600; /* semibold */
+  color: #2b2d2f;
+}
+
+h4 {
+  font-weight: 500;  /* medium */
+  color: #2b2d2f;
+}
+
+.thin {
+    font-weight: 300;
+    color: #2b2d2f;
+}
+
+.form-control.customInputs {
+  background-color: #F1F4F6 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 8px;
+  color: #2b2d2f;
+}
+
+.form-control.customInputs:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-control.customInputs::placeholder {
+  color: #6B6F73;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+select.form-control, 
+::picker(select) {
+  appearance: base-select;
+}
+
+select.form-control:focus {
+  background-color: #F1F4F6;
+}
+
+select.form-control {
+  background-color: #F1F4F6;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 8px;
+}
+
+select.form-control::picker-icon {
+  color: #6B6F73;
+  content: url("/icons/chevron-down.svg");
+  width: 20px;
+  height: 20px;
+}
+
+select.form-control:open::picker-icon {
+  content: url("/icons/chevron-up.svg");
+  width: 20px;
+  height: 20px;
+}
+
+select.form-control option {
+  padding: 5px;
+}
+
+select.form-control option:hover {
+  background-color: #489dba;
+  color: white;
+}
+
+select.form-control option:checked {
+  background-color: #489dba;
+  color: white;
+}
+
+select.form-control option::checkmark {
+  color: white;
+  content: "🐾";
+}
+
+.btnPrimary {
+  background-color: #489dba;
+  padding: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  height: 54px;
+  border-radius: 8px;
+}
+
+.btnPrimary:hover{
+  background-color: #3787a3;
+  color: white;
+}

@@ -10,5 +10,5 @@ import Swal from 'sweetalert2';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Moni-Pet-WEB';
+  title = 'MoniPet';
 }

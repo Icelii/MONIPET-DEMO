@@ -1,0 +1,14 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center general">
+  <div class="row w-100">
+    <div class="col-lg-6 p-0 d-none d-lg-block">
+      <div class="h-100">
+        <img [src]="imageUrl" class="img-fluid h-100 w-100 object-fit-cover backgroundImage" alt="Imagen">
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
+        <img src="/logos/logo-horizontal.svg" alt="Logo" class="mb-2 logo">
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

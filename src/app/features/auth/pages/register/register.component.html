@@ -1,0 +1,105 @@
+<!-- TODO:
+      1-Agregar la función para ocultar y mostrar contraseña
+      2-Tratar de quitar el scroll
+      3-Checar input date
+      -->
+
+<h4 class="text-center tittle">Crea tu cuenta</h4>
+<p class="text-center secondaryText thin mb-4">
+  Crea tu cuenta y accede a todos nuestros servicios
+</p>
+
+<form class="w-100">
+  <!-- NOMBRE -->
+  <div class="mb-4">
+    <label class="form-label">Nombre</label>
+    <input
+      type="text"
+      class="form-control customInputs"
+      placeholder="ej. Jane"
+    />
+  </div>
+
+  <!-- APELLIDOS -->
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <label class="form-label">Apellido paterno</label>
+      <input
+        type="text"
+        class="form-control customInputs"
+        placeholder="ej. Doe"
+      />
+    </div>
+    <div class="col-md-6 mb-4">
+      <label class="form-label">Apellido materno</label>
+      <input
+        type="text"
+        class="form-control customInputs"
+        placeholder="ej. Doe"
+      />
+    </div>
+  </div>
+
+  <!-- FECHA DE NACIMIENTO & GÉNERO -->
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <label class="form-label">Fecha de nacimiento</label>
+      <input type="date" class="form-control customInputs" />
+    </div>
+    <div class="col-md-6 mb-4">
+      <label class="form-label">Género</label>
+      <select class="form-control">
+        <option disabled selected>Seleccionar</option>
+        <option>Femenino</option>
+        <option>Masculino</option>
+        <option>Otro</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="mb-4">
+    <label class="form-label">Correo electrónico</label>
+    <input
+      type="email"
+      class="form-control customInputs"
+      placeholder="ej. prueba123@gmail.com"
+    />
+  </div>
+
+  <!-- CONTRASEÑA -->
+  <div class="mb-1">
+    <label class="form-label">Contraseña</label>
+    <div class="input-group">
+      <input
+        type="password"
+        class="form-control customInputs"
+        placeholder="Ingresa una contraseña"
+      />
+    </div>
+  </div>
+  <div class="mb-4">
+    <small class="text-muted"
+      >*Debe contener mínimo 8 caracteres, con mayúsculas, números y
+      símbolos.</small
+    >
+  </div>
+
+  <!-- CONFIRMAR CONTRASEÑA -->
+  <div class="mb-4">
+    <label class="form-label">Confirma tu contraseña</label>
+    <div class="input-group">
+      <input
+        type="password"
+        class="form-control customInputs"
+        placeholder="Confirma la contraseña"
+      />
+    </div>
+  </div>
+
+  <button type="submit" class="btn btnPrimary w-100 mb-5">Crear cuenta</button>
+</form>
+
+<p class="text-center mt-4 text-muted">
+  ¿Ya tienes una cuenta? <a href="#" class="fw-semibold">Inicia sesión aquí</a>
+</p>
