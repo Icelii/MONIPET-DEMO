@@ -1,26 +1,32 @@
 .title {
-    font-size: 28px;
-    color: #2b2d2f;
+  font-size: 28px;
+  color: var(--text-principal);
 }
 
 .secondaryText {
-    font-size: 16px;
-    color: #2b2d2f;
+  font-size: 16px;
+  color: var(--text-principal);
 }
 
 label {
-    font-size: 16px;
-    font-weight: 600;
-    color: #2b2d2f;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-principal);
 }
 
 a {
-    text-decoration: none;
-    font-size: 600;
-    color: #2b2d2f;
+  text-decoration: none;
+  font-size: 600;
+  color: var(--text-principal);
 }
 
 form {
-    max-width: 450px;
+  max-width: 450px;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: url("/icons/chevron-down.svg") no-repeat center;
+  background-size: contain;
+  opacity: 1;
+  color: transparent;
+}

@@ -1,0 +1,19 @@
+.verification-success {
+  min-height: 100vh;
+  padding: 20px;
+  background-color: white;
+}
+
+.icon-circle {
+  width: 100px;
+  height: 100px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subtitle {
+    color: var(--scondary-text);
+}

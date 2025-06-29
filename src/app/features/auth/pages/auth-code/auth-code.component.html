@@ -1,0 +1,36 @@
+<h4 class="text-center tittle mt-2">Verificación en dos pasos</h4>
+<p class="text-center secondaryText thin mb-4">
+  Ingresa el código que enviamos a tu correo electrónico.
+</p>
+
+<form [formGroup]="codeFormGroup" (ngSubmit)="onSubmit()" class="mt-5">
+  <div class="mb-4">
+    <p class="form-label mt-4 mb-3">Código: <app-count-down [duration]="300" (finished)="onTimerFinished()"></app-count-down></p>
+    <div formArrayName="code" class="d-flex justify-content-center gap-2 flex-wrap">
+       <input
+        *ngFor="let ctrl of codeForm.controls; let i = index"
+        #codeInput
+        type="text"
+        maxlength="1"
+        autocomplete="off"
+        class="form-control text-center codeInput"
+        [formControlName]="i"
+        (input)="onInput($event, i)"
+        (keydown)="onKeyDown($event, i)"
+      />
+    </div>
+    <small *ngIf="codeError" class="textDanger">{{ codeError }}</small>
+  </div>
+
+  <div class="mb-5">
+    <p class="mt-4 text-muted">
+      ¿No recibiste el código? <a class="fw-semibold">Reenviar</a>
+    </p>
+  </div>
+
+  <app-button-primary label="Verificar código"></app-button-primary>
+</form>
+
+<p class="text-center mt-4 text-muted">
+  ¿Ya la recordaste?<a routerLink="/login" class="fw-semibold"> Inicia sesión</a>
+</p>

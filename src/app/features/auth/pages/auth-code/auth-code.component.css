@@ -1,0 +1,63 @@
+.title {
+  font-size: 28px;
+  color: var(--text-principal);
+}
+
+.secondaryText {
+  font-size: 16px;
+  color: var(--text-principal);
+}
+
+.form-control.codeInput {
+  width: 60px;
+  height: 60px;
+  background-color: var(--input-color) !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 8px;
+  color: var(--text-principal);
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-principal);
+}
+
+a {
+  text-decoration: none;
+  font-size: 600;
+  color: var(--text-principal);
+}
+
+@media (max-width: 991.98px) {
+  form {
+    width: 100%;
+  }
+
+  .form-control.codeInput {
+    width: 45px; 
+    height: 45px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-principal);
+  }
+}
+
+@media (min-width: 992px) {
+  form {
+    width: 450px;
+    max-width: 650px;
+  }
+}

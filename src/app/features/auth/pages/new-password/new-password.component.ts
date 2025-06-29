@@ -1,49 +1,35 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ButtonPrimaryComponent } from "../../../../shared/components/button-primary/button-primary.component";
-import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import { minimumAgeValidator } from '../../../../core/validators/minimumAgeValidator.validator';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-new-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, ErrorMessagesComponent, ButtonPrimaryComponent, CommonModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  imports: [ReactiveFormsModule, RouterModule, FormsModule, CommonModule, ButtonPrimaryComponent, ErrorMessagesComponent],
+  templateUrl: './new-password.component.html',
+  styleUrl: './new-password.component.css'
 })
-export class RegisterComponent {
-  registerForm: FormGroup;
+export class NewPasswordComponent {
+  newPasswordForm: FormGroup;
   mostrarPassword = false;
   mostrarPasswordConfirm = false;
-  fechaMaxima: string = '';
 
   constructor(private fb: FormBuilder) {
-    this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[A-Za-zÑñÁ-Úá-ú]{1,55}$')]],
-      last_name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[A-Za-zÑñÁ-Úá-ú]{1,55}$')]],
-      last_name2: ['', [Validators.maxLength(55), Validators.pattern('^[A-Za-zÑñÁ-Úá-ú]{1,55}$')]],
-      gender: ['', [Validators.required]],
-      birthDate: ['', [Validators.required, minimumAgeValidator(18)]],
-      email: ['', [Validators.required, Validators.email, Validators.pattern('.+@[A-Za-z]+[.][A-Za-z]+(?:\.[A-Za-z]{2,})*'), Validators.maxLength(254)]],
+    this.newPasswordForm = this.fb.group({
       password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W_]{8,}$'), Validators.maxLength(250), Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W_]{8,}$'), Validators.maxLength(250), Validators.minLength(8)]]
     },
     { validators: this.passwordsMatchValidator }
-  );
-  }
-
-  ngOnInit() {
-      const hoy = new Date();
-      const fecha = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-      this.fechaMaxima = fecha.toISOString().split('T')[0];
+    );
   }
 
   getControl(name: string): AbstractControl {
-    return this.registerForm.controls[name];
+    return this.newPasswordForm.controls[name];
   }
-
+  
   private passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const password = group.get('password')?.value;
     const confirm = group.get('confirmPassword')?.value;
@@ -59,12 +45,12 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
+    if (this.newPasswordForm.invalid) {
+      this.newPasswordForm.markAllAsTouched();
       return;
     }
 
-    const data = this.registerForm.value;
+    const data = this.newPasswordForm.value;
 
     console.log('FORM VALUES:', data);
   }

@@ -1,0 +1,11 @@
+<div class="verification-success d-flex flex-column justify-content-center align-items-center text-center">
+  <div class="icon-circle mb-4">
+    <img [src]="imageUrl" alt="" class="img-fluid" style="width: 55px; height: 55px; color: white;">
+  </div>
+
+  <h3 class="mb-2">{{ title }}</h3>
+  <p class="mb-0 subtitle">{{ subtitle }}</p>
+  <p class="mb-4 subtitle">{{ subtitle2 }}</p>
+  
+  <router-outlet></router-outlet>
+</div>
