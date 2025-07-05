@@ -21,11 +21,11 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[A-Za-zÑñÁ-Úá-ú]{1,55}$')]],
-      last_name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[A-Za-zÑñÁ-Úá-ú]{1,55}$')]],
-      last_name2: ['', [Validators.maxLength(55), Validators.pattern('^[A-Za-zÑñÁ-Úá-ú]{1,55}$')]],
+      name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
+      last_name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
+      last_name2: ['', [Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
       gender: ['', [Validators.required]],
-      birthDate: ['', [Validators.required, minimumAgeValidator(18)]],
+      birth_Date: ['', [Validators.required, minimumAgeValidator(18)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern('.+@[A-Za-z]+[.][A-Za-z]+(?:\.[A-Za-z]{2,})*'), Validators.maxLength(254)]],
       password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W_]{8,}$'), Validators.maxLength(250), Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W_]{8,}$'), Validators.maxLength(250), Validators.minLength(8)]]
