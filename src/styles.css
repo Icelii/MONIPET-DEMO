@@ -1,18 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import "../node_modules/@ng-select/ng-select/themes/default.theme.css";
+
+
 :root {
   --primary-color: #489dba;
   --primary-color-shadow: #3787a3;
   --primary-color-light: #badee7;
+  --primary-color-light2: #f0f9fb;
+  --primary-color-light3: #89c4d7;
   --secondary-color: #dacd9e;
+  --secondary-color-shadow: #cdb97c;
+  --secondary-color-light: #efead6;
   --text-principal: #2b2d2f;
   --scondary-text: #6b6f73;
   --input-color: #f1f4f6;
   --separator: #d1d5d9;
-  --danger-color: #A53F3F;
+  --danger-color: #a53f3f;
+  --img-background: #d9d9d9;
 }
 
-html, body {
-  font-family: 'Quicksand', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Quicksand", sans-serif;
   font-weight: 400; /* regular */
   color: var(--text-principal);
 }
@@ -28,13 +43,13 @@ h2 {
 }
 
 h4 {
-  font-weight: 500;  /* medium */
+  font-weight: 500; /* medium */
   color: var(--text-principal);
 }
 
 .thin {
-    font-weight: 300;
-    color: var(--text-principal);
+  font-weight: 300;
+  color: var(--text-principal);
 }
 
 .form-control.customInputs {
@@ -83,7 +98,7 @@ h4 {
   font-size: 16px;
 }
 
-select.form-control, 
+select.form-control,
 ::picker(select) {
   appearance: base-select;
 }
@@ -139,29 +154,48 @@ select.form-control option::checkmark {
 .btnPrimary {
   background-color: var(--primary-color);
   padding: 16px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   color: white;
   height: 54px;
   border-radius: 8px;
 }
 
-.btnPrimary:hover{
+.btnPrimary:hover {
   background-color: var(--primary-color-shadow);
   color: white;
 }
 
-.btn.btnPrimary:focus,
-.btn.btnPrimary:active,
-.btn.btnPrimary:focus-visible {
+.btn.btnPrimary:active {
   background-color: var(--primary-color-shadow);
   color: white;
   outline: none;
   box-shadow: none;
 }
 
-.btnPrimary:disabled {
-  background-color: var(--primary-color-light);
+.btnSecondary {
+  background-color: var(--secondary-color);
+  padding: 12px;
+  font-weight: 600;
+  font-size: 12px;
+  color: white;
+  border-radius: 8px;
+}
+
+.btnSecondary:hover {
+  background-color: var(--secondary-color-shadow);
+  color: white;
+}
+
+.btn.btnSecondary:active {
+  background-color: var(--secondary-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.btnSecondary:disabled {
+  background-color: var(--secondary-color-light);
   padding: 16px;
   font-weight: 700;
   font-size: 16px;
@@ -196,7 +230,8 @@ select.form-control option::checkmark {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
-.custom-confirm-btn:active, .custom-confirm-btn:focus-visible {
+.custom-confirm-btn:active,
+.custom-confirm-btn:focus-visible {
   background-color: var(--primary-color-shadow) !important;
   color: #fff !important;
   padding: 0.5rem 1.5rem !important;
@@ -214,7 +249,9 @@ select.form-control option::checkmark {
   border: none !important;
 }
 
-.custom-cancel-btn:active, .custom-cancel-btn:focus-visible, .custom-cancel-btn:focus {
+.custom-cancel-btn:active,
+.custom-cancel-btn:focus-visible,
+.custom-cancel-btn:focus {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -223,3 +260,62 @@ select.form-control option::checkmark {
 .textDanger {
   color: var(--danger-color);
 }
+
+/* SEARCH BAR */
+.ng-select .ng-select-container {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 8px;
+  color: var(--text-principal);
+  background-color: var(--input-color) !important;
+}
+
+/*
+.ng-select.ng-placeholder {
+  color: #a0a0a0 !important;
+}
+
+.ng-select.ng-value {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-weight: 500;
+  margin-right: 0.25rem;
+}
+
+.ng-select.ng-value-icon {
+  color: white !important;
+  margin-left: 4px;
+}
+
+.ng-select.ng-dropdown-panel {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 4px;
+  padding: 4px 0;
+  z-index: 9999;
+}
+
+.ng-select.ng-option {
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  color: var(--text-principal);
+}
+
+.ng-select.ng-option:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.ng-select.ng-option-selected {
+  background-color: var(--primary-color-shadow);
+  color: white;
+}
+
+.ng-select.ng-clear-wrapper {
+  color: var(--primary-color);
+}
+*/

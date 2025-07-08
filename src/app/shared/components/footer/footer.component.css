@@ -1,0 +1,41 @@
+.footer-top {
+  background-color: var(--primary-color-light2);
+  color: var(--scondary-text);
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.footer-top a {
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--scondary-text);
+  text-decoration: none;
+}
+
+.footer-top a:hover {
+  text-decoration: underline;
+}
+
+.footer-top ul {
+  padding: 0;
+}
+
+.footer-top li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-bottom {
+  background-color: var(--primary-color-light2);
+  color: var(--scondary-text);
+}
+
+.dog-img {
+  width: 200px;
+}
+
+@media (max-width: 768px) {
+  .dog-img {
+    margin: 0 auto;
+    transform: none;
+  }
+}
