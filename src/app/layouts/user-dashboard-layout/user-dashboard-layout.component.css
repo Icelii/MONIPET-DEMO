@@ -1,0 +1,124 @@
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.text-muted {
+  font-weight: 300;
+}
+
+.content {
+  background-color: white;
+  border-radius: 16px;
+}
+
+.main {
+  background-color: var(--input-color);
+}
+
+.btn.btn-other {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: var(--secondary-color);
+  border-radius: 8px;
+}
+
+.btn.btn-other:hover {
+  background-color: var(--secondary-color-shadow);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.btn-other svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+  stroke: white;
+  flex-shrink: 0;
+}
+
+.notif-dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 6px;
+  height: 6px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.profileIcon {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+}
+
+
+/* SIDEBAR */
+.sidebar {
+  width: 60px;
+  min-width: 60px;
+  height: 100vh;
+  z-index: 1000;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+li svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--text-principal);
+}
+
+.logo {
+  width: 100px;
+  height: 50px;
+}
+
+.nav-pill {
+  padding: 2rem 0;
+  flex: 1 1 auto;
+}
+
+a svg:hover {
+  stroke: var(--primary-color);
+  cursor: pointer;
+}
+
+a.active svg {
+  stroke: var(--primary-color);
+}
+
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    background-color: transparent !important;
+  }
+  
+  a.nav-link  {
+    text-decoration: none;
+    color: var(--text-principal);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  a.active {
+    color: var(--primary-color);
+  }
+
+  li svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--text-principal);
+  }
+
+}
+
+
