@@ -9,6 +9,9 @@ import { NewPasswordComponent } from './features/auth/pages/new-password/new-pas
 import { HomeComponent } from './features/home/pages/home/home.component';
 import { UserDashboardLayoutComponent } from './layouts/user-dashboard-layout/user-dashboard-layout.component';
 import { AdoptComponent } from './features/adopt/pages/adopt/adopt.component';
+import { DetailsComponent } from './features/adopt/pages/details/details.component';
+import { ProfileComponent } from './features/dashboard/pages/profile/profile.component';
+import { ProductsComponent } from './features/products/pages/products/products.component';
 
 export const routes: Routes = [
   {
@@ -16,7 +19,9 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'adopt', component: AdoptComponent }
+      { path: 'adopt', component: AdoptComponent },
+      { path: 'adopt/details', component: DetailsComponent },
+      { path: 'products', component: ProductsComponent }
     ],
   },
   {
@@ -31,9 +36,11 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'test',
+    path: '',
     component: UserDashboardLayoutComponent,
-    children: [],
+    children: [
+      { path: 'dashboard/profile', component: ProfileComponent }
+    ],
   },
   { path: '**', redirectTo: '' },
 ];

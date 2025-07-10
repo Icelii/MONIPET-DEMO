@@ -1,1 +1,27 @@
-<p>user-dashboard-layout works!</p>
+<div class="d-flex flex-column flex-md-row min-vh-100">
+  <app-side-bar></app-side-bar>
+
+  <div class="flex-grow-1 p-3 p-md-4 main">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-4">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div>
+        <h5 class="title mb-1">Bienvenid&#64; Jess JH</h5>
+        <small class="text-muted">{{ fechaHoy }}</small>
+      </div>
+      <button class="navbar-toggler shadow-none border-0 d-md-none ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
+      </button>
+    </div>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-other position-relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bell"> <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
+            <span class="notif-dot"></span>
+        </button>
+        <img src="/images/testAvatar.png" class="profileIcon"/>
+      </div>
+    </div>
+
+    <div class="content p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

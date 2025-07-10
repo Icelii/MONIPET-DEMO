@@ -1,0 +1,93 @@
+<h5 class="title">Perfil</h5>
+<p class="desc">Aquí puedes visualizar y editar tu información.</p>
+
+<div class="row mt-4">
+  <div class="col-12 col-md-3 text-center mb-4 mb-md-0">
+    <div class="profile-card">
+      <div class="image">
+        <img src="/images/testAvatar.png" alt="Avatar" class="profile-img">
+      </div>
+
+      <div class="user-name">
+        <span class="name">Jess JH</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="col-12 col-md-9 rowForm">
+    <form [formGroup]="updateInfoForm" (ngSubmit)="onSubmit()" class="w-100">
+    <div class="mt-1 row g-4">
+      <div class="col-md-6">
+        <label class="form-label" for="name">Nombre(s)</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control customInputs"
+          placeholder="ej. Jane"
+        />
+        <app-error-messages [control]="getControl('name')" version="m" label="Este campo"></app-error-messages>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="last_name">Apellido paterno</label>
+        <input
+          type="text"
+          id="last_name"
+          formControlName="last_name"
+          class="form-control customInputs"
+          placeholder="ej. Doe"
+        />
+        <app-error-messages [control]="getControl('last_name')" version="m" label="Este campo"></app-error-messages>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="last_name2">Apellido materno</label>
+        <input
+          type="text"
+          id="last_name2"
+          formControlName="last_name2"
+          class="form-control customInputs"
+          placeholder="ej. Doe"
+        />
+        <app-error-messages [control]="getControl('last_name2')" version="m" label="Este campo"></app-error-messages>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="email">Correo electrónico</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control customInputs"
+          placeholder="ej. prueba123@gmail.com"
+        />
+        <app-error-messages [control]="getControl('email')" version="m" label="Este campo"></app-error-messages>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="birth_Date">Fecha de nacimiento</label>
+        <input type="date" id="birth_Date" formControlName="birth_Date" class="form-control customInputs" [max]="fechaMaxima"/>
+        <app-error-messages [control]="getControl('birth_Date')" version="m" label="Este campo"></app-error-messages>
+      </div>
+      <div class="col-md-6">
+      <label class="form-label" for="gender">Género</label>
+        <select class="form-control" formControlName="gender">
+          <option hidden disabled selected value="">Seleccionar</option>
+          <option value="1">Femenino</option>
+          <option value="2">Masculino</option>
+          <option value="3">39 tipos de gays🏳️‍🌈</option>
+        </select>
+        <app-error-messages [control]="getControl('gender')" version="m" label="Este campo"></app-error-messages>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="mt-2 col-12 col-md-6 mb-3 mb-md-0">
+        <button type="submit" class="btn btnSubmit">Actualizar información</button>
+      </div>
+      <div class="mt-2 col-12 col-md-6">
+        <button class="btn btnSubmit">Cambiar contraseña</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>

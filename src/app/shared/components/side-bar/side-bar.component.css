@@ -1,0 +1,59 @@
+.sidebar {
+  width: 60px;
+  min-width: 60px;
+  height: 100vh;
+  z-index: 1000;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+li svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--text-principal);
+}
+
+.logo {
+  width: 100px;
+  height: 50px;
+}
+
+.nav-pill {
+  padding: 2rem 0;
+  flex: 1 1 auto;
+}
+
+a svg:hover {
+  stroke: var(--primary-color);
+  cursor: pointer;
+}
+
+a.active svg {
+  stroke: var(--primary-color);
+}
+
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    background-color: transparent !important;
+  }
+  
+  a.nav-link  {
+    text-decoration: none;
+    color: var(--text-principal);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  a.active {
+    color: var(--primary-color);
+  }
+
+  li svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--text-principal);
+  }
+
+}

@@ -5,15 +5,18 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { RouterModule } from '@angular/router';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import { minimumAgeValidator } from '../../../../core/validators/minimumAgeValidator.validator';
+import { LoaderComponent } from "../../../../shared/components/loader/loader.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, ErrorMessagesComponent, ButtonPrimaryComponent, CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, ErrorMessagesComponent, ButtonPrimaryComponent, CommonModule, LoaderComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  showLoader = false;
+  
   registerForm: FormGroup;
   mostrarPassword = false;
   mostrarPasswordConfirm = false;
