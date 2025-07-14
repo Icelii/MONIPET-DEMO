@@ -1,45 +1,31 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { LoginComponent } from './features/auth/pages/login/login.component';
-import { RegisterComponent } from './features/auth/pages/register/register.component';
-import { AuthCodeComponent } from './features/auth/pages/auth-code/auth-code.component';
-import { RecoveryAccountComponent } from './features/auth/pages/recovery-account/recovery-account.component';
-import { NewPasswordComponent } from './features/auth/pages/new-password/new-password.component';
-import { HomeComponent } from './features/home/pages/home/home.component';
 import { UserDashboardLayoutComponent } from './layouts/user-dashboard-layout/user-dashboard-layout.component';
-import { AdoptComponent } from './features/adopt/pages/adopt/adopt.component';
-import { DetailsComponent } from './features/adopt/pages/details/details.component';
-import { ProfileComponent } from './features/dashboard/pages/profile/profile.component';
-import { ProductsComponent } from './features/products/pages/products/products.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'adopt', component: AdoptComponent },
-      { path: 'adopt/details', component: DetailsComponent },
-      { path: 'products', component: ProductsComponent }
     ],
   },
   {
     path: '',
     component: AuthLayoutComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'auth-code', component: AuthCodeComponent },
-      { path: 'account-recovery', component: RecoveryAccountComponent },
-      { path: 'new-password', component: NewPasswordComponent },
+      { path: 'login', loadComponent: () => import('./features/auth/pages/login/login.component').then(c => c.LoginComponent) },
+      { path: 'register', loadComponent: () => import('./features/auth/pages/register/register.component').then(c => c.RegisterComponent) },
+      { path: 'auth-code', loadComponent: () => import('./features/auth/pages/auth-code/auth-code.component').then(c => c.AuthCodeComponent) },
+      { path: 'account-recovery', loadComponent: () => import('./features/auth/pages/recovery-account/recovery-account.component').then(c => c.RecoveryAccountComponent) },
+      { path: 'new-password', loadComponent: () => import('./features/auth/pages/new-password/new-password.component').then(c => c.NewPasswordComponent) },
     ],
   },
   {
     path: '',
     component: UserDashboardLayoutComponent,
     children: [
-      { path: 'dashboard/profile', component: ProfileComponent }
+      { path: 'dashboard/profile', loadComponent: () => import('./features/dashboard/pages/profile/profile.component').then(c => c.ProfileComponent) },
     ],
   },
   { path: '**', redirectTo: '' },

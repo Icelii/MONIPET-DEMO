@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import { minimumAgeValidator } from '../../../../core/validators/minimumAgeValidator.validator';
 import { LoaderComponent } from "../../../../shared/components/loader/loader.component";
+import { minimumAgeValidator } from '../../../../core/validators/minimumAge.validator';
 
 @Component({
   selector: 'app-register',

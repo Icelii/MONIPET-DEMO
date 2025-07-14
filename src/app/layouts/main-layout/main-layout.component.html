@@ -1,5 +1,8 @@
-<app-nav-bar/>
-<div class="content gap-5">
+<div class="main-layout d-flex flex-column min-vh-100">
+ <app-nav-bar/>
+
+  <div class="content mt-1 mt-lg-3 mt-md-3">
     <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
 </div>
-<app-footer></app-footer>
