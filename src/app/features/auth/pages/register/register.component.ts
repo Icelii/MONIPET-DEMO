@@ -2,36 +2,38 @@ import { Component } from '@angular/core';
 import { ButtonPrimaryComponent } from "../../../../shared/components/button-primary/button-primary.component";
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
-import { LoaderComponent } from "../../../../shared/components/loader/loader.component";
 import { minimumAgeValidator } from '../../../../core/validators/minimumAge.validator';
+import { RegisterData } from '../../../../core/interfaces/user';
+import { AuthService } from '../../../../core/services/auth.service';
+import { timeout } from 'rxjs';
+import { response } from 'express';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, ErrorMessagesComponent, ButtonPrimaryComponent, CommonModule, LoaderComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, ErrorMessagesComponent, ButtonPrimaryComponent, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  showLoader = false;
-  
   registerForm: FormGroup;
   mostrarPassword = false;
   mostrarPasswordConfirm = false;
   fechaMaxima: string = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
       last_name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
       last_name2: ['', [Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
       gender: ['', [Validators.required]],
-      birth_Date: ['', [Validators.required, minimumAgeValidator(18)]],
+      birth_date: ['', [Validators.required, minimumAgeValidator(18)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern('.+@[A-Za-z]+[.][A-Za-z]+(?:\.[A-Za-z]{2,})*'), Validators.maxLength(254)]],
       password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W_]{8,}$'), Validators.maxLength(250), Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W_]{8,}$'), Validators.maxLength(250), Validators.minLength(8)]]
+      password_confirmation: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W_]{8,}$'), Validators.maxLength(250), Validators.minLength(8)]]
     },
     { validators: this.passwordsMatchValidator }
   );
@@ -49,7 +51,7 @@ export class RegisterComponent {
 
   private passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const password = group.get('password')?.value;
-    const confirm = group.get('confirmPassword')?.value;
+    const confirm = group.get('password_confirmation')?.value;
     return password === confirm ? null : { noMatch: true };
   };
 
@@ -67,8 +69,35 @@ export class RegisterComponent {
       return;
     }
 
-    const data = this.registerForm.value;
-
+    const data: RegisterData = this.registerForm.value;
     console.log('FORM VALUES:', data);
+    
+    this.authService.register(data).pipe(timeout(15000)).subscribe(
+      (response) => {
+        Swal.fire({
+            icon: "success",
+            title: "Te registraste!!!",
+            text: "Se te redireccionara a la pagina de inicio de sesion",
+            showConfirmButton: false,
+            timer: 1500,
+            didClose: () => {
+              this.router.navigateByUrl('/login');
+            }
+        });
+      },
+      (error) => {
+        console.log(error);
+        if(error.name === "TimeOutError"){
+            this.onSubmit();
+        }
+        Swal.fire({
+          title: 'Error',
+          text: 'Ocurrio un error :(',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
+        
+      }
+    );
   }
 }
