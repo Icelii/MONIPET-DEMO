@@ -17,10 +17,10 @@
   --separator: #d1d5d9;
   --danger-color: #a53f3f;
   --danger-color-shadow: #8e3535;
-  --success-color: #5D7754;
+  --success-color: #5d7754;
   --img-background: #d9d9d9;
   --male-gender-color: #6a8191;
-  --female-gender-color: #C97F7F;
+  --female-gender-color: #c97f7f;
 }
 
 * {
@@ -329,3 +329,18 @@ select.form-control option::checkmark {
   color: var(--primary-color);
 }
 */
+
+/* Confirm appointment alert */
+.icon-circle {
+  width: 100px;
+  height: 100px;
+  background-color: #dacd9e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonConfirmAlert {
+  min-width: auto;
+}

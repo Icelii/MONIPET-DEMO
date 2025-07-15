@@ -1,0 +1,142 @@
+.imgContainer {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.infoContainer {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+.petName {
+  font-weight: 600;
+  font-size: 1.75rem;
+}
+
+.badgeSexMale {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--male-gender-color);
+  border: 1.34px solid var(--male-gender-color);
+  border-radius: 4px;
+}
+
+.badgeSexFemale {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--female-gender-color);
+  border: 1.34px solid var(--female-gender-color);
+  border-radius: 4px;
+}
+
+.badgeSpayed {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--success-color);
+  border: 1.34px solid var(--success-color);
+  border-radius: 4px;
+}
+
+.badgeNoSpayed {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--danger-color);
+  border: 1.34px solid var(--danger-color);
+  border-radius: 4px;
+}
+
+.labelInfo {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.dataInfo {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.moreDetails {
+    font-weight: 300;
+    font-size: 1rem;
+    text-align: justify;
+}
+
+.btnAppointment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  padding: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  width: auto;
+  max-width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnAppointment:hover {
+  background-color: var(--primary-color-shadow);
+  color: white;
+}
+
+.btn.btnAppointment:active {
+  background-color: var(--primary-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn.btnFav {
+  background-color: var(--secondary-color);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  width: auto;
+  max-width: 100%;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.btn.btnFav:hover,
+.btn.btnFav:active,
+.btn.btnFav:target {
+  background-color: var(--secondary-color-shadow);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

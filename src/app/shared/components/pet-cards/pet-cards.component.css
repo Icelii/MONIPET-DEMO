@@ -1,0 +1,218 @@
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: none;
+  max-height: 100%;
+  max-width: 378px;
+  aspect-ratio: 378 / 533;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  background-color: transparent !important;
+}
+
+.card-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pet-Info .btn-Adopt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  width: auto;
+  max-width: 100%;
+}
+
+.badge-icon,
+.gender-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.badge-icon {
+  top: 10px;
+  left: 10px;
+}
+
+.gender-icon {
+  top: 10px;
+  right: 10px;
+  background: transparent;
+}
+
+.btn-Adopt:active,
+.btn-Adopt:hover {
+  background-color: var(--primary-color-shadow) !important;
+  color: white !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.badge-icon:active,
+.badge-icon:hover {
+  background-color: var(--primary-color-shadow) !important;
+  color: white !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pet-Info .namePet {
+  margin: 0;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 600;
+  text-align: start;
+}
+
+.pet-Info .agePet {
+  margin: 0.2rem 0 1rem;
+  font-size: 1rem;
+  color: white;
+  text-align: start;
+}
+
+.pet-Info {
+  position: absolute;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 3rem;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+}
+
+/* .pet-Info2 {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  bottom: 0;
+  left: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 3rem;
+  gap: 0.5rem;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+} */
+
+.pet-Info2 {
+  position: absolute;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 3rem;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+}
+
+.pet-Info2 .namePet {
+  margin: 0;
+  font-size: 1.125rem;
+  color: white;
+  font-weight: 600;
+  text-align: start;
+}
+
+.pet-Info2 .agePet {
+  margin: 0.2rem 0 1rem;
+  font-size: 1rem;
+  color: white;
+  text-align: start;
+}
+
+.pet-Info2 .btn-Adopt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.625rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  width: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .pet-Info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    bottom: 0;
+    left: 0;
+    gap: 0.5rem;
+  }
+
+  .pet-Info .namePet {
+    font-size: 1.2rem;
+  }
+
+  .pet-Info .agePet {
+    font-size: 1rem;
+  }
+
+  .pet-Info2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    bottom: 0;
+    left: 0;
+    gap: 0.5rem;
+  }
+
+  .pet-Info2 .namePet {
+    font-size: 1.2rem;
+  }
+
+  .pet-Info2 .agePet {
+    font-size: 1rem;
+  }
+}
+
+.defaultImgBackground {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--img-background);
+}
+
+.defaultImgBackground .logo {
+  object-fit: cover;
+}

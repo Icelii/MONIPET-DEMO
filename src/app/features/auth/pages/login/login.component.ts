@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonPrimaryComponent } from '../../../../shared/components/button-primary/button-primary.component';
 import { CommonModule } from '@angular/common';
-import { EmailAlertService } from '../../../../core/services/email-alert.service';
+import { EmailAlertService } from '../../../../core/services/alerts/email-alert.service';
 import { Router, RouterModule } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';

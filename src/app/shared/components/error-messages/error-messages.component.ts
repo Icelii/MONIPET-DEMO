@@ -33,6 +33,7 @@ export class ErrorMessagesComponent {
     if (e['maxlength']) return `Máximo ${e['maxlength'].requiredLength} caracteres`;
     if (e['noMatch']) return `Los campos no coinciden`;
     if (e['minimumAge']) return `Debes ser mayor de ${e['minimumAge'].requiredAge} años`;
+    if (e['hourInPast']) return `La hora seleccionada ya pasó`;
 
     return null;
   }

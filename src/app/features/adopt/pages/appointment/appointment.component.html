@@ -1,0 +1,22 @@
+<div class="container-xxl px-md-4 px-lg-5 min-vh-100 mb-5">
+    <div class="row">
+        <!-- SERVICES LIST -->
+        <div class="col-12 col-md-7 col-lg-7 mb-4">
+            <div class="d-flex flex-column justify-content-start align-items-start">
+                <h5 class="title">Mascotas seleccionadas</h5>
+                <h5 class="instructions">Puedes quitar opciones antes de confirmar tu cita.</h5>
+            </div>
+            <div class="mt-md-5 mt-lg-5 mt-4 row">
+                <div class="col-12 col-md-12 col-lg-12 mb-3">
+                    <app-adoption-appointment-cards breed="Caniche" size="chico" birthday="2025-01-10" [spayed]="true" sex="macho"></app-adoption-appointment-cards>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- ORDER RESUMEN -->
+        <div class="col-12 col-md-5 col-lg-5 mb-3">
+            <app-appointment-details [service]="false" [submitToUrl]="'test/test'"></app-appointment-details>
+        </div>
+    </div>
+</div>
