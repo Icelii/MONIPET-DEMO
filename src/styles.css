@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import "../node_modules/@ng-select/ng-select/themes/default.theme.css";
 
-
 :root {
   --primary-color: #489dba;
   --primary-color-shadow: #3787a3;
@@ -14,20 +13,30 @@
   --text-principal: #2b2d2f;
   --scondary-text: #6b6f73;
   --input-color: #f1f4f6;
+  --checkbox-color: #e8ecef;
   --separator: #d1d5d9;
   --danger-color: #a53f3f;
+  --danger-color-shadow: #8e3535;
+  --success-color: #5D7754;
   --img-background: #d9d9d9;
-  --male-gender-color: #6A8191;
+  --male-gender-color: #6a8191;
+  --female-gender-color: #C97F7F;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* outline: 1px solid red !important; */
 }
 
 html,
 body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
   font-family: "Quicksand", sans-serif;
   font-weight: 400; /* regular */
   color: var(--text-principal);

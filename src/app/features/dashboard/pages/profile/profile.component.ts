@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ErrorMessagesComponent } from "../../../../shared/components/error-messages/error-messages.component";
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { minimumAgeValidator } from '../../../../core/validators/minimumAgeValidator.validator';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonPrimaryComponent } from "../../../../shared/components/button-primary/button-primary.component";
+import { minimumAgeValidator } from '../../../../core/validators/minimumAge.validator';
 
 @Component({
   selector: 'app-profile',
