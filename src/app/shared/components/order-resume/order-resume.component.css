@@ -1,0 +1,91 @@
+.resumeContainer {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  padding: 20px 24px;
+  max-width: 100%;
+  width: auto;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.subTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.total {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+hr {
+  border: none;
+  border-top: 1.5px solid var(--separator);
+  margin: 1rem 0;
+}
+
+.btn {
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.btnPay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  padding: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  width: 100%;
+  max-width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnPay:hover {
+  background-color: var(--primary-color-shadow);
+  color: white;
+}
+
+.btn.btnPay:active {
+  background-color: var(--primary-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.btnCancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--danger-color);
+  padding: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  width: 100%;
+  max-width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnCancel:hover {
+  background-color: var(--danger-color-shadow);
+  color: white;
+}
+
+.btn.btnCancel:active {
+  background-color: var(--danger-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}

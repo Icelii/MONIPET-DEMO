@@ -1,0 +1,186 @@
+.card {
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.petName {
+  font-weight: 600;
+  font-size: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.imgContainer {
+  width: 177px;
+  height: 197px;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.btnDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--input-color);
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btnDelete svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
+  stroke: var(--text-principal);
+}
+
+.btnDelete:hover {
+  background-color: var(--checkbox-color);
+}
+
+.btn.btnDelete:active {
+  background-color: var(--checkbox-color);
+  outline: none;
+  box-shadow: none;
+}
+
+.btn.btnDelete:hover svg {
+  stroke: var(--danger-color);
+}
+
+.btn.btnDelete:active svg {
+  stroke: var(--danger-color);
+}
+
+.badgeSexMale {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--male-gender-color);
+  border: 1.34px solid var(--male-gender-color);
+  border-radius: 4px;
+}
+
+.badgeSexFemale {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--female-gender-color);
+  border: 1.34px solid var(--female-gender-color);
+  border-radius: 4px;
+}
+
+.badgeSexUknown {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--scondary-text);
+  border: 1.34px solid var(--scondary-text);
+  border-radius: 4px;
+}
+
+.badgeNoSpayed {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--danger-color);
+  border: 1.34px solid var(--danger-color);
+  border-radius: 4px;
+}
+
+.badgeSpayed {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--success-color);
+  border: 1.34px solid var(--success-color);
+  border-radius: 4px;
+}
+
+.labelInfo {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.dataInfo {
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.defaultImgBackground {
+  width: 100%;
+  height: 100%;
+  background-color: var(--img-background);
+}
+
+.defaultImgBackground .logo {
+  object-fit: cover;
+}
+
+.btnDelete2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--danger-color);
+  padding: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  width: 100%;
+  max-width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnDelete2:hover {
+  background-color: var(--danger-color-shadow);
+  color: white;
+}
+
+.btn.btnDelete2:active {
+  background-color: var(--danger-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .imgContainer {
+    width: 100%;
+    height: 180px;
+  }
+
+  .btnDelete {
+    width: 40px;
+    height: 40px;
+  }
+}

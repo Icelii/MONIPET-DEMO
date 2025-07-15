@@ -8,8 +8,8 @@ import { minimumAgeValidator } from '../../../../core/validators/minimumAge.vali
 import { RegisterData } from '../../../../core/interfaces/user';
 import { AuthService } from '../../../../core/services/auth.service';
 import { timeout } from 'rxjs';
-import { response } from 'express';
 import Swal from 'sweetalert2';
+import { EmailAlertService } from '../../../../core/services/alerts/email-alert.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +24,7 @@ export class RegisterComponent {
   mostrarPasswordConfirm = false;
   fechaMaxima: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private emailAlert: EmailAlertService) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
       last_name: ['', [Validators.required, Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
@@ -74,21 +74,25 @@ export class RegisterComponent {
     
     this.authService.register(data).pipe(timeout(15000)).subscribe(
       (response) => {
-        Swal.fire({
-            icon: "success",
-            title: "Te registraste!!!",
-            text: "Se te redireccionara a la pagina de inicio de sesion",
-            showConfirmButton: false,
-            timer: 1500,
-            didClose: () => {
-              this.router.navigateByUrl('/login');
-            }
-        });
+        this.emailAlert.showSuccessAlert({
+            title: '¡Revisa tu correo!',
+            line1: 'Te enviamos un enlace para verificar tu cuenta.',
+            line2: 'No olvides revisar la carpeta de spam.',
+            confirmText: 'Reenviar correo',
+            cancelText: 'Ir al inicio de sesión <img src="/icons/arrow-narrow-right.svg" alt="">',
+            onConfirm: () => {
+              // Acción para reenviar correo
+            },
+            onCancel: () => {
+              this.router.navigate(['/login']);
+            },
+          });
       },
       (error) => {
         console.log(error);
         if(error.name === "TimeOutError"){
             this.onSubmit();
+            return;
         }
         Swal.fire({
           title: 'Error',
@@ -96,7 +100,6 @@ export class RegisterComponent {
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
-        
       }
     );
   }

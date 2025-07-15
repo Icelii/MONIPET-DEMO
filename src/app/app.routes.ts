@@ -8,6 +8,10 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
+      { path: '', loadComponent: () => import('./features/home/pages/home/home.component').then(c => c.HomeComponent) },
+      { path: 'adopt', loadComponent: () => import('./features/adopt/pages/adopt/adopt.component').then(c => c.AdoptComponent) },
+      { path: 'adopt/details', loadComponent: () => import('./features/adopt/pages/details/details.component').then(c => c.DetailsComponent) },
+      { path: 'adopt/schedule-adoption', loadComponent: () => import('./features/adopt/pages/appointment/appointment.component').then(c => c.AppointmentComponent) },
     ],
   },
   {
