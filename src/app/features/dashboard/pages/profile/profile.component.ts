@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { ErrorMessagesComponent } from "../../../../shared/components/error-messages/error-messages.component";
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonPrimaryComponent } from "../../../../shared/components/button-primary/button-primary.component";
 import { minimumAgeValidator } from '../../../../core/validators/minimumAge.validator';
+import { ConfirmAlertService } from '../../../../core/services/alerts/confirm-alert.service';
+import { VerifyPasswordModalComponent } from "../../components/verify-password-modal/verify-password-modal.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ErrorMessagesComponent, FormsModule, ReactiveFormsModule, ButtonPrimaryComponent],
+  imports: [ErrorMessagesComponent, FormsModule, ReactiveFormsModule, VerifyPasswordModalComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -15,7 +16,7 @@ export class ProfileComponent {
   updateInfoForm: FormGroup;
   fechaMaxima: string = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private confirmAlert: ConfirmAlertService) {
     this.updateInfoForm = this.fb.group({
       name: ['', [Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],
       last_name: ['', [Validators.maxLength(55), Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú\\s']{1,55}$")]],

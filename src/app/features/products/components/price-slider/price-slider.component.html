@@ -1,0 +1,14 @@
+<div class="slider">
+  <div class="track"></div>
+  <div class="range" #range></div>
+
+  <div class="price-tag left" [ngStyle]="{ left: leftPercent + '%' }">
+    ${{ minValue }}
+  </div>
+  <div class="price-tag right" [ngStyle]="{ left: rightPercent + '%' }">
+    ${{ maxValue }}
+  </div>
+
+  <input type="range" min="0" max="1000" value="200" #inputLeft />
+  <input type="range" min="0" max="1000" value="800" #inputRight />
+</div>
