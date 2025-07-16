@@ -1,0 +1,16 @@
+.card {
+    padding: 10px;
+    border-radius: 16px;
+    border: 1px solid (0, 0, 0, 0.1);
+}
+
+.text {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.desc {
+    font-size: 	0.875rem;
+    font-weight: 400;
+    color: var(--scondary-text);
+}

@@ -85,9 +85,11 @@
         <button type="submit" class="btn btnSubmit">Actualizar información</button>
       </div>
       <div class="mt-2 col-12 col-md-6">
-        <button class="btn btnSubmit">Cambiar contraseña</button>
+        <button type="button" class="btn btnSubmit" data-bs-toggle="modal" data-bs-target="#verifyPassword">Cambiar contraseña</button>
       </div>
     </div>
     </form>
   </div>
 </div>
+
+<app-verify-password-modal></app-verify-password-modal>

@@ -18,6 +18,7 @@
   --danger-color: #a53f3f;
   --danger-color-shadow: #8e3535;
   --success-color: #5d7754;
+  --warning-color: #E1C468;
   --img-background: #d9d9d9;
   --male-gender-color: #6a8191;
   --female-gender-color: #c97f7f;
@@ -330,7 +331,7 @@ select.form-control option::checkmark {
 }
 */
 
-/* Confirm appointment alert */
+/* CONFIRM ALERT */
 .icon-circle {
   width: 100px;
   height: 100px;
@@ -343,4 +344,99 @@ select.form-control option::checkmark {
 
 .buttonConfirmAlert {
   min-width: auto;
+}
+
+/* MODALS */
+.modal {
+    border-radius: 16px;
+}
+
+.modal-header {
+  margin-bottom: 0 !important;
+  padding-bottom: 0.3rem;
+}
+
+.modal-body {
+  margin-top: 0 !important;
+  padding-top: 0.3rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.indication {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  border: none;
+}
+
+.btnContinue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  width: auto;
+  max-width: 100%;
+  height: 40px;
+}
+
+.btnContinue:active,
+.btnContinue:hover {
+  background-color: var(--primary-color-shadow) !important;
+  color: white !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+
+.btnClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--input-color);
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btnClose svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
+  stroke: var(--text-principal);
+}
+
+.btnClose:hover {
+  background-color: var(--checkbox-color);
+}
+
+.btn.btnClose:active {
+  background-color: var(--checkbox-color);
+  outline: none;
+  box-shadow: none;
+}
+
+.btn.btnClose:hover svg {
+  stroke: var(--danger-color);
+}
+
+.btn.btnClose:active svg {
+  stroke: var(--danger-color);
 }

@@ -12,6 +12,9 @@ export const routes: Routes = [
       { path: 'adopt', loadComponent: () => import('./features/adopt/pages/adopt/adopt.component').then(c => c.AdoptComponent) },
       { path: 'adopt/details', loadComponent: () => import('./features/adopt/pages/details/details.component').then(c => c.DetailsComponent) },
       { path: 'adopt/schedule-adoption', loadComponent: () => import('./features/adopt/pages/appointment/appointment.component').then(c => c.AppointmentComponent) },
+      { path: 'products', loadComponent: () => import('./features/products/pages/products/products.component').then(c => c.ProductsComponent) },
+      { path: 'products/details', loadComponent: () => import('./features/products/pages/details/details.component').then(c => c.DetailsComponent) },
+      { path: 'products/cart', loadComponent: () => import('./features/products/pages/cart/cart.component').then(c => c.CartComponent) },
     ],
   },
   {
