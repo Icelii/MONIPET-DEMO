@@ -14,7 +14,7 @@
             <h5 class="subTitle">Total: </h5>
             <h5 class="total">${{ total.toFixed(2) }} Mxn</h5>
         </div>
-        <div *ngIf="!cancel">
+        <div *ngIf="!cancel && pay">
             <button type="submit" class="mt-2 btn btnPay">{{ btnLabel }}</button>
         </div>
         <div *ngIf="cancel">

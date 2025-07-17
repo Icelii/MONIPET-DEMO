@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { UserDashboardLayoutComponent } from './layouts/user-dashboard-layout/user-dashboard-layout.component';
+import { OrdenDetailComponent } from './features/dashboard/pages/orden-detail/orden-detail.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,8 @@ export const routes: Routes = [
       { path: 'products', loadComponent: () => import('./features/products/pages/products/products.component').then(c => c.ProductsComponent) },
       { path: 'products/details', loadComponent: () => import('./features/products/pages/details/details.component').then(c => c.DetailsComponent) },
       { path: 'products/cart', loadComponent: () => import('./features/products/pages/cart/cart.component').then(c => c.CartComponent) },
+      { path: 'services', loadComponent: () => import('./features/services/pages/services/services.component').then(c => c.ServicesComponent) },
+      { path: 'services/schedule-service', loadComponent: () => import('./features/services/pages/appointment/appointment.component').then(c => c.AppointmentComponent) },
     ],
   },
   {
