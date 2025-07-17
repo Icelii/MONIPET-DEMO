@@ -13,5 +13,6 @@ export class OrderResumeComponent {
    @Input() discountApply: number = 0;
    @Input() total: number = 0;
    @Input() cancel: boolean = false;
+   @Input() pay: boolean = false;
    @Input() btnLabel: string = "";
 }

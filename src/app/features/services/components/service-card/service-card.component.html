@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-body d-flex flex-column gap-3">
+    <div class="d-flex gap-4">
+      <!-- SERVICIO MEDICO -->
+      <div *ngIf="medical === true" class="icon-container">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-vaccine"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 3l4 4" /><path d="M19 5l-4.5 4.5" /><path d="M11.5 6.5l6 6" /><path d="M16.5 11.5l-6.5 6.5h-4v-4l6.5 -6.5" /><path d="M7.5 12.5l1.5 1.5" /><path d="M10.5 9.5l1.5 1.5" /><path d="M3 21l3 -3" /></svg>
+      </div>
+
+      <!-- SERVICIO ESTETICO -->
+      <div *ngIf="medical === false" class="icon-container">
+         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-scissors"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M8.6 8.6l10.4 10.4" /><path d="M8.6 15.4l10.4 -10.4" /></svg>
+      </div>
+
+      <div class="flex-grow-1">
+        <h5 class="serviceName">{{ service }}</h5>
+        <p class="mb-3 desc">{{ typeService }}</p>
+        <p class="mb-3 desc">
+         {{ desc }}
+        </p>
+
+        <div *ngIf="discounts > 0" class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-0 gap-lg-3 gap-md-3 gap-sm-0">
+            <h2 class="price mb-0">${{ priceDiscount.toFixed(2) }} Mxn</h2>
+            <div class="d-flex align-items-center justify-content-between">
+                <span class="text-decoration-line-through text-muted me-1 mb-0 lastPrice">${{ price.toFixed(2) }}</span><span class="text-muted lastPrice me-2">Mxn</span>
+                <span class="badge">-{{ discounts }}%</span>
+            </div>
+        </div>
+
+        <div *ngIf="discounts === 0" class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-0 gap-lg-3 gap-md-3 gap-sm-0">
+            <h2 class="price mb-0">${{ price.toFixed(2) }} Mxn</h2>
+        </div>
+      </div>
+    </div>
+
+    <button class="mt-2 btn btnSelect align-self-center">Seleccionar</button>
+  </div>
+</div>

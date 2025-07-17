@@ -1,0 +1,35 @@
+<div class="card p-4">
+  <div class="d-flex justify-content-between align-items-start">
+    <div class="d-flex gap-3">
+      <!-- Icono -->
+      <div class="icon-container d-flex align-items-center justify-content-center">
+        <svg *ngIf="medical === false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-scissors"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M6 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M8.6 8.6l10.4 10.4" /><path d="M8.6 15.4l10.4 -10.4" /></svg>
+        <svg *ngIf="medical === true" xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-vaccine"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 3l4 4" /><path d="M19 5l-4.5 4.5" /><path d="M11.5 6.5l6 6" /><path d="M16.5 11.5l-6.5 6.5h-4v-4l6.5 -6.5" /><path d="M7.5 12.5l1.5 1.5" /><path d="M10.5 9.5l1.5 1.5" /><path d="M3 21l3 -3" /></svg>
+      </div>
+
+      <div class="d-flex flex-column">
+        <h5 class="serviceName mb-0">{{ service }}</h5>
+        <p class="desc mb-2">{{ typeService }}</p>
+        <div *ngIf="discounts > 0" class="mt-2 d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-0 gap-lg-3 gap-md-3 gap-sm-0">
+            <h2 class="price mb-0">${{ priceDiscount.toFixed(2) }} Mxn</h2>
+            <div class="d-flex align-items-center justify-content-between">
+                <span class="text-decoration-line-through text-muted me-1 mb-0 lastPrice">${{ price }}</span><span class="text-muted lastPrice me-2">Mxn</span>
+                <span class="badge">-{{ discounts }}%</span>
+            </div>
+        </div>
+
+        <div *ngIf="discounts === 0" class="mt-2 d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-0 gap-lg-3 gap-md-3 gap-sm-0">
+            <h2 class="price mb-0">${{ priceDiscount.toFixed(2) }} Mxn</h2>
+        </div>
+      </div>
+    </div>
+
+  <button class="btn btnDelete" title="Eliminar">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M18 6l-12 12" />
+      <path d="M6 6l12 12" />
+    </svg>
+  </button>
+  </div>
+</div>
