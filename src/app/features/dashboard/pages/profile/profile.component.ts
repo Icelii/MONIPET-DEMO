@@ -3,8 +3,8 @@ import { ErrorMessagesComponent } from "../../../../shared/components/error-mess
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { minimumAgeValidator } from '../../../../core/validators/minimumAge.validator';
 import { ConfirmAlertService } from '../../../../core/services/alerts/confirm-alert.service';
-import { VerifyPasswordModalComponent } from "../../components/verify-password-modal/verify-password-modal.component";
-
+import { VerifyPasswordModalComponent } from "../../components/modals/verify-password-modal/verify-password-modal.component";
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -15,6 +15,7 @@ import { VerifyPasswordModalComponent } from "../../components/verify-password-m
 export class ProfileComponent {
   updateInfoForm: FormGroup;
   fechaMaxima: string = '';
+  showModal = false;
 
   constructor(private fb: FormBuilder, private confirmAlert: ConfirmAlertService) {
     this.updateInfoForm = this.fb.group({
@@ -33,8 +34,31 @@ export class ProfileComponent {
       this.fechaMaxima = fecha.toISOString().split('T')[0];
   }
 
+  onModalClosed() {
+    this.showModal = false;
+
+    const triggerBtn = document.getElementById('triggerModalBtn');
+    triggerBtn?.focus();
+  }
+
   getControl(name: string): AbstractControl {
       return this.updateInfoForm.controls[name];
+  }
+
+  confirmChanges() {
+    Swal.fire({
+      title: "Estas seguro de actualizar los datos?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#489dba",
+      cancelButtonColor: "#a53f3f",
+      confirmButtonText: "Si, actualizar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.onSubmit();
+      }
+    });
   }
 
   onSubmit() {

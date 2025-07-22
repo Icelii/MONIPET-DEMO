@@ -1,0 +1,52 @@
+<div class="card mb-3">
+  <div class="card-body px-4 py-4">
+    <div class="d-flex flex-column justify-content-start align-items-start">
+        <div class="d-flex flex-md-row flex-column justify-content-start align-items-start gap-md-5 gap-3">
+            <div class="d-flex flex-column">
+                <h5 class="title">Orden #{{ id }}</h5>
+                <h5 class="desc">{{ purchase_date }}</h5>
+            </div>
+
+            <div class="d-flex flex-row justify-content-start align-items-start gap-3">
+                <div class="iconContent">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--text-principal)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-currency-dollar"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2" /><path d="M12 3v3m0 12v3" /></svg>
+                </div>
+                <div class="d-flex flex-column">
+                    <h5 class="title">Total</h5>
+                    <h5 class="desc">${{ price.toFixed(2) }}</h5>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row justify-content-start align-items-start gap-3">
+                <div class="iconContent">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--text-principal)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-receipt"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2m4 -14h6m-6 4h6m-2 4h2" /></svg>
+                </div>
+                <div class="d-flex flex-column">
+                    <h5 class="title">Cantidad</h5>
+                    <h5 class="desc">{{ quantity }}</h5>
+                </div>
+            </div>
+
+            <div class="d-flex flex-md-row gap-5">
+                <span class="badge mt-2" [ngClass]="{ 'badgePending': status === 'pendiente', 
+                'badgeCanceled': status === 'cancelado', 
+                'badgeDelivered': status === 'entregado'}">{{ status }}</span>
+                <a class="linkDetail d-inline-flex align-items-center gap-2">Ver detalles <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="var(--text-principal)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg></a>
+            </div>
+        </div>
+
+        <div class="productContainer w-100 mt-4 d-flex flex-row justify-content-between align-items-center gap-2">
+            <div class="d-flex flex-row justify-content-start align-items-start gap-2">
+                <img class="imgContainer" src="/images/testProduct.webp" alt="">
+                <img class="imgContainer" src="/images/testProduct.webp" alt="">
+                <div class="d-flex flex-column justify-content-end" style="height: 70px;">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--text-principal)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                </div>
+            </div>
+            <button *ngIf="status === 'pendiente'" class="btn btnCancel" title="Cancelar orden">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-receipt-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 21v-16m2 -2h10a2 2 0 0 1 2 2v10m0 4.01v1.99l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" /><path d="M11 7l4 0" /><path d="M9 11l2 0" /><path d="M13 15l2 0" /><path d="M15 11l0 .01" /><path d="M3 3l18 18" /></svg>
+            </button>
+        </div>
+    </div>
+  </div>
+</div>

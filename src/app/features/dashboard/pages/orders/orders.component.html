@@ -1,0 +1,31 @@
+<h5 class="title">Mis órdenes</h5>
+<p class="desc mb-4">Aquí puedes consultar el historial de tus compras, revisar detalles y el estado de cada pedido.</p>
+
+<div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-3">
+    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-md-4 gap-3">
+      <select class="selectCustomDash" formControlName="status">
+        <option hidden disabled selected value="">Estado de la orden</option>
+        <option value="todo">todo</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="entregado">Entregado</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+
+      <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-2">
+        <h2 class="dateRate mb-0">Desde:</h2>
+        <input type="date" class="dateRange">
+        <h2 class="dateRate mb-0">Hasta:</h2>
+        <input type="date" class="dateRange">
+      </div>
+    </div>
+    <div class="searchBar">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+        <input type="text" placeholder="Buscar por código...">
+    </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12 col-md-12 col-lg-12 mb-3">
+    <app-order-card [id]="200" purchase_date="16-Julio-2025" [quantity]="10" [price]="1000.50" status="entregado"></app-order-card>
+  </div>
+</div>

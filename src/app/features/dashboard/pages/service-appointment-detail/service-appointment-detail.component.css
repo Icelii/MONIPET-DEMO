@@ -1,0 +1,62 @@
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-principal);
+}
+
+.desc {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--scondary-text);
+}
+
+.badge {
+  font-size: 	0.75rem;
+  font-weight: 500;
+  padding: 6px 9px;
+  border-radius: 4px;
+}
+
+.badgeSuccess {
+  background-color: var(--success-color);
+}
+
+.badgeWarning {
+  background-color: var(--warning-color);
+}
+
+.badgeCanceled {
+  background-color: var(--danger-color);
+}
+
+.icon-container {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: var(--secondary-color);
+}
+
+.icon-container svg {
+  width: 25px;
+  height: 25px;
+  color: white;
+}
+
+.creationDate {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.subTitle {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+@media (max-width: 576px) {
+
+}

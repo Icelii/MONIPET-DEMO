@@ -34,6 +34,9 @@ export class ErrorMessagesComponent {
     if (e['noMatch']) return `Los campos no coinciden`;
     if (e['minimumAge']) return `Debes ser mayor de ${e['minimumAge'].requiredAge} años`;
     if (e['hourInPast']) return `La hora seleccionada ya pasó`;
+    if (e['fileType']) return `El archivo debe ser una imagen JPEG, JPG, PNG o WEBP`;
+    if (e['invalidFile']) return `Archivo inválido`;
+    if (e['maxSize']) return `El archivo es demasiado grande`;
 
     return null;
   }

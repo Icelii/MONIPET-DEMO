@@ -1,0 +1,109 @@
+.card {
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 75%;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.desc {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.iconContent {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--input-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgContainer {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productContainer {
+  background: var(--secondary-color-light);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.badge {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 8px 12px;
+}
+
+.badgeDelivered {
+  background-color: var(--success-color);
+}
+
+.badgePending {
+  background-color: var(--warning-color);
+}
+
+.badgeCanceled {
+  background-color: var(--danger-color);
+}
+
+a.linkDetail {
+  text-decoration: none;
+  color: var(--text-principal);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+a.linkDetail:hover,
+a.linkDetail:hover svg {
+  color: var(--primary-color);
+  stroke: var(--primary-color);
+}
+
+.btnCancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--danger-color);
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btnCancel svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.5;
+  stroke: white;
+}
+
+.btnCancel:hover {
+  background-color: var(--danger-color-shadow);
+}
+
+.btn.btnCancel:active {
+  background-color: var(--danger-color-shadow);
+  outline: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+
+  .badge {
+    padding: 6px 8px;
+  }
+}

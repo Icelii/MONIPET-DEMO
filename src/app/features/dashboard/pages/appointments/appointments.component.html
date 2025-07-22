@@ -1,0 +1,41 @@
+<h5 class="title">Mis citas</h5>
+<p class="desc mb-4">Aquí puedes ver todas las citas que has tenido. ¡Gracias por confiar en nosotros!</p>
+
+<div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-3">
+    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-md-4 gap-3">
+    <select class="selectCustomDash" formControlName="status">
+        <option hidden disabled selected value="">Estado</option>
+        <option value="todo">Todo</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="entregado">Finalizado</option>
+        <option value="cancelado">cancelado</option>
+    </select>
+    
+    <select class="selectCustomDash" formControlName="type">
+        <option hidden disabled selected value="">Tipo</option>
+        <option value="todo">Todo</option>
+        <option value="">Estetica</option>
+        <option value="">Medica</option>
+    </select>
+
+      <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-2">
+        <h2 class="dateRate mb-0">Desde:</h2>
+        <input type="date" class="dateRange">
+        <h2 class="dateRate mb-0">Hasta:</h2>
+        <input type="date" class="dateRange">
+      </div>
+    </div>
+    <div class="searchBar">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+        <input type="text" placeholder="Buscar cita...">
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12 col-md-6 col-lg-6 mb-3">
+        <app-appointment-card service="Test" [adoption]="true" status="pendiente" [price]="100" desc="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, sapiente odio sunt iste tempore vel dolorum! Blanditiis voluptatum quos esse laboriosam quam odit quo, nemo provident! Laudantium doloribus tenetur soluta."></app-appointment-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-6 mb-3">
+        <app-appointment-card service="Test" [adoption]="false" status="pendiente" [price]="100" desc="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, sapiente odio sunt iste tempore vel dolorum! Blanditiis voluptatum quos esse laboriosam quam odit quo, nemo provident! Laudantium doloribus tenetur soluta."></app-appointment-card>
+    </div>
+</div>

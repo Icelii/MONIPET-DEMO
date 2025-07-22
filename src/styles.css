@@ -370,6 +370,13 @@ select.form-control option::checkmark {
 .indication {
   font-size: 1rem;
   font-weight: 400;
+  text-align: center;
+}
+
+@media (max-width: 767.98px) { 
+  .indication {
+    font-size: 	0.875rem;
+  }
 }
 
 .modal-header,
@@ -403,6 +410,12 @@ select.form-control option::checkmark {
   outline: none !important;
 }
 
+.btnContinue:focus-visible {
+  background-color: var(--primary-color-shadow) !important;
+  color: white !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 
 .btnClose {
   display: flex;

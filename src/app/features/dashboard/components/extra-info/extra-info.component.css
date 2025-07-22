@@ -1,0 +1,22 @@
+.resumeContainer {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  padding: 20px 24px;
+  max-width: 100%;
+  width: auto;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.subTitle {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.total {
+  font-size: 1.25rem;
+  font-weight: 600;
+}

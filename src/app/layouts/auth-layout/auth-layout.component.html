@@ -1,17 +1,17 @@
-<div class="container-xxl min-vh-100 d-flex align-items-center justify-content-center general">
-  <div class="row w-100">
-    <!-- LADO IZQUIERDO -->
-    <div class="col-lg-6 p-0 d-none d-lg-block">
-      <div class="h-100">
-        <img [src]="imageUrl" class="img-fluid h-100 w-100 backgroundImage" alt="Imagen">
-       </div>
-    </div>
-
-    <!-- LADO DERECHO -->
-    <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
-        <img src="/logos/logo-horizontal.svg" routerLink="" alt="Logo" class="mb-2 logo">
-        <router-outlet></router-outlet>
-    </div>
-    
+<div class="container-fluid min-vh-100 d-flex">
+  <!-- LADO IZQUIERDO -->
+  <div class="d-none d-lg-block position-fixed top-0 start-0 bg-white"
+       style="width: 50vw; height: 100vh; padding: 12px; box-sizing: border-box; z-index: 1;">
+    <img [src]="imageUrl"
+         alt="Imagen"
+         class="img-fluid w-100 h-100"
+         style="object-fit: cover; border-radius: 12px;">
   </div>
+
+  <!-- LADO DERECHO -->
+  <div class="offset-lg-6 col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-100 px-4" style="z-index: 2;">
+    <img src="/logos/logo-horizontal.svg" routerLink="" alt="Logo" class="mb-3 logo">
+    <router-outlet></router-outlet>
+  </div>
+
 </div>

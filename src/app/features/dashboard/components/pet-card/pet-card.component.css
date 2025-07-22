@@ -1,0 +1,339 @@
+.card {
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.petName {
+  font-weight: 600;
+  font-size: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.imgContainer {
+  width: 177px;
+  height: 197px;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.badgeSexMale {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--male-gender-color);
+  border: 1.34px solid var(--male-gender-color);
+  border-radius: 4px;
+}
+
+.badgeSexFemale {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--female-gender-color);
+  border: 1.34px solid var(--female-gender-color);
+  border-radius: 4px;
+}
+
+.badgeSexUknown {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--scondary-text);
+  border: 1.34px solid var(--scondary-text);
+  border-radius: 4px;
+}
+
+.badgeNoSpayed {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--danger-color);
+  border: 1.34px solid var(--danger-color);
+  border-radius: 4px;
+}
+
+.badgeSpayed {
+  width: auto;
+  max-width: 100%;
+  padding: 4px 4px;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: var(--success-color);
+  border: 1.34px solid var(--success-color);
+  border-radius: 4px;
+}
+
+.labelInfo {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.dataInfo {
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.defaultImgBackground {
+  width: 100%;
+  height: 100%;
+  background-color: var(--img-background);
+}
+
+.defaultImgBackground .logo {
+  object-fit: cover;
+}
+
+.btnOptionMovile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  padding: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  width: 100%;
+  max-width: auto;
+  height: 50px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnOptionMovile:hover {
+  background-color: var(--primary-color-shadow);
+  color: white;
+}
+
+.btn.btnOptionMovile:active {
+  background-color: var(--primary-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+/* CUSTOM CHECKBOX */
+.selector {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--scondary-text);
+}
+
+.dropdown-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-weight: 400;
+  color: var(--scondary-text);
+  gap: 0.5rem;
+}
+
+.selector svg {
+  transition: transform 0.3s ease;
+}
+
+.selector svg.rotated {
+  transform: rotate(90deg);
+}
+
+.custom-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--checkbox-color);
+}
+
+.checkmark svg {
+  display: none;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+  background-color: none !important;
+  border-color: none !important;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark svg {
+  display: block;
+}
+
+.option {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-principal);
+  text-decoration: none;
+}
+
+.btnDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btnDelete svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
+  stroke: white;
+}
+
+.btnDelete:hover {
+  background-color: var(--secondary-color-shadow);
+}
+
+.btn.btnDelete:active {
+  background-color: var(--secondary-color-shadow);
+  outline: none;
+  box-shadow: none;
+}
+
+/* btn options */
+.btnOption.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent !important;
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btnOption.dropdown-toggle svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
+  stroke: var(--scondary-text);
+}
+
+.btnOption.dropdown-toggle:hover {
+  background-color: transparent !important;
+}
+
+.btn.dropdown-toggle.btnOption:active {
+  background-color: transparent !important;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn.dropdown-toggle.btnOption:hover svg {
+  stroke: var(--text-principal);
+}
+
+.btn.dropdown-toggle.btnOption:active svg {
+  stroke: var(--text-principal);
+}
+
+.btn.dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropdown-menu {
+  background-color: white;
+  border: 1px solid #DFDFDF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 0;
+  border-radius: 0.5rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.dropdown-item {
+  color: var(--text-principal) !important;
+  user-select: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item:active {
+  background-color: var(--secondary-color);
+  color: white !important;
+}
+
+
+@media (max-width: 768px) {
+  .imgContainer {
+    width: 100%;
+    height: 180px;
+  }
+
+  .btn.btnDelete {
+    width: 40px;
+    height: 40px;
+  }
+
+  .btnDelete svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .checkmark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .checkmark svg {
+    width: 30px;
+    height: 30px;
+  }
+}
