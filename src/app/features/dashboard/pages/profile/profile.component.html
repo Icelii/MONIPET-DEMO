@@ -82,14 +82,14 @@
 
     <div class="row mt-4">
       <div class="mt-2 col-12 col-md-6 mb-3 mb-md-0">
-        <button type="submit" class="btn btnSubmit">Actualizar información</button>
+        <button type="button" class="btn btnSubmit" (click)="confirmChanges()">Actualizar información</button>
       </div>
       <div class="mt-2 col-12 col-md-6">
-        <button type="button" class="btn btnSubmit" data-bs-toggle="modal" data-bs-target="#verifyPassword">Cambiar contraseña</button>
+        <button type="button" class="btn btnSubmit" id="triggerModalBtn" (click)="showModal = true">Cambiar contraseña</button>
       </div>
     </div>
     </form>
   </div>
 </div>
 
-<app-verify-password-modal></app-verify-password-modal>
+<app-verify-password-modal [isOpen]="showModal" (closed)="onModalClosed()"></app-verify-password-modal>

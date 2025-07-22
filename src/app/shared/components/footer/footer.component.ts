@@ -7,8 +7,18 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrl: './footer.component.css',
 })
 export class FooterComponent {
+  randomImage: string = '';
 
+  private images: string[] = [
+    '/images/wenomechainsama.svg',
+    '/images/intelligentDog.svg',
+  ];
+
+  ngOnInit() {
+    const randomIndex = Math.floor(Math.random() * this.images.length);
+    this.randomImage = this.images[randomIndex];
+  }
 }

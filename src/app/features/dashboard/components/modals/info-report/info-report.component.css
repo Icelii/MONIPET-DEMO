@@ -1,0 +1,210 @@
+label {
+  font-size:  1rem;
+  font-weight: 600;
+  color: var(--text-principal);
+}
+
+.custom-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1040;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.custom-backdrop.show {
+  opacity: 1;
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  background-color: var(--img-background);
+  border-radius: 16px;
+}
+
+.imgContainer .pet{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+.imgContainer .logo {
+  width: 65%;
+  height: 65%;
+  object-fit: cover;
+  display: block;
+}
+
+/* CUSTOM CHECKBOX */
+.selector {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--scondary-text);
+}
+
+.dropdown-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-weight: 400;
+  color: var(--scondary-text);
+  gap: 0.5rem;
+}
+
+.selector svg {
+  transition: transform 0.3s ease;
+}
+
+.selector svg.rotated {
+  transform: rotate(90deg);
+}
+
+.custom-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: 25px;
+  height: 25px;
+  background-color: var(--checkbox-color);
+}
+
+.checkmark svg {
+  display: none;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+  background-color: none !important;
+  border-color: none !important;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark svg {
+  display: block;
+}
+
+.option {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-principal);
+  text-decoration: none;
+}
+
+.btnUploadImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  width: 65%;
+  max-width: 100%;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btnUploadImg:active,
+.btnUploadImg:hover {
+  background-color: var(--secondary-color-shadow) !important;
+  color: white !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.btnUploadImg input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; 
+  cursor: pointer;  
+}
+
+.badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 6px 7px;
+}
+
+.badgeOtro {
+  background-color: var(--warning-color);
+}
+
+.badgeMaltrato {
+  background-color: var(--danger-color);
+}
+
+.btnDeleteImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--danger-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  width: 65%;
+  max-width: 100%;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btnDeleteImg:active,
+.btnDeleteImg:hover {
+  background-color: var(--danger-color-shadow) !important;
+  color: white !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+textarea {
+  resize: none;
+}
+
+.zone {
+  field-sizing: content;
+}

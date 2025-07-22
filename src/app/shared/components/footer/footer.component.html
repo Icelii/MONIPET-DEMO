@@ -18,15 +18,15 @@
       <div class="col-md-3 mb-4 mb-md-0">
         <h5 class="fw-bold">Website</h5>
         <ul class="list-unstyled">
-          <li><a href="#">Inicio</a></li>
+          <li><a routerLink="/">Inicio</a></li>
           <li><a routerLink="/adopt">Adopta</a></li>
-          <li><a href="#">Productos</a></li>
-          <li><a href="#">Servicios</a></li>
+          <li><a routerLink="/products">Productos</a></li>
+          <li><a routerLink="/services">Servicios</a></li>
         </ul>
       </div>
 
       <div class="col-12 col-md-4 text-center text-md-end">
-        <img src="/images/wenomechainsama.svg" alt="Perrito wenomechainsama" class="dog-img">
+        <img [src]="randomImage" alt="Perrito" class="dog-img">
       </div>
 
     </div>

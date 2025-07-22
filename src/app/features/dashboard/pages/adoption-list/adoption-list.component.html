@@ -1,0 +1,30 @@
+<h5 class="title">Lista de adopción</h5>
+<p class="desc mb-4">Consulta las mascotas que te interesan para adoptar, añade nuevas y mantén tu lista de futuros compañeros al día.</p>
+
+<div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-3">
+    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-2">
+        <button class="btn btnAction">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>
+            Agendar cita
+        </button>
+
+        <button class="btn btnAction">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+            Eliminar todo
+        </button>
+    </div>
+    <div class="searchBar">
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+        <input type="text" placeholder="Buscar mascota...">
+    </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12 col-md-6 col-lg-6 mb-3">
+    <app-pet-card name="Mili" [appointmentAdopt]="false" gender="hembra" breed="Pug-Zu" birthday="2020-07-16" size="Chico" [adoptionList]="true"></app-pet-card>
+  </div>
+</div>
+
+<!-- TODO:
+    1- BLOQUEAR LAS FECHAS DE LOS RANGOS
+-->

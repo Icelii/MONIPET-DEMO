@@ -1,0 +1,160 @@
+.card {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 8px;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card * {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.serviceName {
+  font-weight: 600;
+  font-size: 1.125rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.desc {
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--scondary-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.icon-container {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: var(--secondary-color);
+}
+
+.icon-container svg {
+  width: 25px;
+  height: 25px;
+  color: white;
+}
+
+.btnSelect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  padding: 16px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #ffffff;
+  width: 100%;
+  max-width: 100%;
+  height: 35px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnSelect:hover {
+  background-color: var(--secondary-color-shadow);
+  color: white;
+}
+
+.btn.btnSelect:active {
+  background-color: var(--secondary-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+.lastPrice {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--scondary-text);
+}
+
+.badge {
+  background-color: var(--secondary-color);
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  max-width: 100px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.btnDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--input-color);
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btnDelete svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
+  stroke: var(--text-principal);
+}
+
+.btnDelete:hover {
+  background-color: var(--checkbox-color);
+}
+
+.btn.btnDelete:active {
+  background-color: var(--checkbox-color);
+  outline: none;
+  box-shadow: none;
+}
+
+.btn.btnDelete:hover svg {
+  stroke: var(--danger-color);
+}
+
+.btn.btnDelete:active svg {
+  stroke: var(--danger-color);
+}
+
+@media (max-width: 576px) {
+  .serviceName {
+    max-width: 190px;
+  }
+
+  .desc {
+    max-width: 190px;
+  }
+}

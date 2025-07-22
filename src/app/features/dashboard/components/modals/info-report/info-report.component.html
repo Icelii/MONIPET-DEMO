@@ -1,0 +1,46 @@
+<div class="custom-backdrop fade" [class.show]="isOpen" *ngIf="isOpen"></div>
+
+<div #modalElement class="modal modal-lg modalGeneral fade" id="reportInfo" tabindex="-1" aria-labelledby="reportInfoLabel" [attr.aria-hidden]="!isOpen"
+  [attr.inert]="!isOpen ? '' : null"
+  [class.show]="isOpen"
+  [style.display]="isOpen ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header align-items-end justify-content-end">
+        <button type="button" class="btn btnClose" data-bs-dismiss="modal" aria-label="Close" (click)="removeFocus($event)">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <h1 class="modal-title" id="reportInfoLabel">Reporte #</h1>
+        <h5 class="mt-1 indication">Aquí puedes ver toda la información relacionada con este reporte.</h5>
+
+        <!-- FORMULARIO -->
+        <div class="row mt-4 w-100 px-md-5">
+            <div class="col-md-12 d-flex flex-column gap-4">
+                <div class="row gap-4 gap-md-0">
+                    <div class="col-md-6 d-flex flex-column gap-1">
+                        <label class="form-label" for="tipo">Tipo de reporte</label>
+                        <span class="badge badgeMaltrato align-self-start">Maltrato</span>
+                    </div>
+                </div>
+
+                <div class="">
+                    <label class="form-label" for="descripcion">Descripción</label>
+                    <p class="info">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit necessitatibus reiciendis inventore modi commodi repellendus voluptates atque neque magni esse assumenda accusantium temporibus quasi id praesentium officiis ea, aut maiores.</p>
+                </div>
+
+                <div class="">
+                    <label class="form-label" for="lugar">Zona</label>
+                    <p class="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque culpa praesentium, temporibus repudiandae delectus molestiae repellendus voluptatum ea amet inventore quos earum distinctio! Vel nostrum maxime, dolor magnam architecto excepturi.</p>
+                </div>
+
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex flex-row align-items-center justify-content-center">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>

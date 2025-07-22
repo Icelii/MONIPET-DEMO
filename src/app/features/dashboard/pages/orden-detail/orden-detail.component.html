@@ -1,0 +1,49 @@
+<div class="d-flex flex-md-row flex-column justify-content-center align-items-center justify-content-md-between align-items-md-center">
+    <div class="d-flex flex-column">
+        <h5 class="title">Detalle de orden #</h5>
+        <p class="desc mb-4">Fecha de recogida</p>
+    </div>
+   <!-- <h5 class="title">Detalle de orden #</h5> -->
+    <div class="d-flex flex-row gap-3 mt-2 mt-md-0">
+        <p class="desc mb-0">16-Julio-2025</p>
+        <span class="badge badgePending">Pendiente</span>
+    </div>
+</div>
+
+<div class="row mt-md-4 mt-2">
+    <div class="col-12 col-md-8 col-lg-8">
+        <div class="table-responsive">
+            <table class="table align-middle" id="no-more-tables">
+                    <thead>
+                        <tr>
+                            <th>Artículos</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="align-middle">
+                            <td class="align-middle" [attr.data-title]="name">
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="/images/testProduct.webp" class="prdouctImg"/>
+                                    <h5 class="productName">Plato de comida</h5>
+                                </div>
+                            </td>
+                            <td class="align-middle" data-title="Cantidad">
+                                <h2 class="price mb-0">10</h2> 
+                            </td>
+                            <td class="align-middle" data-title="Subtotal">
+                                <h2 class="price mb-0">$100 Mxn</h2> 
+                            </td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4 col-lg-4 mb-3 mt-2">
+        <app-transfer-code transferce_code="028838HH3288"></app-transfer-code>
+        <app-order-resume cancel="order"></app-order-resume>
+    </div>
+
+</div>

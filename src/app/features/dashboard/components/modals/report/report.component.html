@@ -1,0 +1,57 @@
+<div class="custom-backdrop fade" [class.show]="isOpen" *ngIf="isOpen"></div>
+
+<div #modalElement class="modal modal-lg modalGeneral fade" id="report" tabindex="-1" aria-labelledby="reportLabel" [attr.aria-hidden]="!isOpen"
+  [attr.inert]="!isOpen ? '' : null"
+  [class.show]="isOpen"
+  [style.display]="isOpen ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered">
+  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()" class="w-100"> 
+    <div class="modal-content">
+      <div class="modal-header align-items-end justify-content-end">
+        <button type="button" class="btn btnClose" data-bs-dismiss="modal" aria-label="Close" (click)="removeFocus($event)">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <h1 class="modal-title" id="reportLabel">Crear nuevo reporte</h1>
+        <h5 class="mt-1 indication">Proporciona los detalles del incidente para que podamos ayudarte lo antes posible.</h5>
+
+        <!-- FORMULARIO -->
+        <div class="row mt-4 w-100 px-md-5">
+            <div class="col-md-12 d-flex flex-column gap-4">
+                <div class="row gap-4 gap-md-0">
+                    <div class="col-md-6">
+                        <label class="form-label" for="tipo">Tipo de reporte</label>
+                        <select class="form-control" id="tipo" formControlName="tipo">
+                            <option hidden disabled selected value="">Seleccionar</option>
+                            <option value="test2">Test1</option>
+                            <option value="test2">Test2</option>
+                            <option value="test3">Test3</option>
+                        </select>
+                      <app-error-messages [control]="getControl('tipo')" version="m" label="Este campo"></app-error-messages>
+                    </div>
+                </div>
+
+                <div class="">
+                    <label class="form-label" for="descripcion">Descripción</label>
+                    <textarea class="form-control customInputs" formControlName="descripcion" id="descripcion" autocapitalize="on" wrap="hard" minlength="20" maxlength="500" spellcheck="true" rows="8" placeholder="Redacta la información..."></textarea>
+                    <app-error-messages [control]="getControl('descripcion')" version="m" label="Este campo"></app-error-messages>
+                </div>
+
+                <div class="">
+                    <label class="form-label" for="lugar">Zona</label>
+                    <textarea class="form-control customInputs zone" formControlName="lugar" id="lugar" autocapitalize="on" wrap="hard" minlength="20" maxlength="300" spellcheck="true" rows="2" placeholder="Escribe la zona donde se presenció el incidente, como una calle, colonia o referencia cercana..."></textarea>
+                    <app-error-messages [control]="getControl('lugar')" version="m" label="Este campo"></app-error-messages>
+                </div>
+
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex flex-row align-items-center justify-content-center">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <button type="submit" class="btn btnContinue mb-3">Enviar reporte</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>

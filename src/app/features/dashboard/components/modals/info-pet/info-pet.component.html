@@ -1,0 +1,96 @@
+<div class="custom-backdrop fade" [class.show]="isOpen" *ngIf="isOpen"></div>
+
+<div  #modalElement class="modal modal-lg modalGeneral fade" id="infoPet" tabindex="-1" aria-labelledby="infoPetLabel" [attr.aria-hidden]="!isOpen"
+  [attr.inert]="!isOpen ? '' : null"
+  [class.show]="isOpen"
+  [style.display]="isOpen ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header align-items-end justify-content-end">
+        <button type="button" class="btn btnClose" data-bs-dismiss="modal" aria-label="Close" (click)="removeFocus($event)">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <h1 class="modal-title" id="infoPetLabel">Información detallada</h1>
+        <h5 class="mt-1 indication">Consulta la información completa de tu mascota registrada.</h5>
+
+        <!-- FORMULARIO -->
+        <div class="row mt-4 w-100">
+            <div class="col-md-5 d-flex flex-column align-items-center gap-2 mb-md-0 mb-4">
+                <div class="imgContainer">
+                    <ng-template #defaultImg>
+                        <img src="/logos/logomark-grey.svg" class="logo" alt="Logo por defecto" />
+                    </ng-template>
+                    <img *ngIf="updloadedImage; else defaultImg" [src]="updloadedImage" class="pet" alt="">
+                </div>
+            </div>
+
+            <div class="col-md-7 d-flex flex-column gap-4">
+                <div class="d-flex flex-column gap-1">
+                    <label class="form-label">Nombre</label>
+                    <span class="info">información</span>
+                </div>
+
+                <div class="row gap-4 gap-md-0">
+                    <div class="col-md-6">
+                        <div class="d-flex flex-column gap-1">
+                            <label class="form-label">Raza</label>
+                            <span class="info">información</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex flex-column gap-1">
+                            <label class="form-label">Fecha de nacimiento</label>
+                            <span class="info">información</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row gap-4 gap-md-0">
+                    <div class="col-md-6">
+                        <div class="d-flex flex-column gap-1">
+                            <label class="form-label">¿Está esterilizado/a?</label>
+                            <span class="info">información</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex flex-column gap-1">
+                            <label class="form-label">Genero</label>
+                            <span class="info">información</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row gap-4 gap-md-0">
+                    <div class="col-md-6">
+                        <div class="d-flex flex-column gap-1">
+                            <label class="form-label">Tamaño</label>
+                            <span class="info">información</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex flex-column gap-1">
+                            <label class="form-label">Altura</label>
+                            <span class="info">información M</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex flex-column gap-1">
+                            <label class="form-label">Peso</label>
+                            <span class="info">información Kg</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex flex-row align-items-center justify-content-center">
+      </div>
+    </div>
+  </div>
+</div>

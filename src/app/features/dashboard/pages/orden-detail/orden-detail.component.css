@@ -1,0 +1,285 @@
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-principal);
+}
+
+.desc {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--scondary-text);
+}
+
+.return {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.btnReturn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  width: 24px;
+  height: 24px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--separator);
+  margin: 1rem 0;
+}
+
+.textNormal {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--text-principal);
+  text-decoration: none;
+}
+
+/* TABLE */
+table {
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+
+th,
+td {
+  border-style: inset;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 40px 1.5fr 1fr 1fr 1fr 50px;
+  padding: 1rem;
+  background-color: white;
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 40px 1.5fr 1fr 1fr 1fr 50px;
+  align-items: center;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.prdouctImg {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productName {
+  font-size: 1rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.2;
+  max-width: 50%;
+}
+
+.d-flex.flex-column.flex-sm-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+.btnDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
+}
+
+.btnDelete:hover svg,
+.btnDelete:active svg {
+  stroke: var(--danger-color);
+}
+
+.badge {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 8px 12px;
+}
+
+.badgeDelivered {
+  background-color: var(--success-color);
+}
+
+.badgePending {
+  background-color: var(--warning-color);
+}
+
+.badgeCanceled {
+  background-color: var(--danger-color);
+}
+
+/* QUANTITY */
+.counter {
+  width: 100px;
+  background: transparent !important;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.counter input {
+  width: 30px;
+  border: 0;
+  line-height: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  background: none;
+  color: var(--text-principal);
+  appearance: none;
+  outline: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btnCounter {
+  display: block;
+  font-size: 1rem;
+  padding: 0 10px;
+  cursor: pointer;
+  color: var(--secondary-color-shadow);
+  user-select: none;
+  font-weight: 600;
+  border: none;
+  background: var(--input-color);
+  border-radius: 4px;
+}
+
+.quantityTitle {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--text-principal);
+}
+
+.btnDeleteAll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  padding: 16px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: white;
+  width: auto;
+  max-width: 100%;
+  height: 30px;
+  border-radius: 4px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btnDeleteAll:hover {
+  background-color: var(--secondary-color-shadow);
+  color: white;
+}
+
+.btn.btnDeleteAll:active {
+  background-color: var(--secondary-color-shadow);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 767px) {
+  #no-more-tables tbody,
+  #no-more-tables tr,
+  #no-more-tables td {
+    display: block;
+  }
+
+  #no-more-tables thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  #no-more-tables td {
+    padding-left: 50%;
+    position: relative;
+    border: none;
+  }
+
+  #no-more-tables td::before {
+    content: attr(data-title);
+    position: absolute;
+    left: 10px;
+    width: 50%;
+    padding-right: 10px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-principal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #no-more-tables tr {
+    border-bottom: 1.5px solid var(--separator);
+  }
+
+  #no-more-tables td.select-td {
+    padding-left: 10px;
+  }
+
+  #no-more-tables td.select-td::before,
+  #no-more-tables td.delete-td::before {
+    content: none;
+  }
+
+  #no-more-tables td.delete-td {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    padding-left: 0;
+    border: none;
+  }
+
+  #no-more-tables .btnDelete svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  #no-more-tables .checkmark {
+    width: 25px;
+    height: 25px;
+  }
+
+  #no-more-tables .productName {
+    display: none;
+  }
+}
