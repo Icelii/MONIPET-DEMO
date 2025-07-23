@@ -47,5 +47,7 @@ export const routes: Routes = [
       { path: 'dashboard/appointments/adoption', loadComponent: () => import('./features/dashboard/pages/adoption-appointment-detail/adoption-appointment-detail.component').then(c => c.AdoptionAppointmentDetailComponent) },
     ],
   },
+  { path:'400', loadComponent: () => import('./features/errors/pages/not-found/not-found.component').then(c => c.NotFoundComponent) },
+  { path: '500', loadComponent: () => import('./features/errors/pages/server-error/server-error.component').then(c => c.ServerErrorComponent) },
   { path: '**', redirectTo: '' },
 ];
