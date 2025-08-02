@@ -11,3 +11,12 @@ export interface UserBase {
 export interface RegisterData extends UserBase {
     password_confirmation: string;
 } 
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface data2FA {
+  email: string,
+  code: string
+}

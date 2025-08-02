@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
@@ -13,8 +14,10 @@ export class FooterComponent {
   randomImage: string = '';
 
   private images: string[] = [
-    '/images/wenomechainsama.svg',
-    '/images/intelligentDog.svg',
+    'https://monipetresources.sfo3.digitaloceanspaces.com/web/images/wenomechainsama.svg',
+    'https://monipetresources.sfo3.digitaloceanspaces.com/web/images/intelligentDog.svg',
+    'https://monipetresources.sfo3.digitaloceanspaces.com/web/images/cat.svg',
+    'https://monipetresources.sfo3.digitaloceanspaces.com/web/images/catDog.svg',
   ];
 
   ngOnInit() {

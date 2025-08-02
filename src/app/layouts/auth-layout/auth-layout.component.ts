@@ -16,9 +16,9 @@ export class AuthLayoutComponent {
     this.router.events.subscribe(() => {
       const url = this.router.url;
       if (url.includes('register')) {
-        this.imageUrl = '/images/img1.webp';
+        this.imageUrl = 'https://monipetresources.sfo3.digitaloceanspaces.com/web/images/img1.webp';
       } else {
-        this.imageUrl = '/images/img2.webp';
+        this.imageUrl = 'https://monipetresources.sfo3.digitaloceanspaces.com/web/images/img2.webp';
       }
     });
   }
