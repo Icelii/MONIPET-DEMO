@@ -9,6 +9,7 @@ import { RegisterData } from '../../../../core/interfaces/user';
 import { AuthService } from '../../../../core/services/auth.service';
 import { timeout } from 'rxjs';
 import Swal from 'sweetalert2';
+import { take } from 'rxjs/operators';
 import { EmailAlertService } from '../../../../core/services/alerts/email-alert.service';
 
 @Component({
@@ -70,10 +71,9 @@ export class RegisterComponent {
     }
 
     const data: RegisterData = this.registerForm.value;
-    console.log('FORM VALUES:', data);
-    
-    this.authService.register(data).pipe(timeout(15000)).subscribe(
-      (response) => {
+
+    this.authService.register(data).pipe(timeout(15000), take(1)).subscribe({
+      next: (response) => {
         this.emailAlert.showSuccessAlert({
             title: '¡Revisa tu correo!',
             line1: 'Te enviamos un enlace para verificar tu cuenta.',
@@ -88,7 +88,7 @@ export class RegisterComponent {
             },
           });
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
         if(error.name === "TimeOutError"){
             this.onSubmit();
@@ -101,6 +101,6 @@ export class RegisterComponent {
           confirmButtonText: 'Aceptar'
         });
       }
-    );
+    });
   }
 }
