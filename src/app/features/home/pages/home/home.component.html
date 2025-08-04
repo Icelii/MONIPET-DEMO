@@ -33,7 +33,7 @@
   <div class="card mb-3 border-0">
     <div class="row g-0">
       <div class="col-md-6">
-        <img src="/images/about-us.webp" class="img-fluid imgCard" alt="..." loading="lazy">
+        <img src="https://monipetresources.sfo3.digitaloceanspaces.com/web/images/about-us.webp" class="img-fluid imgCard" alt="About us section" loading="eager">
       </div>
       <div class="col-md-6 d-flex justify-content-center align-items-center">
         <div class="card-body text-start">
@@ -54,12 +54,32 @@
 
     <!-- CARDS -->
     <div class="row mt-2 mt-sm-4 g-2 mb-5">
+      @defer (when !loadingPets() && !loadingProducts()) {
+        <ng-container *ngIf="pets() !== null">
+          <div *ngFor="let pet of pets()" class="col-6 col-md-4 col-lg-3">
+            <app-pet-cards [name]="pet.name" [gender]="pet.gender" [birthday]="pet.birthday" [photo_link]="pet.pet_photos[0]?.photo_link" [pet_id]="pet.id"></app-pet-cards>
+          </div>
+        </ng-container>
 
-      <div class="col-6 col-md-4 col-lg-3">
-        <!-- CARD DE LA MASCOTA -->
-         
-      </div>
-
+        <ng-container *ngIf="pets() === null">
+            <ng-container *ngIf="products() === null">
+              <div class="d-flex flex-column justify-content-center align-content-center">
+                <h5 class="text-muted">No hay mascotas disponibles 😿</h5>
+              </div>
+            </ng-container>
+        </ng-container>
+      } @placeholder {
+        <ngx-skeleton-loader
+              count="4"
+              appearance="circle"
+              [theme]="{
+                'width.px': 260,
+                'height.px': 350,
+                'border-radius': '16px'
+              }"
+            >
+        </ngx-skeleton-loader>
+      }
     </div>
 
     <button routerLink="/adopt" class="btn btn-meet">Conócelos a todos</button>
@@ -71,28 +91,28 @@
 
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+      <button aria-label="Banner 1" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+      <button aria-label="Banner 2" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+      <button aria-label="Banner 3" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
     </div>
 
     <div class="carousel-inner responsive-carousel">
       <div class="carousel-item active">
-        <img src="/images/adopt.webp" class="d-block carousel-img" alt="Imagen 1" loading="lazy">
+        <img src="https://monipetresources.sfo3.digitaloceanspaces.com/web/images/adopt.webp" class="d-block carousel-img" alt="Adopt banner" loading="eager">
         <div class="carousel-caption custom-caption d-md-block">
           <h1 class="display-3 fw-bold">¡Esperamos tu reporte!<br /></h1>
           <p class="lead">El seguimiento post adopción nos permite seguir cuidando juntos de su bienestar.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="/images/vacine.webp" class="d-block carousel-img" alt="Imagen 2" loading="lazy">
+        <img src="https://monipetresources.sfo3.digitaloceanspaces.com/web/images/vacine.webp" class="d-block carousel-img" alt="Medical banner" loading="eager">
         <div class="carousel-caption custom-caption d-md-block">
           <h1 class="display-3 fw-bold">¡Vacúnalo!</h1>
           <p class="lead">Su bienestar depende de ti.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="/images/grooming.webp" class="d-block carousel-img" alt="Imagen 1" loading="lazy">
+        <img src="https://monipetresources.sfo3.digitaloceanspaces.com/web/images/grooming.webp" class="d-block carousel-img" alt="Grooming banner" loading="eager">
         <div class="carousel-caption custom-caption d-md-block">
           <h1 class="display-3 fw-bold">Conoce los servicios<br />que ofrecemos</h1>
          <!-- <button class="btn btnSecondary mt-2">Ver servicios</button> -->
@@ -100,11 +120,11 @@
       </div>
     </div>
 
-    <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <button aria-label="Botón anterior" class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
       <svg class="carousel-control-prev-icon" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
       <span class="visually-hidden">Anterior</span>
     </button>
-    <button class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <button aria-label="Botón siguiente" class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
       <svg class="carousel-control-next-icon" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
       <span class="visually-hidden">Siguiente</span>
     </button>
@@ -118,12 +138,37 @@
      <h2>Productos destacados</h2>
       <div class="row mt-2 mt-sm-4 g-3 g-sm-2 mb-5">
 
-        <div class="col-6 col-md-4 col-lg-3">
-          <!-- CARD PRODUCTO -->
-        </div> 
+        @defer (when !loadingPets() && !loadingProducts()) {
+          <ng-container *ngIf="products() === null">
+            <div class="d-flex flex-column justify-content-center align-content-center">
+              <h5 class="text-muted">No hay productos disponibles 😿</h5>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="products() !== null">
+            <div *ngFor="let product of products()" class="col-6 col-md-4 col-lg-3">
+              <!-- CARD PRODUCTO -->
+              <app-product-cards [product_id]="product.id" [name]="product.name" [price]="+product.price" [discount]="+product.discount"
+                [photo_link]="product.product_photos?.[0]?.photo_link" [categories]="product.categoryNames"
+              ></app-product-cards>
+            </div> 
+          </ng-container>
+
+        } @placeholder {
+          <ngx-skeleton-loader
+                count="4"
+                appearance="circle"
+                [theme]="{
+                  'width.px': 260,
+                  'height.px': 350,
+                  'border-radius': '16px'
+                }"
+              >
+          </ngx-skeleton-loader>
+        }
 
       </div>
-      <button class="btn btn-meet">Ver todo</button>
+      <button class="btn btn-meet" routerLink="/products">Ver todo</button>
   </div>
 </section>
 
@@ -173,12 +218,12 @@
       <svg  xmlns="http://www.w3.org/2000/svg"  width="28"  height="28"  viewBox="0 0 24 24"  fill="none"  stroke="#489dba"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-map-pin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
     </div>
     <div class="map-responsive mt-4 mb-4">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14400.695956705666!2d-103.34013481934437!3d25.53258070680806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fc48455d823cb%3A0xc18fad7b464487e4!2sUniversidad%20Tecnol%C3%B3gica%20de%20Torre%C3%B3n!5e0!3m2!1ses-419!2smx!4v1751711902198!5m2!1ses-419!2smx" 
+      <iframe aria-label="Ubicación de Monipet" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14400.695956705666!2d-103.34013481934437!3d25.53258070680806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fc48455d823cb%3A0xc18fad7b464487e4!2sUniversidad%20Tecnol%C3%B3gica%20de%20Torre%C3%B3n!5e0!3m2!1ses-419!2smx!4v1751711902198!5m2!1ses-419!2smx" 
         width="100%" 
         height="500" 
         style="border:0;" 
         allowfullscreen="" 
-        loading="lazy" 
+        loading="eager" 
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>

@@ -3,7 +3,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
 import { data2FA, LoginData, RegisterData } from '../../core/interfaces/user'
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +11,6 @@ export class AuthService {
   private baseUrl: string;
   private token: string | null = null;
   private isBrowser: boolean;
-  isLoggedIn = false;
-
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) { 
     this.baseUrl = `${environment.apiUrlBase}auth/`;
@@ -60,5 +58,9 @@ export class AuthService {
         }
       })
     );
+  }
+
+  getUserInfo(): Observable<any> {
+    return this.http.get(`${this.baseUrl}me`);
   }
 }

@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 })
 export class ProductCardsComponent {
   isProductRoute: boolean = false;
+  @Input() product_id!: number;
   @Input() name: string = "";
   @Input() price: number = 0;
   @Input() discount: number = 0;
   @Input() comments: number = 0;
   @Input() categories: string[] = [];
-  @Input() photo_link: string = "";
+  @Input() photo_link: string = '';
   priceDiscount: number = 0;
 
   constructor(private router: Router) {
@@ -33,5 +34,9 @@ export class ProductCardsComponent {
     } else {
       this.priceDiscount = this.price;
     }
+  }
+
+  goToDetails() {
+    this.router.navigate(['/products/details', this.product_id])
   }
 }
