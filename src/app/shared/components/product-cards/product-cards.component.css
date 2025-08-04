@@ -27,9 +27,14 @@
   max-width: 100%;
   overflow: hidden;
   display: -webkit-box;
+  color: var(--text-principal);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   white-space: normal;
+}
+
+.productName:hover {
+  text-decoration: underline;
 }
 
 .btn.btnHeart {
@@ -150,6 +155,19 @@
   color: var(--text-principal);
   background-color: transparent !important;
 }
+
+.defaultImgBackground {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--img-background);
+}
+
+.defaultImgBackground .logo {
+  object-fit: cover;
+}
+
 
 @media (max-width: 767px) {
   .card-body {
