@@ -21,27 +21,28 @@
             <div class="col-md-12 d-flex flex-column gap-4">
                 <div class="row gap-4 gap-md-0">
                     <div class="col-md-6">
-                        <label class="form-label" for="tipo">Tipo de reporte</label>
-                        <select class="form-control" id="tipo" formControlName="tipo">
+                        <label class="form-label" for="type">Tipo de reporte</label>
+                        <select class="form-control" id="type" formControlName="type">
                             <option hidden disabled selected value="">Seleccionar</option>
-                            <option value="test2">Test1</option>
-                            <option value="test2">Test2</option>
-                            <option value="test3">Test3</option>
+                            <option value="Abandono">Abandono</option>
+                            <option value="Maltrato">Maltrato</option>
+                            <option value="Extravío">Extravío</option>
+                            <option value="Otro">Otro</option>
                         </select>
-                      <app-error-messages [control]="getControl('tipo')" version="m" label="Este campo"></app-error-messages>
+                      <app-error-messages [control]="getControl('type')" version="m" label="Este campo"></app-error-messages>
                     </div>
                 </div>
 
                 <div class="">
-                    <label class="form-label" for="descripcion">Descripción</label>
-                    <textarea class="form-control customInputs" formControlName="descripcion" id="descripcion" autocapitalize="on" wrap="hard" minlength="20" maxlength="500" spellcheck="true" rows="8" placeholder="Redacta la información..."></textarea>
-                    <app-error-messages [control]="getControl('descripcion')" version="m" label="Este campo"></app-error-messages>
+                    <label class="form-label" for="description">Descripción</label>
+                    <textarea class="form-control customInputs" formControlName="description" id="description" autocapitalize="on" wrap="hard" minlength="20" maxlength="500" spellcheck="true" rows="8" placeholder="Redacta la información..."></textarea>
+                    <app-error-messages [control]="getControl('description')" version="m" label="Este campo"></app-error-messages>
                 </div>
 
                 <div class="">
-                    <label class="form-label" for="lugar">Zona</label>
-                    <textarea class="form-control customInputs zone" formControlName="lugar" id="lugar" autocapitalize="on" wrap="hard" minlength="20" maxlength="300" spellcheck="true" rows="2" placeholder="Escribe la zona donde se presenció el incidente, como una calle, colonia o referencia cercana..."></textarea>
-                    <app-error-messages [control]="getControl('lugar')" version="m" label="Este campo"></app-error-messages>
+                    <label class="form-label" for="place">Zona</label>
+                    <textarea class="form-control customInputs zone" formControlName="place" id="place" autocapitalize="on" wrap="hard" minlength="20" maxlength="300" spellcheck="true" rows="2" placeholder="Escribe la zona donde se presenció el incidente, como una calle, colonia o referencia cercana..."></textarea>
+                    <app-error-messages [control]="getControl('place')" version="m" label="Este campo"></app-error-messages>
                 </div>
 
             </div>
