@@ -3,21 +3,23 @@
 
 <div class="row mt-4">
   <div class="col-12 col-md-3 text-center mb-4 mb-md-0">
-    <div class="profile-card">
-      <div class="image">
-        <img src="/images/testAvatar.png" alt="Avatar" class="profile-img">
-      </div>
-
+    <div class="profile-card" *ngIf="user() as userData">
+        @defer (when user()) {
+          <div class="image">
+            <img [src]="getGenderIcon()" alt="Avatar" class="profile-img">
+          </div>
+        } @placeholder {
+          <div class="spinner-border text-secondary m-5" role="status"></div>
+        }
       <div class="user-name">
-        <span class="name">Jess JH</span>
+        <span class="name">{{ user().name }} {{ user().last_name }} {{ user().last_name2 }}</span>
       </div>
 
     </div>
   </div>
 
-
   <div class="col-12 col-md-9 rowForm">
-    <form [formGroup]="updateInfoForm" (ngSubmit)="onSubmit()" class="w-100">
+    <form [formGroup]="updateInfoForm" class="w-100">
     <div class="mt-1 row g-4">
       <div class="col-md-6">
         <label class="form-label" for="name">Nombre(s)</label>
@@ -64,17 +66,17 @@
         <app-error-messages [control]="getControl('email')" version="m" label="Este campo"></app-error-messages>
       </div>
       <div class="col-md-6">
-        <label class="form-label" for="birth_Date">Fecha de nacimiento</label>
-        <input type="date" id="birth_Date" formControlName="birth_Date" class="form-control customInputs" [max]="fechaMaxima"/>
-        <app-error-messages [control]="getControl('birth_Date')" version="m" label="Este campo"></app-error-messages>
+        <label class="form-label" for="birth_date">Fecha de nacimiento</label>
+        <input type="date" id="birth_date" formControlName="birth_date" class="form-control customInputs" [max]="fechaMaxima"/>
+        <app-error-messages [control]="getControl('birth_date')" version="m" label="Este campo"></app-error-messages>
       </div>
       <div class="col-md-6">
       <label class="form-label" for="gender">Género</label>
         <select class="form-control" formControlName="gender">
           <option hidden disabled selected value="">Seleccionar</option>
-          <option value="1">Femenino</option>
-          <option value="2">Masculino</option>
-          <option value="3">39 tipos de gays🏳️‍🌈</option>
+          <option value="femenino">Femenino</option>
+          <option value="masculino">Masculino</option>
+          <option value="39 tipos de gays">39 tipos de gays🏳️‍🌈</option>
         </select>
         <app-error-messages [control]="getControl('gender')" version="m" label="Este campo"></app-error-messages>
       </div>
@@ -92,4 +94,4 @@
   </div>
 </div>
 
-<app-verify-password-modal [isOpen]="showModal" (closed)="onModalClosed()"></app-verify-password-modal>
+<app-verify-password-modal [userId]="user().id" [isOpen]="showModal" (closed)="onModalClosed()"></app-verify-password-modal>
