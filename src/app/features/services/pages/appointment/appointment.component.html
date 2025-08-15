@@ -7,19 +7,19 @@
                 <h5 class="instructions">Puedes quitar opciones antes de confirmar tu cita.</h5>
             </div>
             <div class="mt-md-5 mt-lg-5 mt-4 row">
-                <div class="col-12 col-md-6 col-lg-6 mb-3">
-                    <app-service-appointment-card service="Corte" [medical]="false" [price]="200" typeService="Estetico"></app-service-appointment-card>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-3">
-                    <app-service-appointment-card service="Vacuna" [medical]="true" [price]="50" [discounts]="0" typeService="Medico"></app-service-appointment-card>
-                </div>
-
+                @defer (when !loading()) {
+                    @for (service of servicesSelected(); track service.id) {
+                        <div class="col-12 col-md-6 col-lg-6 mb-3">
+                            <app-service-appointment-card [service]="service.service" [medical]="false" [price]="+service.price" [discounts]="+service.discounts" [typeService]="service.type.type_service"></app-service-appointment-card>
+                        </div>
+                    }
+                }
             </div>
         </div>
 
         <!-- ORDER RESUMEN -->
         <div class="col-12 col-md-4 col-lg-4 mb-3">
-            <app-appointment-details [service]="true" [submitToUrl]="'test/test'"></app-appointment-details>
+            <app-appointment-details [type]="typeAppointment" [selectedServices]="selectedServiceIds" [total]="total" [discount]="totalDiscount" [subTotal]="subtotal" [service]="true" [submitTo]="'Service'" [type]="''"></app-appointment-details>
         </div>
     </div>
 </div>

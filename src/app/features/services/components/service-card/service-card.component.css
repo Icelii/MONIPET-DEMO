@@ -33,30 +33,57 @@
   color: white;
 }
 
+.form-check {
+  width: 100%;
+}
+
+.visually-hidden-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .btnSelect {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--secondary-color);
+  background-color: white;
   padding: 16px;
   font-weight: 600;
   font-size: 0.875rem;
-  color: #ffffff;
+  color: var(--text-principal);
   width: 100%;
   max-width: 100%;
   height: 35px;
   border-radius: 8px;
   text-align: center;
   white-space: nowrap;
+  border: 1px solid var(--secondary-color);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .btnSelect:hover {
-  background-color: var(--secondary-color-shadow);
+  background-color: var(--secondary-color);
   color: white;
+  border-color: var(--secondary-color);
+}
+
+.btnSelectActive {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
 }
 
 .btn.btnSelect:active {
-  background-color: var(--secondary-color-shadow);
+  background-color: var(--secondary-color);
   color: white;
   outline: none;
   box-shadow: none;
