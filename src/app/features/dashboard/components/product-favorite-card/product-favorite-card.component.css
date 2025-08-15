@@ -2,7 +2,13 @@
   border-radius: 1rem;
   border: none;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 16rem;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .card-full-width {
@@ -10,10 +16,12 @@
 }
 
 .card img {
+  cursor: pointer;
   height: 200px;
 }
 
 .productName {
+  cursor: pointer;
   font-size: 1rem;
   font-weight: 700;
   text-align: start;
@@ -21,8 +29,12 @@
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   white-space: normal;
+}
+
+.productName:hover {
+  text-decoration: underline;
 }
 
 .btn.btnHeart {
@@ -142,6 +154,19 @@
   font-weight: 400;
   color: var(--text-principal);
   background-color: transparent !important;
+}
+
+.defaultImgBackground {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--img-background);
+}
+
+.defaultImgBackground .logo {
+  object-fit: cover;
 }
 
 @media (max-width: 767px) {
