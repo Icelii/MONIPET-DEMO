@@ -12,6 +12,9 @@
                 <label for="hour" class="form-label">Hora</label>
                 <input type="time" [min]="minHour" formControlName="hour" class="form-control customInputs">
                 <app-error-messages [control]="appointmentForm.get('hour')" version="m" label="Este campo"></app-error-messages>
+                <div *ngIf="appointmentForm.get('hour')?.hasError('invalidHour')" class="textDanger">
+                    <small>Solo se permite entre 10:00 AM y 9:00 PM</small>
+                </div>
             </div>
         </div>
 
@@ -19,8 +22,7 @@
             <label for="pet_id" class="mb-4 form-label">Selecciona la mascota</label>
             <select class="form-control" id="pet_id" formControlName="pet_id">
                 <option hidden disabled selected value="">Seleccionar</option>
-                <option value="1">test</option>
-                <option value="2">test2</option>
+                <option *ngFor="let pet of userPets" [value]="pet.id">{{pet.name}}</option>
             </select>
             <app-error-messages [control]="getControl('pet_id')" version="m" label="Este campo"></app-error-messages>
         </div>
@@ -35,6 +37,6 @@
         </button>
 
         <div class="mt-4 w-100" *ngIf="service">
-            <app-order-resume btnLabel="Pagar cita"></app-order-resume>
+            <app-order-resume (submitForm)="onSubmit()" [appointmentData]="appointmentData" [typePayment]="'services'" [pay]="true" [total]="total" [subtotal]="subTotal" [discountApply]="discount" btnLabel="Pagar cita"></app-order-resume>
         </div>
 </form>

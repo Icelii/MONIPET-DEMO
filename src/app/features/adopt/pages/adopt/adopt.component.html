@@ -9,42 +9,42 @@
       <hr>
     <form [formGroup]="filtrosForm" (ngSubmit)="onSubmit()">
       <!-- FILTROS -->
-      <h3 class="filterName mb-4">Sexo</h3>
+      <h3 class="filterName mb-4">Género</h3>
       <div class="d-flex flex-column justify-content-start">
-        <label class="custom-checkbox mb-3">
-          <input type="checkbox" />
+        <label *ngFor="let genero of generoOptions" class="custom-checkbox mb-3">
+          <input type="checkbox" [value]="genero" (change)="toggleSelection('generos', genero, $event)" [checked]="filtrosForm.value.generos.includes(genero)" />
           <span class="checkmark">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
           </span>
-          <span class="option">label</span>
+          <span class="option">{{ genero }}</span>
         </label>
       </div>
       <hr>
       <h3 class="filterName mb-4">Tipo de mascota</h3>
       <div class="d-flex flex-column justify-content-start">
-        <label class="custom-checkbox mb-3">
-          <input type="checkbox" />
-          <span class="checkmark">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-          </span>
-          <span class="option">label</span>
-        </label>
+      <label *ngFor="let typePet of typesPet" class="custom-checkbox mb-3">
+        <input type="checkbox" [value]="typePet.type_pet" (change)="toggleSelection('tipos', typePet.type_pet, $event)" [checked]="filtrosForm.value.tipos.includes(typePet.type_pet)" />
+        <span class="checkmark">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+        </span>
+        <span class="option">{{ typePet.type_pet }}</span>
+      </label>
       </div>
       <hr>
       <h3 class="filterName mb-4">Edad</h3>
       <div class="d-flex flex-column justify-content-start">
-        <label class="custom-checkbox mb-3">
-          <input type="checkbox" />
+        <label *ngFor="let edad of edadOptions" class="custom-checkbox mb-3">
+          <input type="checkbox" [value]="edad" (change)="toggleSelection('edades', edad, $event)" [checked]="filtrosForm.value.edades.includes(edad)"/>
           <span class="checkmark">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
           </span>
-          <span class="option">label</span>
+          <span class="option">{{ edad }}</span>
         </label>
       </div>
       <hr>
       <h3 class="filterName mb-4">Raza</h3>
-      <ng-select formControlName="razas" class="mi-ng-select" [items]="razas" bindLabel="nombre" [multiple]="true" [placeholder]="'Buscar raza...'"></ng-select>
-      <button type="submit" class="mt-4 btn btnFilters">Aplicar filtros</button>
+      <ng-select formControlName="razas" class="mi-ng-select" [items]="breeds" bindLabel="breed" bindValue="id" [multiple]="true" [placeholder]="'Buscar raza...'"></ng-select>
+      <button type="submit" class="mt-4 btn btnFilters" (click)="onSubmit()">Aplicar filtros</button>
     </form>
     </div>
 
@@ -64,41 +64,57 @@
       <div class="offcanvas-body">
         <form [formGroup]="filtrosForm" (ngSubmit)="onSubmit()">
           <!-- FILTROS -->
-          <h3 class="filterName mb-4">Sexo</h3>
+          <h3 class="filterName mb-4">Género</h3>
           <div class="d-flex flex-column justify-content-start">
             <label class="custom-checkbox mb-3">
               <input type="checkbox" />
               <span class="checkmark">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
               </span>
-              <span class="option">label</span>
+              <span class="option">Macho</span>
+            </label>
+
+            <label class="custom-checkbox mb-3">
+              <input type="checkbox" />
+              <span class="checkmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+              </span>
+              <span class="option">Hembra</span>
+            </label>
+
+            <label class="custom-checkbox mb-3">
+              <input type="checkbox" />
+              <span class="checkmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+              </span>
+              <span class="option">Desconocido</span>
             </label>
           </div>
           <hr>
           <h3 class="filterName mb-4">Tipo de mascota</h3>
           <div class="d-flex flex-column justify-content-start">
-            <label class="custom-checkbox mb-3">
+            <label *ngFor="let typePet of typesPet" class="custom-checkbox mb-3">
               <input type="checkbox" />
               <span class="checkmark">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
               </span>
-              <span class="option">label</span>
+              <span class="option">{{ typePet.type_pet }}</span>
             </label>
           </div>
           <hr>
           <h3 class="filterName mb-4">Edad</h3>
           <div class="d-flex flex-column justify-content-start">
-            <label class="custom-checkbox mb-3">
-              <input type="checkbox" />
+            <label *ngFor="let edad of edadOptions" class="custom-checkbox mb-3">
+              <input type="checkbox" [value]="edad"/>
               <span class="checkmark">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
               </span>
-              <span class="option">label</span>
+              <span class="option">{{ edad }}</span>
             </label>
           </div>
           <hr>
           <h3 class="filterName mb-4">Raza</h3>
-          <ng-select formControlName="razas" class="mi-ng-select" [items]="razas" bindLabel="nombre" [multiple]="true" [placeholder]="'Buscar raza...'"></ng-select>
+          <ng-select formControlName="razas" class="mi-ng-select" [items]="breeds" bindLabel="breed" bindValue="id" [multiple]="true" [placeholder]="'Buscar raza...'"></ng-select>
           <button type="submit" class="mt-4 btn btnFilters">Aplicar filtros</button>
       </form>
       </div>
@@ -106,12 +122,43 @@
   </div>
 
   <div class="col-12 col-md-9 col-lg-9">
-      <h2 class="title2 mb-4">Test</h2>
+      <h2 #resultados class="title2 mb-4">
+      @defer (when !loading()) {
+        <ng-container *ngIf="submitted; else tituloDefault">
+          <ng-container *ngIf="filtroActivo(); else tituloDefault">
+            {{ filteredPets.length }} resultado{{ filteredPets.length === 1 ? '' : 's' }}
+          </ng-container>
+        </ng-container>
+        <ng-template #tituloDefault>
+          Todo
+        </ng-template>
+      } @placeholder {
+        Todo
+      }
+      </h2>
       <div class="row g-4">
         <!-- CARDS -->
-        <div class="col-6 col-md-4 col-lg-3 mb-1">
-          <app-pet-cards name="Rocky" [sex]="1" age="1 año" photo_link="/images/rocky.webp"></app-pet-cards>
-        </div>
+        @defer (when !loading()) {
+          @for (pet of filteredPets; track pet.id) {
+            <div class="col-6 col-md-4 col-lg-3 mb-1">
+                <app-pet-cards
+                  [name]="pet.name"
+                  [gender]="pet.gender"
+                  [birthday]="pet.birthday"
+                  [photo_link]="pet.pet_photos[0]?.photo_link"
+                  [pet_id]="pet.id"
+                ></app-pet-cards>
+            </div>
+          } @empty {
+            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                <h5 class="text-muted">No hay resultados 😿</h5>
+            </div>
+          }
+        } @placeholder {
+          <div class="w-100 d-flex justify-content-center align-items-center py-5">
+            <app-loader-elements></app-loader-elements>
+          </div>
+        }
       </div>
   </div>
 </div>
