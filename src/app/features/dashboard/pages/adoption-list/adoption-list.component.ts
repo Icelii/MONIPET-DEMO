@@ -1,4 +1,4 @@
-import { Component, effect, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, OnInit, signal } from '@angular/core';
 import { PetCardComponent } from "../../components/pet-card/pet-card.component";
 import { PetService } from '../../../../core/services/pets/pet.service';
 import { take, timeout } from 'rxjs';
@@ -18,7 +18,19 @@ export class AdoptionListComponent implements OnInit {
   cartIds = useAdoptionCart();
   pets = signal<any[]>([]);
   selectedPets = signal<number[]>([]);
+  searchText = signal('');selectedPetId?: number;
   loading = signal(true);
+
+  filteredPets = computed(() => {
+      const text = this.searchText().toLowerCase().trim();
+      const allPets = this.pets() as any [];
+  
+      if (!text) return allPets;
+  
+      return allPets?.filter(pet =>
+        pet.name.toLowerCase().includes(text)
+      );
+  });
 
   constructor(private petService: PetService, private router: Router) {
     effect(() => {

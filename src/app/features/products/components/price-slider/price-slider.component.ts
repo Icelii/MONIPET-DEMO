@@ -14,11 +14,11 @@ export class PriceSliderComponent implements AfterViewInit {
   @ViewChild('range') range!: ElementRef<HTMLElement>;
   @Output() priceChange = new EventEmitter<[number, number]>();
 
-  minValue = 200;
-  maxValue = 800;
-  leftPercent = 20;
-  rightPercent = 80;
-  minGap = 150;
+  minValue = 10;          
+  maxValue = 1000;       
+  leftPercent = 0;
+  rightPercent = 100;
+  minGap = 50;  
 
   ngAfterViewInit() {
     const inputLeft = this.inputLeft.nativeElement;
@@ -39,7 +39,8 @@ export class PriceSliderComponent implements AfterViewInit {
       const percent = ((newLeft - min) / (max - min)) * 100;
       this.leftPercent = percent;
       range.style.left = `${percent}%`;
-       this.emitPriceChange();
+
+      this.emitPriceChange();
     };
 
     const setRightValue = () => {
@@ -56,11 +57,21 @@ export class PriceSliderComponent implements AfterViewInit {
       const percent = ((newRight - min) / (max - min)) * 100;
       this.rightPercent = percent;
       range.style.right = `${100 - percent}%`;
+
       this.emitPriceChange();
     };
 
     inputLeft.addEventListener('input', setLeftValue);
     inputRight.addEventListener('input', setRightValue);
+
+    // inicializar correctamente
+    inputLeft.min = '10';
+    inputLeft.max = '1000';
+    inputLeft.value = '10';
+
+    inputRight.min = '10';
+    inputRight.max = '1000';
+    inputRight.value = '1000';
 
     setLeftValue();
     setRightValue();

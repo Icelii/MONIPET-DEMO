@@ -9,28 +9,27 @@
       <hr>
     <form [formGroup]="filtrosForm" (ngSubmit)="onSubmit()">
       <!-- FILTROS -->
-        <ng-container *ngFor="let categoria of categorias; let i = index">
+        <ng-container *ngFor="let grupo of categoriasAgrupadas; let i = index">
                 <div class="mb-3">
                     <div class="selector d-flex justify-content-between align-items-center" (click)="toggleDropdown(i)">
-                        <span>{{ categoria.nombre }}</span>
-                        <svg [class.rotated]="categoria.open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-chevron-right"><path d="M9 6l6 6l-6 6"/></svg>
+                        <span>{{ grupo.tipo }}</span>
+                        <svg [class.rotated]="grupo.open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-chevron-right"><path d="M9 6l6 6l-6 6"/></svg>
                     </div>
 
-                    <div *ngIf="categoria.open" class="dropdown-options">
-                      <label class="custom-checkbox" *ngFor="let opcion of categoria.opciones; let j = index">
-                        <input type="checkbox" />
+                    <div *ngIf="grupo.open" class="dropdown-options">
+                      <label class="custom-checkbox" *ngFor="let categoria of grupo.categorias; let j = index">
+                        <input type="checkbox" [checked]="categoria.seleccionada" (change)="onCheck(i, j, $event)"/>
                           <span class="checkmark">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
                           </span>
-                          <span class="option">{{ opcion }}</span>
+                          <span class="option">{{ categoria.nombre }}</span>
                       </label> 
-                        <!-- <span class="option" *ngFor="let opcion of categoria.opciones; let j = index">{{ opcion }}</span> -->
                     </div>
                 </div>
       </ng-container>
       <hr>
       <h3 class="filterName mb-4">Precio</h3>
-      <app-price-slider></app-price-slider>
+      <app-price-slider (priceChange)="onPriceChange($event)"></app-price-slider>
       <button type="submit" class="mt-4 btn btnFilters">Aplicar filtros</button>
     </form>
     </div>
@@ -51,28 +50,27 @@
       <div class="offcanvas-body">
         <form [formGroup]="filtrosForm" (ngSubmit)="onSubmit()">
           <!-- FILTROS -->
-          <ng-container *ngFor="let categoria of categorias; let i = index">
-            <div class="mb-3">
-              <div class="selector d-flex justify-content-between align-items-center" (click)="toggleDropdown(i)">
-                <span>{{ categoria.nombre }}</span>
-                <svg [class.rotated]="categoria.open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-chevron-right"><path d="M9 6l6 6l-6 6"/></svg>
-              </div>
+            <ng-container *ngFor="let grupo of categoriasAgrupadas; let i = index">
+                      <div class="mb-3">
+                          <div class="selector d-flex justify-content-between align-items-center" (click)="toggleDropdown(i)">
+                              <span>{{ grupo.tipo }}</span>
+                              <svg [class.rotated]="grupo.open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-chevron-right"><path d="M9 6l6 6l-6 6"/></svg>
+                          </div>
 
-              <div *ngIf="categoria.open" class="dropdown-options">
-                <label class="custom-checkbox" *ngFor="let opcion of categoria.opciones; let j = index">
-                  <input type="checkbox" />
-                  <span class="checkmark">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                  </span>
-                  <span class="option">{{ opcion }}</span>
-                </label> 
-                <!-- <span class="option" *ngFor="let opcion of categoria.opciones; let j = index">{{ opcion }}</span> -->
-              </div>
-            </div>
-          </ng-container>
+                          <div *ngIf="grupo.open" class="dropdown-options">
+                            <label class="custom-checkbox" *ngFor="let categoria of grupo.categorias; let j = index">
+                              <input type="checkbox" [checked]="categoria.seleccionada" (change)="onCheck(i, j, $event)"/>
+                                <span class="checkmark">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+                                </span>
+                                <span class="option">{{ categoria.nombre }}</span>
+                            </label> 
+                          </div>
+                      </div>
+            </ng-container>
           <hr>
           <h3 class="filterName mb-4">Precio</h3>
-          <app-price-slider></app-price-slider>
+          <app-price-slider (priceChange)="onPriceChange($event)"></app-price-slider>
           <button type="submit" class="mt-4 btn btnFilters">Aplicar filtros</button>
       </form>
       </div>
@@ -81,15 +79,28 @@
 
   <div class="col-12 col-md-9 col-lg-9 mb-5">
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-4">
-        <h2 class="title2 text-break mb-2 mb-sm-0 mb-lg-0">Todo</h2>
+        @defer (when !loading()) {
+          <h2 #resultados class="title2 text-break mb-2 mb-sm-0 mb-lg-0">
+              {{ filteredProducts().length === 0 
+                  ? '0 resultados' 
+                  : filteredProducts().length === products.length 
+                    ? 'Todo' 
+                    : filteredProducts().length === 1 
+                      ? '1 resultado' 
+                      : filteredProducts().length + ' resultados' 
+              }}
+          </h2>
+        } @placeholder {
+          <h2 #resultados class="title2 text-break mb-2 mb-sm-0 mb-lg-0">Todo</h2>
+        }
         <div class="searchBar">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-          <input type="text" placeholder="Buscar producto...">
+          <input type="text" (input)="onSearchChange($any($event.target).value)" placeholder="Buscar producto...">
         </div>
       </div>
       <div class="row g-2">
         @defer (when !loading()) {
-          @for (product of products; track product.id) {
+          @for (product of filteredProducts(); track product.id) {
             <!-- CARDS -->
             <div class="col-6 col-md-4 col-lg-3 mb-3">
               <app-product-cards [product_id]="product.id" [name]="product.name" [price]="+product.price" [discount]="+product.discount"

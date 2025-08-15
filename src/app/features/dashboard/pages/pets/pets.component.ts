@@ -36,9 +36,7 @@ export class PetsComponent {
     if (!text) return allPets;
 
     return allPets?.filter(pet =>
-      pet.name.toLowerCase().includes(text) //||
-      //pet.breed?.breed?.toLowerCase().includes(text) ||
-      //pet.gender?.toLowerCase().includes(text)
+      pet.name.toLowerCase().includes(text)
     );
   });
 
