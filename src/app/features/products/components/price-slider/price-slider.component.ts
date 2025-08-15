@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-price-slider',
@@ -12,6 +12,7 @@ export class PriceSliderComponent implements AfterViewInit {
   @ViewChild('inputLeft') inputLeft!: ElementRef<HTMLInputElement>;
   @ViewChild('inputRight') inputRight!: ElementRef<HTMLInputElement>;
   @ViewChild('range') range!: ElementRef<HTMLElement>;
+  @Output() priceChange = new EventEmitter<[number, number]>();
 
   minValue = 200;
   maxValue = 800;
@@ -38,6 +39,7 @@ export class PriceSliderComponent implements AfterViewInit {
       const percent = ((newLeft - min) / (max - min)) * 100;
       this.leftPercent = percent;
       range.style.left = `${percent}%`;
+       this.emitPriceChange();
     };
 
     const setRightValue = () => {
@@ -54,6 +56,7 @@ export class PriceSliderComponent implements AfterViewInit {
       const percent = ((newRight - min) / (max - min)) * 100;
       this.rightPercent = percent;
       range.style.right = `${100 - percent}%`;
+      this.emitPriceChange();
     };
 
     inputLeft.addEventListener('input', setLeftValue);
@@ -61,5 +64,9 @@ export class PriceSliderComponent implements AfterViewInit {
 
     setLeftValue();
     setRightValue();
+  }
+
+  private emitPriceChange() {
+    this.priceChange.emit([this.minValue, this.maxValue]);
   }
 }

@@ -81,17 +81,30 @@
 
   <div class="col-12 col-md-9 col-lg-9 mb-5">
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-4">
-        <h2 class="title2 text-break mb-2 mb-sm-0 mb-lg-0">Test</h2>
+        <h2 class="title2 text-break mb-2 mb-sm-0 mb-lg-0">Todo</h2>
         <div class="searchBar">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
           <input type="text" placeholder="Buscar producto...">
         </div>
       </div>
       <div class="row g-2">
-        <!-- CARDS -->
-        <div class="col-6 col-md-4 col-lg-3 mb-3">
-          <app-product-cards name="test" [discount]="10" [price]="100" [categories]="['Alimento']"></app-product-cards>
-        </div>
+        @defer (when !loading()) {
+          @for (product of products; track product.id) {
+            <!-- CARDS -->
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+              <app-product-cards [product_id]="product.id" [name]="product.name" [price]="+product.price" [discount]="+product.discount"
+                [photo_link]="product.product_photos?.[0]?.photo_link" [categories]="product.categoryNames" ></app-product-cards>
+            </div>
+          } @empty {
+            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+              <h5 class="text-muted">No hay resultados 😿</h5>
+            </div>
+          }
+        } @placeholder {
+          <div class="w-100 d-flex justify-content-center align-items-center py-5">
+            <app-loader-elements></app-loader-elements>
+          </div>
+        }
       </div>
   </div>
 </div>

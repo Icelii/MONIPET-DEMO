@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-comment-card',
@@ -9,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './comment-card.component.css'
 })
 export class CommentCardComponent {
-
+  @Input() title!: string;
+  @Input() comment!: string;
+  @Input() username!: string;
+  @Input() date!: string;
+  @Input() rate!: number; 
 }

@@ -1,102 +1,148 @@
 <div class="container-xxl px-md-4 px-lg-5 min-vh-100 mb-5">
-    <div class="row">
-        <div class="imgContainer col-12 col-md-6 col-lg-6 mb-0 mb-md-3 mb-lg-3">
-            <img src="/images/testProduct.webp" alt="">
+    <div routerLink="/products" class="returnContainer d-flex justify-content-start align-items-center gap-1 mb-3 mb-md-3 mb-lg-3">
+        <div class="d-flex align-items-center">
+            <button class="btnReturn" routerLink="/products"><svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--text-principal)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg></button>
         </div>
+        <a class="return mb-0">Volver a productos</a>
+    </div>
+    
+    @defer (when !loading()) {
+        <div class="row">
+            <div class="imgContainer col-12 col-md-6 col-lg-6 mb-0 mb-md-3 mb-lg-3">
+                <img [src]="product.product_photos?.[0]?.photo_link" alt="">
+            </div>
 
-        <div class="col-12 col-md-6 col-lg-6 mb-5">
-            <div class="infoContainer d-flex flex-column">
-                <h2 class="productName">Product Name</h2>
-                <div class="mt-1 mb-4 d-flex flex-row justify-content-start align-items-center"> 
-                    <div class="d-flex flex-wrap justify-content-start gap-2">
-                        <span class="badgeCategories">Categoría</span>
-                        <span class="badgeCategories">Categoría</span>
-                    </div>
-                    <div class="vr mx-3"></div>
-                    <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-                        <div class="d-flex align-items-center gap-1"> 
-                            <ng-container *ngFor="let star of [1,2,3,4,5]">
-                                <svg svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
-                            </ng-container>
+            <div class="col-12 col-md-6 col-lg-6 mb-5">
+                <div class="infoContainer d-flex flex-column">
+                    <h2 class="productName">{{ product.name }}</h2>
+                    <div class="mt-1 mb-4 d-flex flex-row justify-content-start align-items-center"> 
+                        <div class="d-flex flex-wrap justify-content-start gap-2">
+                            <span class="badgeCategories" *ngFor="let cat of product.categories">{{ cat.category }}</span>
                         </div>
-                        <div class="text-muted small d-flex align-items-center gap-1">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#6b6f73"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-message-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 11v.01" /><path d="M8 11v.01" /><path d="M16 11v.01" /><path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3z" /></svg>
-                            <small class="comments">0</small>
-                        </div>
+                        <div class="vr mx-3"></div>
+                        @defer (when !loadingComments()) {
+                            <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+                                <div class="d-flex align-items-center gap-1"> 
+                                <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" viewBox="0 0 24 24"
+                                        [attr.fill]="star <= averageRating ? 'var(--text-principal)' : 'none'"
+                                        stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-star">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867
+                                            l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1
+                                            l-5 4.867l1.179 6.873z" />
+                                    </svg>
+                                </ng-container>
+                                </div>
+                                <div class="text-muted small d-flex align-items-center gap-1">
+                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="#6b6f73"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-message-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 11v.01" /><path d="M8 11v.01" /><path d="M16 11v.01" /><path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3z" /></svg>
+                                    <small class="comments">{{productComments().length}}</small>
+                                </div>
+                            </div>
+                        } @placeholder {
+                            <small>Cargando...</small>
+                        }
                     </div>
-                </div>
 
-                <div class=" d-flex flex-column">
-                    <div class="d-flex justify-content-start align-items-center gap-3 mb-4">
-                        <div class="d-flex flex-row justify-content-center align-items-center">
-                            <h2 class="price">$100 Mxn</h2>
+                    <ng-container *ngIf="product.discount < 0">
+                        <div class="d-flex justify-content-start align-items-center gap-3 mb-4">
+                            <div class="d-flex flex-row justify-content-center align-items-center">
+                                    <h2 class="price">${{ product.price }} Mxn</h2>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <span class="text-decoration-line-through text-muted me-1 lastPrice">$200</span><span class="text-muted lastPrice me-2">Mxn</span>
-                            <span class="badge">-10%</span>
-                        </div>
-                    </div>
-                </div>
+                    </ng-container>
 
-                <div class="d-flex flex-column">
-                    <span class="label mb-2">Descripción:</span>
-                    <p class="moreDetails">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi eveniet aliquam vitae reprehenderit animi rem voluptatem maxime adipisci sit distinctio tempore, maiores tenetur unde quia qui accusantium et nihil. Perferendis.</p>
-                </div>
-
-                <div class="mt-5 d-flex flex-column flex-md-row justify-content-start align-items-start align-items-md-center gap-2 mb-5">
-                    <div class="d-flex justify-content-center align-items-center gap-2 mb-4 mb-md-0 mb-lg-0 me-1">
-                        <h5 class="quantityTitle mb-0">Cantidad</h5>
-                        <div class="counter d-flex align-items-center">
-                            <button class="down" (click)="decrement()">-</button>
-                            <input type="text" [value]="quantity()" readonly min="1">
-                            <button class="up" (click)="increment()">+</button>
+                    <ng-container *ngIf="product.discount > 0">
+                        <div class=" d-flex flex-column">
+                            <div class="d-flex justify-content-start align-items-center gap-3 mb-4">
+                                <div class="d-flex flex-row justify-content-center align-items-center">
+                                    <h2 class="price">${{ priceDiscount() }} Mxn</h2>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <span class="text-decoration-line-through text-muted me-1 lastPrice">${{product.price}}</span><span class="text-muted lastPrice me-2">Mxn</span>
+                                    <span class="badge">-{{ discountInteger }}%</span>
+                                </div>
+                            </div>
                         </div>
+                    </ng-container>
+
+                    <div class="d-flex flex-column">
+                        <span class="label mb-2">Descripción:</span>
+                        <ng-container *ngIf="product.description !== '' && product.description !== null">
+                            <p class="moreDetails">{{product.description}}</p>
+                        </ng-container>
+
+                        <ng-container *ngIf="product.description === '' || product.description === null">
+                            <p class="moreDetails">No hay descripción.</p>
+                        </ng-container>
                     </div>
-                    <div class="d-flex justify-content-center flex-row align-items-center">
-                        <button class="btn btnAppointment me-2">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
-                            Agregar al carrito
-                        </button>
-                        <button type="button" class="btn btnFav">
-                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-heart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                        </button>
+
+                    <div class="mt-5 d-flex flex-column flex-md-row justify-content-start align-items-start align-items-md-center gap-2 mb-5">
+                        <div class="d-flex justify-content-center align-items-center gap-2 mb-4 mb-md-0 mb-lg-0 me-1">
+                            <h5 class="quantityTitle mb-0">Cantidad</h5>
+                            <div class="counter d-flex align-items-center">
+                                <button class="down" (click)="decrement()" [disabled]="quantity() <= 1">-</button>
+                                <input type="text" [value]="quantity()" readonly min="1" [max]="product.stock">
+                                <button class="up" (click)="increment()" [disabled]="quantity() >= product.stock">+</button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center flex-row align-items-center">
+                            <button type="button" (click)="addToCartIfLoggedIn()" aria-label="Agregar a la bolsa" class="btn btnAppointment me-2">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
+                                Agregar a la bolsa
+                            </button>
+                            <button type="button" (click)="toggleFavIfLoggedIn()" class="btn btnFav" aria-label="Agregar a favoritos">
+                                <svg *ngIf="isInFavList()" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="#fff"  class="icon icon-tabler icons-tabler-filled icon-tabler-heart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z" /></svg>
+                                <svg *ngIf="!isInFavList()" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-heart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <hr>
 
     <div class="row">
         <h4 class="subtitle mt-2 mb-4">Reseñas</h4>
 
-        <div class="col-12 col-md-6 col-lg-6 mb-3 mb-sm-5 mb-lg-5">
-            <app-comment-card></app-comment-card>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-6 mb-3 mb-sm-5 mb-lg-5">
-            <app-comment-card></app-comment-card>
-        </div>
-        
+        @for (comment of productComments(); track comment.index) {
+            <div class="col-12 col-md-6 col-lg-6 mb-3 mb-sm-5 mb-lg-5">
+                <app-comment-card [title]="comment.title" [comment]="comment.comment" [date]="comment.date" [rate]="comment.rate"></app-comment-card>
+            </div>
+        } @empty {
+            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                <h5 class="text-muted">No hay reseñas 😿</h5>
+            </div>
+        }
     </div>
 
     <div class="row mt-5">
         <h4 class="subtitle mb-4">Escribe una reseña</h4>
         <div class="col-12 col-md-6 col-lg-6 mb-3 mb-sm-5 mb-lg-5">
-            <div class="d-flex flex-column justify-content-start align-items-start">
-                <label class="form-label" for="">Califica el producto</label>
-                <app-star-rating></app-star-rating>
+            <form [formGroup]="commentForm" (ngSubmit)="sendReview()">
+                <div class="d-flex flex-column justify-content-start align-items-start">
+                    <label class="form-label" for="rate">Califica el producto</label>
+                    <app-star-rating [(rating)]="userRating" [maxStars]="5"></app-star-rating>
 
-                <label class="mt-4 form-label" for="title">Título de la reseña</label>
-                <input type="text" class="form-control customInputs mb-3" id="title" placeholder="Título...">
+                    <label class="mt-4 form-label" for="title">Título de la reseña</label>
+                    <input formControlName="title" type="text" class="form-control customInputs mb-3" id="title" placeholder="Título...">
+                    <app-error-messages [control]="getControl('title')" label="Este campo"></app-error-messages>
 
-                <label class="mt-2 form-label" for="content">Contenido</label>
-                <textarea class="form-control customInputs" id="content" autocapitalize="on" wrap="hard" minlength="20" maxlength="500" spellcheck="true" rows="8" placeholder="Escribe tu reseña aquí..."></textarea>
+                    <label class="mt-2 form-label" for="comment">Contenido</label>
+                    <textarea formControlName="comment" class="form-control customInputs" id="comment" autocapitalize="on" wrap="hard" minlength="20" maxlength="500" spellcheck="true" rows="8" placeholder="Escribe tu reseña aquí..."></textarea>
+                    <app-error-messages [control]="getControl('comment')" label="Este campo"></app-error-messages>
 
-                <button class="mt-4 btn btnSendReview">Enviar reseña</button>
-            </div>
+                    <button type="submit" class="mt-4 btn btnSendReview">Enviar reseña</button>
+                </div>
+            </form>
         </div>
     </div>
-
+} @placeholder {
+    <div class="w-100 d-flex justify-content-center align-items-center py-5">
+        <app-loader-elements></app-loader-elements>
+    </div>
+}
 </div>
