@@ -25,7 +25,23 @@
 </div>
 
 <div class="row mt-4">
-  <div class="col-12 col-md-12 col-lg-12 mb-3">
-    <app-order-card [id]="200" purchase_date="16-Julio-2025" [quantity]="10" [price]="1000.50" status="entregado"></app-order-card>
-  </div>
+  @defer (when !loading()) {
+    @for (order of allOrders(); track order.id) {
+      <div class="col-12 col-md-12 col-lg-12 mb-3">
+        <app-order-card (updated)="getOrders()" [photos]="getTwoRandomPhotos(order)" [id]="order.id" [purchase_date]="order.purchase_date | date: 'dd MMMM yyyy' | titlecase" [quantity]="order.totalQuantity" [price]="order.price" [status]="order.status"></app-order-card>
+      </div>
+    } @empty {
+      <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+        <h5 class="text-muted">No tienes ordenes realizadas 😿</h5>
+      </div>
+    }
+
+    <div class="mt-4 d-flex align-items-center justify-content-center">
+        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" [responsive]="true"></pagination-controls>
+    </div>
+  } @placeholder {
+    <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+      <app-loader-elements></app-loader-elements>
+    </div>
+  }
 </div>

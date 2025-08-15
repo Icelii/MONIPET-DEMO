@@ -1,12 +1,18 @@
+@defer (when !loading()) {
 <div class="d-flex flex-md-row flex-column justify-content-center align-items-center justify-content-md-between align-items-md-center">
     <div class="d-flex flex-column">
-        <h5 class="title">Detalle de orden #</h5>
-        <p class="desc mb-4">Fecha de recogida</p>
+        <h5 class="title">Detalle de orden #{{orderId}}</h5>
+        <p class="desc mb-4">Fecha de retiro: {{ order.pickup_date | date: 'dd MMMM yyyy hh:mm a' | titlecase }}</p>
     </div>
    <!-- <h5 class="title">Detalle de orden #</h5> -->
     <div class="d-flex flex-row gap-3 mt-2 mt-md-0">
-        <p class="desc mb-0">16-Julio-2025</p>
-        <span class="badge badgePending">Pendiente</span>
+        <p class="desc mb-0">{{ order.purchase_date | date: 'dd MMMM yyyy' | titlecase }}</p>
+        <span class="badge" [ngClass]="{ 'badgePending': order.status === 'Pendiente', 
+            'badgeCanceled': order.status === 'Cancelada', 
+            'badgeDelivered': order.status === 'Entregada'}"
+        >
+            {{ order.status }}
+        </span>
     </div>
 </div>
 
@@ -22,28 +28,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="align-middle">
-                            <td class="align-middle" [attr.data-title]="name">
+                        <tr *ngFor="let item of order.details | paginate: { itemsPerPage: 3, currentPage: p }" class="align-middle">
+                            <td class="align-middle" [attr.data-title]="item.product.name">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="/images/testProduct.webp" class="prdouctImg"/>
-                                    <h5 class="productName">Plato de comida</h5>
+                                    <img [src]="item.product.product_photos[0].photo_link" class="prdouctImg"/>
+                                    <h5 class="productName">{{item.product.name}}</h5>
                                 </div>
                             </td>
                             <td class="align-middle" data-title="Cantidad">
-                                <h2 class="price mb-0">10</h2> 
+                                <h2 class="price mb-0">{{item.quantity}}</h2> 
                             </td>
                             <td class="align-middle" data-title="Subtotal">
-                                <h2 class="price mb-0">$100 Mxn</h2> 
+                                <h2 class="price mb-0">${{ ((item.product.price * item.quantity) * (1 - ((item.product.discount ?? 0) / 100))).toFixed(2) }} MXN</h2> 
                             </td>
                         </tr>
                     </tbody>
             </table>
+
+            <div class="mt-4 d-flex align-items-center justify-content-center">
+                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" [responsive]="true"></pagination-controls>
+            </div>
         </div>
     </div>
 
     <div class="col-12 col-md-4 col-lg-4 mb-3 mt-2">
-        <app-transfer-code transferce_code="028838HH3288"></app-transfer-code>
-        <app-order-resume cancel="order"></app-order-resume>
+        <app-transfer-code [transferce_code]="order.transferce_code"></app-transfer-code>
+        <app-order-resume (updated)="getOrder()" [id]="order.id" [subtotal]="getSubtotalSinDescuento(order.details)" [discountApply]="getDescuentoAplicado(order.details, order.price)" [total]="+order.price" [cancel]="order.status === 'Pendiente' ? 'order' : ''"></app-order-resume>
     </div>
 
 </div>
+} @placeholder {
+    <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+      <app-loader-elements></app-loader-elements>
+    </div>
+}

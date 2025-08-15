@@ -4,6 +4,44 @@
   color: var(--text-principal);
 }
 
+::ng-deep .ngx-pagination .current {
+    background: var(--input-color) !important;
+    color: var(--text-principal) !important;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .ngx-pagination .pagination-previous,
+:host ::ng-deep .ngx-pagination .pagination-next {
+  background-color: var(--secondary-color);
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .ngx-pagination .pagination-previous.disabled,
+:host ::ng-deep .ngx-pagination .pagination-next.disabled {
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.ngx-pagination .pagination-previous:hover,
+.ngx-pagination .pagination-next:hover {
+  background-color: var(--secondary-color-shadow);
+}
+
 .desc {
   font-size: 1rem;
   font-weight: 400;
