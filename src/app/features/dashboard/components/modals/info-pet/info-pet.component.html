@@ -22,27 +22,27 @@
                     <ng-template #defaultImg>
                         <img src="/logos/logomark-grey.svg" class="logo" alt="Logo por defecto" />
                     </ng-template>
-                    <img *ngIf="updloadedImage; else defaultImg" [src]="updloadedImage" class="pet" alt="">
+                    <img *ngIf="pet.pet_photos?.length > 0 && pet.pet_photos[0]?.photo_link; else defaultImg" [src]="pet.pet_photos?.[0]?.photo_link" class="pet" alt="">
                 </div>
             </div>
 
             <div class="col-md-7 d-flex flex-column gap-4">
                 <div class="d-flex flex-column gap-1">
                     <label class="form-label">Nombre</label>
-                    <span class="info">información</span>
+                    <span class="info">{{pet.name}}</span>
                 </div>
 
                 <div class="row gap-4 gap-md-0">
                     <div class="col-md-6">
                         <div class="d-flex flex-column gap-1">
                             <label class="form-label">Raza</label>
-                            <span class="info">información</span>
+                            <span class="info">{{pet.breed?.breed}}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex flex-column gap-1">
                             <label class="form-label">Fecha de nacimiento</label>
-                            <span class="info">información</span>
+                            <span class="info">{{ pet.birthday | date:'dd-MM-yyyy' }}</span>
                         </div>
                     </div>
                 </div>
@@ -51,13 +51,20 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-column gap-1">
                             <label class="form-label">¿Está esterilizado/a?</label>
-                            <span class="info">información</span>
+                            <ng-container [ngSwitch]="pet.spayed">
+                                <span *ngSwitchCase="1" class="info">Si</span>
+                                <span *ngSwitchCase="0" class="info">No</span>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex flex-column gap-1">
                             <label class="form-label">Genero</label>
-                            <span class="info">información</span>
+                            <ng-container [ngSwitch]="pet.gender">
+                                <span *ngSwitchCase="'Hembra'" class="info">Hembra</span>
+                                <span *ngSwitchCase="'Macho'" class="info">Macho</span>
+                                <span *ngSwitchCase="'Desconocido'" class="info">Desconocido</span>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
@@ -66,13 +73,13 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-column gap-1">
                             <label class="form-label">Tamaño</label>
-                            <span class="info">información</span>
+                            <span class="info">{{pet.size}}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex flex-column gap-1">
                             <label class="form-label">Altura</label>
-                            <span class="info">información M</span>
+                            <span class="info">{{pet.height}} M</span>
                         </div>
                     </div>
                 </div>
@@ -81,7 +88,7 @@
                     <div class="col-md-12">
                         <div class="d-flex flex-column gap-1">
                             <label class="form-label">Peso</label>
-                            <span class="info">información Kg</span>
+                            <span class="info">{{pet.weight}} Kg</span>
                         </div>
                     </div>
                 </div>

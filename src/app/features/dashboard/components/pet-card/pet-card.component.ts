@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { EventEmitter, Component, Input, Output, computed } from '@angular/core';
 import { EditPetComponent } from "../modals/edit-pet/edit-pet.component";
 import Swal from 'sweetalert2';
 import { InfoPetComponent } from "../modals/info-pet/info-pet.component";
+import { PetService } from '../../../../core/services/pets/pet.service';
+import { take, timeout } from 'rxjs';
+import { removeFromAdoptionCart, useAdoptionCart } from '../../../../core/stores/adoptionList.store';
 
 @Component({
   selector: 'app-pet-card',
@@ -14,6 +17,8 @@ import { InfoPetComponent } from "../modals/info-pet/info-pet.component";
 export class PetCardComponent {
   showModal = false;
   showInfoModal = false;
+  @Input() id!: number;
+  @Input() photo_id!: number;
   @Input() name: string = '';
   @Input() birthday: string = '';
   @Input() spayed: boolean = false;
@@ -24,12 +29,25 @@ export class PetCardComponent {
   @Input() spayedLabel: string = '';
   @Input() adoptionList: boolean = false;
   @Input() appointmentAdopt: boolean = false;
-  edad: string = ''; 
+  @Output() updated = new EventEmitter<void>();
+  edad: string = '';
+  @Output() removedFromCart = new EventEmitter<number>();
+  @Input() isSelected: boolean = false;
+  @Output() selectionChange = new EventEmitter<number>();
 
-  ngOnInit() {
+  cartIds = useAdoptionCart();
+  isInCart = computed(() => this.cartIds().includes(this.id));
+
+  constructor(private petService: PetService) {}
+
+  ngOnInit(): void {
     if(this.birthday) {
       this.edad = this.calculateAge(this.birthday);
     }
+  }
+
+  onPetUpdated() {
+    this.updated.emit();
   }
 
   calculateAge(birthday: string): string {
@@ -74,6 +92,19 @@ export class PetCardComponent {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
+        this.petService.deletePet(this.id).pipe(timeout(15000), take(1)).subscribe({
+          next: (response) => {
+            Swal.fire({
+              title: "Macota eliminada",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+              didClose: () => {
+                this.updated.emit();
+              }
+            });
+          }
+        });
       }
     });
   }
@@ -90,5 +121,16 @@ export class PetCardComponent {
 
     const infoBtn = document.getElementById('infoPetBtn');
     infoBtn?.focus();
-  }  
+  }
+  
+  removePet() {
+    if (this.isInCart()) {
+      removeFromAdoptionCart(this.id);
+      this.removedFromCart.emit(this.id);
+    }
+  }
+
+  toggleCheckbox() {
+    this.selectionChange.emit(this.id);
+  }
 }

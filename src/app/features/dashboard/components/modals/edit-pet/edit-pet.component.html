@@ -28,13 +28,13 @@
                 <button type="button" class="mt-2 btn btnUploadImg">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-photo"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01" /><path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" /><path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" /><path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" /></svg>
                     Subir foto
-                    <input class="file" id="image" type="file" accept=".jpg,.jpeg,.png,.webp" (change)="fileChange($event)" />
+                    <input class="file" id="photo" type="file" accept=".jpg,.jpeg,.png,.webp" (change)="fileChange($event)" />
                 </button>
                 <button *ngIf="updloadedImage" type="button" class="mt-2 btn btnDeleteImg" (click)="removeImage()">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-photo-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01" /><path d="M7 3h11a3 3 0 0 1 3 3v11m-.856 3.099a2.991 2.991 0 0 1 -2.144 .901h-12a3 3 0 0 1 -3 -3v-12c0 -.845 .349 -1.608 .91 -2.153" /><path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" /><path d="M16.33 12.338c.574 -.054 1.155 .166 1.67 .662l3 3" /><path d="M3 3l18 18" /></svg>
                     Quitar foto
                 </button>
-                <app-error-messages [control]="getControl('image')" version="m" label="Este campo"></app-error-messages>
+                <app-error-messages [control]="getControl('photo')" version="m" label="Este campo"></app-error-messages>
             </div>
 
             <div class="col-md-7 d-flex flex-column gap-4">
@@ -50,9 +50,7 @@
                         <label class="form-label" for="breed_id">Raza</label>
                         <select class="form-control" id="breed_id" formControlName="breed_id">
                             <option hidden disabled selected value="">Seleccionar</option>
-                            <option value="test2">Test1</option>
-                            <option value="test2">Test2</option>
-                            <option value="test3">Test3</option>
+                            <option *ngFor="let breed of breeds" [value]="breed.id">{{breed.breed}}</option>
                         </select>
                         <app-error-messages [control]="getControl('breed_id')" version="m" label="Este campo"></app-error-messages>
                     </div>
@@ -89,9 +87,9 @@
                         <label class="form-label" for="gender">Genero</label>
                         <select class="w-100 form-control" id="gender" formControlName="gender">
                             <option hidden disabled selected value="">Seleccionar</option>
-                            <option value="test2">Macho</option>
-                            <option value="test2">Hembra</option>
-                            <option value="test3">Desconocido</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Hembra">Hembra</option>
+                            <option value="Desconocido">Desconocido</option>
                         </select>
                         <app-error-messages [control]="getControl('gender')" version="m" label="Este campo"></app-error-messages>
                     </div>
@@ -102,26 +100,26 @@
                         <label class="form-label" for="size">Tamaño</label>
                         <select class="w-100 form-control" id="size" formControlName="size">
                             <option hidden disabled selected value="">Seleccionar</option>
-                            <option value="test2">Test1</option>
-                            <option value="test2">Test2</option>
-                            <option value="test3">Test3</option>
+                            <option value="Chico">Chico</option>
+                            <option value="Mediano">Mediano</option>
+                            <option value="Grande">Grande</option>
                         </select>
                         <app-error-messages [control]="getControl('size')" version="m" label="Este campo"></app-error-messages>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="height">Altura</label>
-                        <input type="number" id="height" formControlName="height" class="w-100 form-control customInputs" 
-                        placeholder="Altura en metros"/>
-                        <app-error-messages [control]="getControl('height')" version="m" label="Este campo"></app-error-messages>
+                        <input (input)="onHeightInput($event)" [min]="1" [max]="90" type="number" id="height" formControlName="height" class="w-100 form-control customInputs" 
+                        placeholder="Altura en cm"/>
+                        <app-error-messages [control]="getControl('height')" unidad="cm" version="m" label="Este campo"></app-error-messages>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
                         <label class="form-label" for="weight">Peso</label>
-                        <input type="number" id="weight" formControlName="weight" class="w-100 form-control customInputs" 
+                        <input (input)="onWeightInput($event)" [min]="1" [max]="90" type="number" id="weight" formControlName="weight" class="w-100 form-control customInputs" 
                         placeholder="Ingresa el peso en kilogramos"/>
-                        <app-error-messages [control]="getControl('weight')" version="m" label="Este campo"></app-error-messages>
+                        <app-error-messages [control]="getControl('weight')" unidad="kg" version="m" label="Este campo"></app-error-messages>
                     </div>
                 </div>
 
@@ -130,7 +128,7 @@
       </div>
       <div class="modal-footer d-flex flex-row align-items-center justify-content-center">
         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-        <button type="submit" class="btn btnContinue mb-3">Agregar mascota</button>
+        <button type="submit" class="btn btnContinue mb-3">Guardar datos</button>
       </div>
     </div>
   </form>
