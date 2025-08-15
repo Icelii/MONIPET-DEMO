@@ -32,10 +32,25 @@
 </div>
 
 <div class="row mt-4">
-    <div class="col-12 col-md-6 col-lg-6 mb-3">
-        <app-appointment-card service="Test" [adoption]="true" status="pendiente" [price]="100" desc="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, sapiente odio sunt iste tempore vel dolorum! Blanditiis voluptatum quos esse laboriosam quam odit quo, nemo provident! Laudantium doloribus tenetur soluta."></app-appointment-card>
-    </div>
-    <div class="col-12 col-md-6 col-lg-6 mb-3">
-        <app-appointment-card service="Test" [adoption]="false" status="pendiente" [price]="100" desc="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, sapiente odio sunt iste tempore vel dolorum! Blanditiis voluptatum quos esse laboriosam quam odit quo, nemo provident! Laudantium doloribus tenetur soluta."></app-appointment-card>
-    </div>
+    @defer (when !loading()) {
+        @for (appointment of appointments(); track appointment.id) {
+            <div class="col-12 col-md-6 col-lg-6 mb-3">
+                <app-appointment-card (updated)="getAppointments()" [id]="appointment.id" [adoption]="appointment.type_appointment === 'Adoptiva'" [status]="appointment.status" [price]="appointment.total_price" [desc]="appointment.descripcion" [date]="appointment.date | date: 'dd MMMM yyyy hh:mm a' | titlecase"></app-appointment-card>
+            </div>
+        } @empty {
+            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                <h5 class="text-muted">No tienes citas realizadas 😿</h5>
+            </div>
+        }
+
+        <ng-container *ngIf="appointments()">
+            <div class="mt-4 d-flex align-items-center justify-content-center">
+                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" [responsive]="true"></pagination-controls>
+            </div>
+        </ng-container>
+    } @placeholder {
+        <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+            <app-loader-elements></app-loader-elements>
+        </div>
+    }
 </div>

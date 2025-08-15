@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-extra-info',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './extra-info.component.html',
   styleUrl: './extra-info.component.css'
 })
 export class ExtraInfoComponent {
-
+  @Input() descripcion!: string;
 }

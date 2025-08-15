@@ -2,7 +2,12 @@
     <div class="d-flex flex-column gap-3">
         <h5 class="title">Notas/Información extra</h5>
         <div class="d-flex justify-content-between align-items-center">
-            <p class="subTitle">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut explicabo sequi aliquid dolor expedita ex quisquam soluta itaque error, saepe dignissimos iusto libero quae ratione possimus est suscipit ipsa velit.</p>
+            <ng-container *ngIf="descripcion !== '' && descripcion !== null">
+                <p class="subTitle">{{descripcion}}</p>
+            </ng-container>
+            <ng-container *ngIf="descripcion === '' || descripcion === null">
+                <p class="subTitle">No hay descripción.</p>
+            </ng-container>
         </div>
     </div>
 </div>
