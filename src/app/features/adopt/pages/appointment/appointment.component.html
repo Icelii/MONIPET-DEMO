@@ -7,16 +7,27 @@
                 <h5 class="instructions">Puedes quitar opciones antes de confirmar tu cita.</h5>
             </div>
             <div class="mt-md-5 mt-lg-5 mt-4 row">
-                <div class="col-12 col-md-12 col-lg-12 mb-3">
-                    <app-adoption-appointment-cards breed="Caniche" size="chico" birthday="2025-01-10" [spayed]="true" sex="macho"></app-adoption-appointment-cards>
-                </div>
-                
+                @defer (when !loading()) {
+                    @for (pet of petsAdoption(); track pet.id) {
+                        <div class="col-12 col-md-12 col-lg-12 mb-3">
+                            <app-adoption-appointment-cards [id]="pet.id" [photo_link]="pet.pet_photos[0].photo_link" [breed]="pet.name" [size]="pet.size" [birthday]="pet.birthday" [spayed]="pet.spayed" [gender]="pet.gender"></app-adoption-appointment-cards>
+                        </div>
+                    } @empty {
+                        <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                            <h5 class="text-muted">No hay mascotas seleccionadas 😿</h5>
+                        </div>
+                    }
+                } @placeholder {
+                    <div class="w-100 d-flex justify-content-center align-items-center py-5">
+                        <app-loader-elements></app-loader-elements>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- ORDER RESUMEN -->
         <div class="col-12 col-md-5 col-lg-5 mb-3">
-            <app-appointment-details [service]="false" [submitToUrl]="'test/test'"></app-appointment-details>
+            <app-appointment-details [pets]="pet_id" [service]="false" [type]="'Adoptiva'" [submitTo]="'Adoption'"></app-appointment-details>
         </div>
     </div>
 </div>

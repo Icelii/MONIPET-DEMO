@@ -9,14 +9,14 @@ import { Component, Input } from '@angular/core';
   styleUrl: './adoption-appointment-cards.component.css',
 })
 export class AdoptionAppointmentCardsComponent {
-  @Input() name: string = '';
-  @Input() birthday: string = '';
-  @Input() spayed: boolean = false;
-  @Input() breed: string = '';
-  @Input() sex: string = '';
-  @Input() size: string = '';
-  @Input() photo_link: string = '';
-  @Input() spayedLabel: string = '';
+  @Input() id!: number;
+  @Input() name!: string;
+  @Input() birthday!: string;
+  @Input() spayed!: boolean;
+  @Input() breed!: string;
+  @Input() gender!: string;
+  @Input() size!: string;
+  @Input() photo_link!: string;
   edad: string = ''; 
 
   ngOnInit() {
