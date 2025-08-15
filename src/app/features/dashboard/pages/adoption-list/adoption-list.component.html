@@ -15,20 +15,28 @@
     </div>
     <div class="searchBar">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-        <input type="text" placeholder="Buscar mascota...">
+        <input type="text" [value]="searchText()" (input)="searchText.set($any($event.target).value)" placeholder="Buscar mascota...">
     </div>
 </div>
 
 <div class="row mt-4">
     @defer (when !loading()) {
-        @for (pet of pets(); track pet.id) {
+        @for (pet of filteredPets(); track pet.id) {
             <div class="col-12 col-md-6 col-lg-6 mb-3">
                 <app-pet-card [isSelected]="selectedPets().includes(pet.id)" (selectionChange)="onSelectionChange($event)" (removedFromCart)="onPetRemoved()" [id]="pet.id" [name]="pet.name" [appointmentAdopt]="false" [gender]="pet.gender" [breed]="pet.breed.breed" [birthday]="pet.birthday" [size]="pet.size" [spayed]="pet.spayed" [photo_link]="pet.pet_photos[0]?.photo_link" [adoptionList]="true"></app-pet-card>
             </div>
         } @empty {
-            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
-                <h5 class="text-muted">Tu lista de adopción esta vacia 😿</h5>
-            </div>
+            @if (pets().length === 0) {
+                <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                    <h5 class="text-muted">Tu lista de adopción está vacía 😿</h5>
+                </div>
+            }
+            
+            @else {
+                <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                    <h5 class="text-muted">No hay resultados 😿</h5>
+                </div>
+            }
         }
     } @placeholder {
         <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">

@@ -19,9 +19,17 @@
         <app-pet-card (updated)="getPets()" [id]="pet.id" [name]="pet.name" [appointmentAdopt]="false" [gender]="pet.gender" [breed]="pet.breed.breed" [birthday]="pet.birthday" [size]="pet.size" [spayed]="pet.spayed" [adoptionList]="false" [photo_id]="pet.pet_photos[0]?.id" [photo_link]="pet.pet_photos[0]?.photo_link"></app-pet-card>
       </div>
     } @empty {
-      <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
-        <h5 class="text-muted">No tienes mascotas registradas 😿</h5>
-      </div>
+      @if (pets().length === 0) {
+        <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+          <h5 class="text-muted">Tu lista de adopción está vacía 😿</h5>
+        </div>
+      }
+            
+      @else {
+        <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+          <h5 class="text-muted">No hay resultados 😿</h5>
+        </div>
+      }
     }
   } @placeholder {
     <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">

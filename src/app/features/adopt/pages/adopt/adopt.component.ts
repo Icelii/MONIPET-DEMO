@@ -18,6 +18,7 @@ import { LoaderElementsComponent } from '../../../../shared/components/loader-el
 export class AdoptComponent {
   pets: any[] = [];
   filteredPets: any[] = [];
+  filteredPetsAfterSubmit: any[] = [];
   typesPet: any[] = [];
   filtrosForm: FormGroup;
   breeds: any[] = [];
@@ -146,6 +147,8 @@ export class AdoptComponent {
 
     this.submitted = true;
     this.applyFilters();
+
+    this.filteredPetsAfterSubmit = [...this.filteredPets];
 
     setTimeout(() => {
       this.resultadosRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });

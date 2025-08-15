@@ -125,9 +125,12 @@
       <h2 #resultados class="title2 mb-4">
       @defer (when !loading()) {
         <ng-container *ngIf="submitted; else tituloDefault">
-          <ng-container *ngIf="filtroActivo(); else tituloDefault">
-            {{ filteredPets.length }} resultado{{ filteredPets.length === 1 ? '' : 's' }}
+          <ng-container *ngIf="filteredPetsAfterSubmit.length === pets.length; else resultadosFiltrados">
+            Todo
           </ng-container>
+          <ng-template #resultadosFiltrados>
+            {{ filteredPetsAfterSubmit.length }} resultado{{ filteredPetsAfterSubmit.length === 1 ? '' : 's' }}
+          </ng-template>
         </ng-container>
         <ng-template #tituloDefault>
           Todo

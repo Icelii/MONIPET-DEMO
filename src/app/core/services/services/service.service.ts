@@ -8,9 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class ServiceService {
   private baseUrl: string;
+  private baseCategoriesUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = `${environment.apiUrlBase}service/`
+    this.baseUrl = `${environment.apiUrlBase}service/`;
+    this.baseCategoriesUrl = `${environment.apiUrlBase}type_service/`;
   }
 
   getServices(): Observable<any> {
@@ -23,5 +25,9 @@ export class ServiceService {
 
   getServiceList(services: any[]): Observable<any> {
     return this.http.post<{data: any[]}>(`${this.baseUrl}list`, {serviceIds: services});
+  }
+
+  getCategories(): Observable<any> {
+    return this.http.get<any>(this.baseCategoriesUrl);
   }
 }
