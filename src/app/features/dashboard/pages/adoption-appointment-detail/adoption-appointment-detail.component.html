@@ -1,39 +1,54 @@
+@defer (when !loading()) {
 <div class="d-flex flex-md-row flex-column justify-content-center align-items-center justify-content-md-between align-items-md-center">
-   <h5 class="title mb-0">Detalle de cita #</h5>
-    <div class="d-flex flex-row gap-3 mt-2 mt-md-0">
-        <p class="desc mb-0">16-Julio-2025</p>
-        <span class="badge badgeWarning">Pendiente</span>
-    </div>
-</div>
-
-<div class="row mt-md-5 mt-4">
-    <div class="col-12 col-md-8 col-lg-8">
-        <div class="mb-md-3 mb-4 d-flex flex-column flex-md-row justify-content-start align-items-start gap-md-2 gap-1">
-            <h5 class="creationDate">Fecha y hora de creación:</h5>
-            <h5 class="creationDate">17-Junio-2025 04:25 am</h5>
+    <h5 class="title mb-0">Detalle de cita #{{appointment().id}}</h5>
+        <div class="d-flex flex-row gap-3 mt-2 mt-md-0">
+            <p class="desc mb-0">{{appointment().created_at | date: 'dd MMMM yyyy' | titlecase }}</p>
+            <span class="badge" [ngClass]="{ 'badgeSuccess': appointment().status === 'Finalizada', 
+                'badgeCanceled': appointment().status === 'Cancelada',
+                'badgeWarning': appointment().status === 'Pendiente'
+                }"
+            >
+                {{appointment().status}}
+            </span>
         </div>
-        
-        <h5 class="subTitle">Mascotas a conocer</h5>
+    </div>
 
-        <div class="row mt-4 gap-2">
-            <div class="col-12 col-md-12 col-lg-12">
-                    <app-pet-card name="Mili" [appointmentAdopt]="true" gender="hembra" breed="Pug-Zu" birthday="2020-07-16" size="Chico"></app-pet-card>
+    <div class="row mt-md-5 mt-4">
+        <div class="col-12 col-md-8 col-lg-8">
+            <div class="mb-md-3 mb-4 d-flex flex-column flex-md-row justify-content-start align-items-start gap-md-2 gap-1">
+                <h5 class="creationDate">Fecha y hora agendada:</h5>
+                <h5 class="creationDate">{{appointment().date | date: 'dd MMMM yyyy hh:mm a' | titlecase}}</h5>
             </div>
-
-            <div class="col-12 col-md-12 col-lg-12">
             
+            <h5 class="subTitle">Mascotas a conocer</h5>
+
+            <div class="row mt-4 gap-2">
+                @for (pet of appointment().appointment_pets; track pet.id) {
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <app-pet-card [photo_link]="pet.pet.pet_photos[0].photo_link" [name]="pet.pet.name" [appointmentAdopt]="true" [gender]="pet.pet.gender" [breed]="pet.pet.breed.breed" [birthday]="pet.pet.birthday" [spayed]="pet.pet.spayed" [size]="pet.pet.size"></app-pet-card>
+                    </div>
+                } @empty {
+                    <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                        <h5 class="text-muted">No hay mascotas 😿</h5>
+                    </div>
+                }
             </div>
         </div>
-    </div>
 
-    <div class="col-12 col-md-4 col-lg-4 mb-3 mt-4">
-        <app-extra-info></app-extra-info>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <button type="submit" class="mt-2 btn btnCancel">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-calendar-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h9a2 2 0 0 1 2 2v9m-.184 3.839a2 2 0 0 1 -1.816 1.161h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 1.158 -1.815" /><path d="M16 3v4" /><path d="M8 3v1" /><path d="M4 11h7m4 0h5" /><path d="M3 3l18 18" /></svg>
-                Cancelar cita
-            </button>
+        <div class="col-12 col-md-4 col-lg-4 mb-3 mt-4">
+            <app-extra-info [descripcion]="appointment().descripcion"></app-extra-info>
+            <ng-container *ngIf="appointment().status === 'Pendiente'">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <button type="submit" (click)="confirmCancelAppointment()" class="mt-2 btn btnCancel">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-calendar-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h9a2 2 0 0 1 2 2v9m-.184 3.839a2 2 0 0 1 -1.816 1.161h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 1.158 -1.815" /><path d="M16 3v4" /><path d="M8 3v1" /><path d="M4 11h7m4 0h5" /><path d="M3 3l18 18" /></svg>
+                        Cancelar cita
+                    </button>
+                </div>
+            </ng-container>
         </div>
     </div>
-
-</div>
+} @placeholder {
+    <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+      <app-loader-elements></app-loader-elements>
+    </div>
+}

@@ -62,6 +62,7 @@
   font-weight: 500;
   padding: 6px 9px;
   border-radius: 4px;
+  cursor: default;
 }
 
 .badgeSuccess {

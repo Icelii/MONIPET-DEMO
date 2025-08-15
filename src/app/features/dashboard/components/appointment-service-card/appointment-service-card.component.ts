@@ -13,6 +13,7 @@ export class AppointmentServiceCardComponent {
   @Input() price: number = 0;
   @Input() discounts: number = 0;
   @Input() typeService: string = '';
+  @Input() canceled!: boolean;
   priceDiscount: number = 0;
   
   ngOnInit() {

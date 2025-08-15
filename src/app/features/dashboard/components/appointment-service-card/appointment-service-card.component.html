@@ -4,24 +4,26 @@
         <h5 class="serviceName mb-0">{{ service }}</h5>
         <p class="desc mb-2">{{ typeService }}</p>
         <div *ngIf="discounts > 0" class="mt-2 d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-1 gap-lg-3 gap-md-3 gap-sm-0">
-            <h2 class="price mb-0">${{ priceDiscount.toFixed(2) }} Mxn</h2>
+            <h2 class="price mb-0">${{ priceDiscount }} Mxn</h2>
             <div class="d-flex align-items-center justify-content-between">
                 <span class="text-decoration-line-through text-muted me-1 mb-0 lastPrice">${{ price }}</span><span class="text-muted lastPrice me-2">Mxn</span>
                 <span class="badge">-{{ discounts }}%</span>
             </div>
         </div>
 
-        <div *ngIf="discounts === 0" class="mt-2 d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-0 gap-lg-3 gap-md-3 gap-sm-0">
-            <h2 class="price mb-0">${{ priceDiscount.toFixed(2) }} Mxn</h2>
+        <div *ngIf="discounts === 0.00" class="mt-2 d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-0 gap-lg-3 gap-md-3 gap-sm-0">
+            <h2 class="price mb-0">${{ priceDiscount }} Mxn</h2>
         </div>
       </div>
 
-  <button class="btn btnDelete" title="Eliminar">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M18 6l-12 12" />
-      <path d="M6 6l12 12" />
-    </svg>
-  </button>
+      <!-- <ng-container *ngIf="canceled === true">
+        <button class="btn btnDelete" title="Eliminar">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </ng-container> -->
   </div>
 </div>
