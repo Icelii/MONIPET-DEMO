@@ -10,24 +10,28 @@
       <h5 class="petName mb-2">{{ name }}</h5>
 
       <div class="mb-3 d-flex flex-wrap gap-1">
-          <div *ngIf="gender == 'macho'" class="badgeSexMale me-1 d-flex flex-row justify-content-center align-items-center">
-            <span class="me-1">Macho</span>
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="var(--male-gender-color)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-gender-male"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 14m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M19 5l-5.4 5.4" /><path d="M19 5h-5" /><path d="M19 5v5" /></svg>
+        <ng-container [ngSwitch]="gender">
+          <div *ngSwitchCase = "'Macho'" class="badgeSexMale me-1 d-flex flex-row justify-content-center align-items-center">
+              <span class="me-1 mb-0">Macho</span>
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="var(--male-gender-color)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-gender-male"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 14m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M19 5l-5.4 5.4" /><path d="M19 5h-5" /><path d="M19 5v5" /></svg>
           </div>
-        
-        <div *ngIf="gender == 'hembra'" class="badgeSexFemale me-1 d-flex flex-row justify-content-center align-items-center">
-          <span class="me-1">Hembra</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--female-gender-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gender-female"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M12 14v7" /><path d="M9 18h6" /></svg>
-        </div>
+          
+          <div *ngSwitchCase = "'Hembra'" class="badgeSexFemale me-1 d-flex flex-row justify-content-center align-items-center">
+            <span class="me-1 mb-0">Hembra</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--female-gender-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gender-female"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 9m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M12 14v7" /><path d="M9 18h6" /></svg>
+          </div>
 
-        <div *ngIf="gender == 'desconocido'" class="badgeSexUknown me-1 d-flex flex-row justify-content-center align-items-center">
-          <span class="me-1">Desconocido</span>
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-gender-neutrois"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 10a5 5 0 1 1 0 10a5 5 0 0 1 0 -10z" /><path d="M12 10v-7" /></svg>
-        </div>
+          <div *ngSwitchCase = "'Desconocido'" class="badgeSexUknown me-1 d-flex flex-row justify-content-center align-items-center">
+            <span class="me-1 mb-0">Desconocido</span>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="16"  height="16"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-gender-neutrois"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 10a5 5 0 1 1 0 10a5 5 0 0 1 0 -10z" /><path d="M12 10v-7" /></svg>
+          </div>
+        </ng-container>
 
-        <span *ngIf="spayed === false" class="badgeNoSpayed me-1">No esterilizado</span>
+        <ng-container [ngSwitch]="spayed">
+          <span *ngSwitchCase = "0" class="badgeNoSpayed me-1 mb-0">No esterilizado</span>
 
-        <span *ngIf="spayed === true" class="badgeSpayed me-1">Esterilizado</span>
+          <span *ngSwitchCase = "1" class="badgeSpayed me-1 mb-0">Esterilizado</span>
+        </ng-container>
       </div>
 
       <div class="d-flex flex-column justify-content-between gap-1">
@@ -86,18 +90,18 @@
 
     <div *ngIf="adoptionList === true && appointmentAdopt === false" class="d-flex flex-row-justify-content-between align-items-end">
         <label class="custom-checkbox">
-            <input type="checkbox" />
+            <input type="checkbox" [checked]="isSelected" (change)="toggleCheckbox()" />
             <span class="checkmark">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
             </span>
         </label> 
 
-        <button class="ms-1 mt-md-0 mt-2 btn btnDelete" title="Eliminar" (click)="deletePet($event)">
+        <button class="ms-1 mt-md-0 mt-2 btn btnDelete" title="Eliminar de la lista" (click)="removePet()">
             <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="none" stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
         </button>
     </div>
   </div>
 </div>
 
-<app-edit-pet [isOpen]="showModal" (closed)="onModalClosed()"></app-edit-pet>
-<app-info-pet [isOpen]="showInfoModal" (closed)="onInfoModalClosed()"></app-info-pet>
+<app-edit-pet (updated)="onPetUpdated()" [photo_id]="photo_id" [id]="id" [isOpen]="showModal" (closed)="onModalClosed()"></app-edit-pet>
+<app-info-pet [petId]="id" [isOpen]="showInfoModal" (closed)="onInfoModalClosed()"></app-info-pet>
