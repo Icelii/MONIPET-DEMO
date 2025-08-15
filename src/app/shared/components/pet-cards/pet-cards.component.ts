@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, computed, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { addToAdoptionCart, removeFromAdoptionCart, useAdoptionCart } from '../../../core/stores/adoptionList.store';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-pet-cards',
@@ -11,20 +13,39 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class PetCardsComponent {
   @Input() pet_id!: number;
-  @Input() name: string = "";
-  @Input() gender: string = "Desconocido";
-  @Input() birthday: string = '';
-  @Input() photo_link: string = "";
+  @Input() name!: string;
+  @Input() gender!: string;
+  @Input() birthday!: string;
+  @Input() photo_link!: string;
   isAdoptRoute: boolean = false;
   age: string = ''; 
 
-  constructor(private router: Router) {
+  cartIds = useAdoptionCart();
+  isInCart = computed(() => this.cartIds().includes(this.pet_id));
+
+  constructor(private router: Router, private authService: AuthService) {
     this.isAdoptRoute = this.router.url.includes('/adopt');
   }
 
   ngOnInit() {
     if(this.birthday) {
       this.age = this.calculateAge(this.birthday);
+    }
+  }
+
+  toggleCartIfLoggedIn() {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.toggleCart();
+    }
+  }
+
+  toggleCart() {
+    if (this.isInCart()) {
+      removeFromAdoptionCart(this.pet_id);
+    } else {
+      addToAdoptionCart(this.pet_id);
     }
   }
 
