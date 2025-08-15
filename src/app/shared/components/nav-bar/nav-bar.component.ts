@@ -1,10 +1,11 @@
 import { CommonModule, isPlatformBrowser} from '@angular/common';
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, signal, Signal, Input} from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, signal, Signal, Input, computed, effect} from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { BehaviorSubject, Subscription, take, timeout } from 'rxjs';
 import { UserService } from '../../../core/services/user.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { currentUser } from '../../../core/stores/auth.store';
 
 declare var bootstrap: any;
 @Component({
@@ -17,15 +18,14 @@ declare var bootstrap: any;
 export class NavBarComponent implements OnInit, OnDestroy {
   private offcanvasInstance: any;
   private routerSub!: Subscription;
-  loginStatus: Boolean = false;
-  user: any = {};
+  loginStatus = computed(() => !!currentUser());
+  user = computed(() => currentUser());
   loading = signal(true);
   notifications: any[] = [];
 
   constructor(private authService: AuthService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.getUser();
     this.getNotifications();
 
     if (isPlatformBrowser(this.platformId)) {
@@ -42,27 +42,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
   }
 
-  getUser() {
-    this.authService.getUserInfo().pipe(timeout(15000), take(1)).subscribe({
-      next: (response) => {
-        this.loginStatus = response.result
-        if (response.result && response.data) {
-          const { name } = response.data;
-          this.user = { name };
-          this.loading.set(false);
-          //console.log('USER: ', this.user)
-        } else {
-          this.loading.set(false);
-        }
-        this.loading.set(false);
-      },
-      error: (error) => {
-        this.loading.set(false);
-        //console.log(error);
-      }
-    });
-  }
-
   getNotifications() {
     this.userService.getNotifications().pipe(timeout(15000), take(1)).subscribe({
       next: (response) => {
@@ -73,12 +52,15 @@ export class NavBarComponent implements OnInit, OnDestroy {
             message: noti.data.message,
             read_at: noti.read_at
           }));
+          this.loading.set(false);
           //console.log('NOTIS:', this.notifications);
         } else {
+          this.loading.set(false);
           //console.log('Respuesta recibida sin estructura esperada:', response);
         }
       },
       error: (error) => {
+        this.loading.set(false);
         //console.error(error);
       }
     });

@@ -1,10 +1,11 @@
-import { afterRender, Component, OnInit } from '@angular/core';
+import { afterRender, Component, computed, effect, OnInit } from '@angular/core';
 import { NavBarComponent } from "../../shared/components/nav-bar/nav-bar.component";
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from "../../shared/components/footer/footer.component";
 import { NotificationService } from '../../core/services/notification.service';
 import { AuthService } from '../../core/services/auth.service';
 import { take, timeout } from 'rxjs';
+import { currentUser } from '../../core/stores/auth.store';
 
 @Component({
   selector: 'app-main-layout',
@@ -14,27 +15,17 @@ import { take, timeout } from 'rxjs';
   styleUrl: './main-layout.component.css'
 })
 export class MainLayoutComponent implements OnInit {
-  user: any = {}
+  user = computed(() => currentUser());
   
-  constructor(private notificationService: NotificationService, private authService: AuthService) {}
+  constructor(private notificationService: NotificationService, private authService: AuthService) {
+    effect(() => {
+      const user = this.user();
 
-  ngOnInit(): void {
-    this.getUser();
-  }
-
-  getUser() {
-    this.authService.getUserInfo().pipe(timeout(15000), take(1)).subscribe({
-      next: (response) => {
-        if (response.result && response.data) {
-          const { id } = response.data;
-          this.user = { id };
-          this.notificationService.subscribeToUserNotifications(this.user.id);
-          //console.log('USER: ', this.user)
-        }
-      },
-      error: (error) => {
-        //console.log(error);
+      if (user?.id) {
+        this.notificationService.subscribeToUserNotifications(user.id);
       }
-    });
+    })
   }
+
+  ngOnInit(): void {}
 }

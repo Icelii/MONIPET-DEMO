@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { LoaderService } from '../../../core/services/loader.service';
 
 @Component({
   selector: 'app-loader',
@@ -9,7 +10,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './loader.component.css'
 })
 export class LoaderComponent {
-  @Input() visible = false;
+  private readonly loaderService = inject(LoaderService);
 
-  paws = Array(8);
+  isLoading = this.loaderService.isLoading;
 }

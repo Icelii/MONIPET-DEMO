@@ -1,12 +1,14 @@
 .ajax-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
+  background: rgba(0,0,0,0.3);
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  flex-direction: column;
-  gap: 15px;
-  padding: 0 10px;
+  justify-content: center;
+  z-index: 9999; /* mucho mayor que 1000 */
 }
 
 .loader-wrapper {
