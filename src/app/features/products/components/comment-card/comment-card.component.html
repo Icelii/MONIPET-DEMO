@@ -1,18 +1,26 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="text">Username</h5>
+    <div class="d-flex flex-row justify-content-between align-content-center">
+      <h5 class="text">{{username || 'Usuario desconocido'}}</h5>
+      <p class="desc mb-0">{{date | date: 'dd MMMM yyyy' | titlecase }}</p>
+    </div>
 
-    <div class="d-flex align-items-center gap-1 mt-3 mb-4">
-      <ng-container *ngFor="let star of [1,2,3,4,5]">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star">
+    <div class="d-flex align-items-center gap-1 mt-2 mb-4">
+      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            width="16" height="16" viewBox="0 0 24 24"
+             [attr.fill]="star <= rate ? 'var(--text-principal)' : 'none'"
+            stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-star">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+          <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1
+                  l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
         </svg>
       </ng-container>
     </div>
 
-    <h5 class="text mb-3">Title</h5>
+    <h5 class="text mb-3">{{ title || 'Sin título' }}</h5>
 
-    <p class="desc mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam similique nostrum, qui nulla esse quam, iste nobis voluptatum dolores aspernatur eum? Nulla velit explicabo, laboriosam tempora id esse laborum quibusdam.</p>
+    <p class="desc mb-0">{{comment}}</p>
   </div>
 </div>

@@ -3,6 +3,24 @@
   max-width: 100%;
 }
 
+.btnReturn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  width: 24px;
+  height: 24px;
+}
+
+.return {
+  cursor: pointer;
+  font-size: 1.125rem;
+  color: var(--text-principal);
+  text-decoration: none !important;
+  font-weight: 600;
+}
+
 .subtitle {
   font-size: 1.5rem;
   font-weight: 600;
@@ -210,6 +228,11 @@ hr {
   font-weight: 600;
   border: none;
   background-color: transparent;
+}
+
+.counter button:disabled {
+  cursor: not-allowed;
+  color: gray; 
 }
 
 .quantityTitle {
