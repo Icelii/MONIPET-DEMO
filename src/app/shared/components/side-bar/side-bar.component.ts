@@ -2,6 +2,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterModule, NavigationStart, Router, Event } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../core/services/auth.service';
 
 declare var bootstrap: any;
 @Component({
@@ -18,7 +19,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) platformId: Object
+    @Inject(PLATFORM_ID) platformId: Object,
+    private authService: AuthService,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -51,6 +53,12 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerSub?.unsubscribe();
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/login']);
+    });
   }
 
   private cleanUpScrollLock() {

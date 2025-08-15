@@ -5,6 +5,7 @@ import { UserDashboardLayoutComponent } from './layouts/user-dashboard-layout/us
 import { OrdenDetailComponent } from './features/dashboard/pages/orden-detail/orden-detail.component';
 import { tokenGuard } from './core/guards/token.guard';
 import { tokenDashboardGuard } from './core/guards/token-dashboard.guard';
+import { authenticatedGuard } from './core/guards/authenticated.guard';
 
 export const routes: Routes = [
   {
@@ -26,9 +27,9 @@ export const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      { path: 'login', loadComponent: () => import('./features/auth/pages/login/login.component').then(c => c.LoginComponent) },
-      { path: 'register', loadComponent: () => import('./features/auth/pages/register/register.component').then(c => c.RegisterComponent) },
-      { path: 'auth-code', loadComponent: () => import('./features/auth/pages/auth-code/auth-code.component').then(c => c.AuthCodeComponent) },
+      { path: 'login', loadComponent: () => import('./features/auth/pages/login/login.component').then(c => c.LoginComponent), canActivate: [authenticatedGuard] },
+      { path: 'register', loadComponent: () => import('./features/auth/pages/register/register.component').then(c => c.RegisterComponent), canActivate: [authenticatedGuard] },
+      { path: 'auth-code', loadComponent: () => import('./features/auth/pages/auth-code/auth-code.component').then(c => c.AuthCodeComponent), canActivate: [authenticatedGuard] },
       { path: 'account-recovery', loadComponent: () => import('./features/auth/pages/recovery-account/recovery-account.component').then(c => c.RecoveryAccountComponent) },
       { path: 'new-password', loadComponent: () => import('./features/auth/pages/new-password/new-password.component').then(c => c.NewPasswordComponent) },
     ],
@@ -42,15 +43,15 @@ export const routes: Routes = [
       { path: 'pets', loadComponent: () => import('./features/dashboard/pages/pets/pets.component').then(c => c.PetsComponent) },
       { path: 'adoption-list', loadComponent: () => import('./features/dashboard/pages/adoption-list/adoption-list.component').then(c => c.AdoptionListComponent) },
       { path: 'orders', loadComponent: () => import('./features/dashboard/pages/orders/orders.component').then(c => c.OrdersComponent) },
-      { path: 'orders/detail', loadComponent: () => import('./features/dashboard/pages/orden-detail/orden-detail.component').then(c => OrdenDetailComponent) },
+      { path: 'orders/detail/:id', loadComponent: () => import('./features/dashboard/pages/orden-detail/orden-detail.component').then(c => OrdenDetailComponent) },
       { path: 'favorites', loadComponent: () => import('./features/dashboard/pages/favorites/favorites.component').then(c => c.FavoritesComponent) },
       { path: 'reports', loadComponent: () => import('./features/dashboard/pages/reports/reports.component').then(c => c.ReportsComponent) },
       { path: 'appointments', loadComponent: () => import('./features/dashboard/pages/appointments/appointments.component').then(c => c.AppointmentsComponent) },
-      { path: 'appointments/service', loadComponent: () => import('./features/dashboard/pages/service-appointment-detail/service-appointment-detail.component').then(c => c.ServiceAppointmentDetailComponent) },
-      { path: 'appointments/adoption', loadComponent: () => import('./features/dashboard/pages/adoption-appointment-detail/adoption-appointment-detail.component').then(c => c.AdoptionAppointmentDetailComponent) },
+      { path: 'appointments/service/:id', loadComponent: () => import('./features/dashboard/pages/service-appointment-detail/service-appointment-detail.component').then(c => c.ServiceAppointmentDetailComponent) },
+      { path: 'appointments/adoption/:id', loadComponent: () => import('./features/dashboard/pages/adoption-appointment-detail/adoption-appointment-detail.component').then(c => c.AdoptionAppointmentDetailComponent) },
     ],
   },
-  { path:'400', loadComponent: () => import('./features/errors/pages/not-found/not-found.component').then(c => c.NotFoundComponent) },
-  { path: '500', loadComponent: () => import('./features/errors/pages/server-error/server-error.component').then(c => c.ServerErrorComponent) },
-  { path: '**', redirectTo: '' },
-];
+  { path:'bad-request', loadComponent: () => import('./features/errors/pages/not-found/not-found.component').then(c => c.NotFoundComponent) },
+  { path: 'server-error', loadComponent: () => import('./features/errors/pages/server-error/server-error.component').then(c => c.ServerErrorComponent) },
+  { path:'not-found', loadComponent: () => import('./features/errors/pages/not-found/not-found.component').then(c => c.NotFoundComponent) },
+  { path: '**', loadComponent: () => import('./features/errors/pages/not-found/not-found.component').then(c => c.NotFoundComponent), data: { code: 404 } },];

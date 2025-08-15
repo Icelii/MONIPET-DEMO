@@ -2,13 +2,13 @@ export interface UserBase {
   name: string;
   last_name: string;
   last_name2: string;
-  gender: number;
+  gender: string;
   birth_date: string;
   email: string,
-  password: string,
 }
 
 export interface RegisterData extends UserBase {
+    password: string,
     password_confirmation: string;
 } 
 export interface LoginData {
@@ -17,6 +17,19 @@ export interface LoginData {
 }
 
 export interface data2FA {
-  email: string,
-  code: string
+  email: string;
+  code: string;
+}
+
+export interface updateUserData extends UserBase {
+  password_confirmation: string;
+}
+
+export interface checkPassword {
+  current_password: string;
+}
+
+export interface changePassword {
+  password: string;
+  password_confirmation: string;
 }

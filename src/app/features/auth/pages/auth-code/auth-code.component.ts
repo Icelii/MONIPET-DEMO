@@ -1,4 +1,4 @@
-import { Component, QueryList, ElementRef, AfterViewInit, ViewChild, ViewChildren, ChangeDetectorRef} from '@angular/core';
+import { Component, QueryList, ElementRef, AfterViewInit, ViewChild, ViewChildren, ChangeDetectorRef, OnDestroy} from '@angular/core';
 import { ButtonPrimaryComponent } from '../../../../shared/components/button-primary/button-primary.component';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,9 +6,10 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CountDownComponent } from "../../components/count-down/count-down.component";
 import { data2FA } from '../../../../core/interfaces/user';
 import { AuthService } from '../../../../core/services/auth.service';
-import { timeout } from 'rxjs';
+import { timeout, TimeoutError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { take } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth-code',
@@ -17,14 +18,16 @@ import { take } from 'rxjs/operators';
   templateUrl: './auth-code.component.html',
   styleUrl: './auth-code.component.css',
 })
-export class AuthCodeComponent implements AfterViewInit{
+export class AuthCodeComponent implements AfterViewInit, OnDestroy{
   codeFormGroup: FormGroup;
   codeError = '';
   submitting = false;
   email: string | null = null;
   showMessage: boolean = true;
+  type!: string;
 
   @ViewChildren('codeInput') inputs!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChild(CountDownComponent) countDown!: CountDownComponent;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef) {
     this.codeFormGroup = this.fb.group({
@@ -43,16 +46,27 @@ export class AuthCodeComponent implements AfterViewInit{
   ngAfterViewInit() {
     this.inputs.first.nativeElement.focus();
 
-    this.route.queryParams.pipe(take(1)).subscribe(params => {
-      this.email = params['email'] || null;
+    const { email, codeType } = history.state;
 
-      if (params['codeType'] === '2FA') {
-        setTimeout(() => {
-          this.showMessage = false;
-          this.cdr.detectChanges();
-        });
-      }
-    });
+    this.email = email;
+    this.type = codeType;
+
+    if (!this.email) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    if (codeType === '2FA') {
+      setTimeout(() => {
+        this.showMessage = true;
+        this.cdr.detectChanges();
+      });
+    } else if (codeType === 'Recovery') {
+      setTimeout(() => {
+        this.showMessage = false;
+        this.cdr.detectChanges();
+      });
+    }
   }
 
   onInput(event: Event, index: number) {
@@ -101,23 +115,38 @@ export class AuthCodeComponent implements AfterViewInit{
 
     this.authService.verifyCode(payload).pipe(timeout(15000), take(1)).subscribe({
       next: (response) => {
-        this.authService.saveToken(response.data.token);
-        this.router.navigate(['/']);
+        this.route.queryParams.pipe(take(1)).subscribe(params => {
+          if (this.type === '2FA') {
+            this.authService.saveToken(response.data.token);
+            this.authService.getUserInfo();
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 100);
+          } else if (this.type === 'Recovery') {
+           this.router.navigate(['new-password'], { 
+              state: { email: this.email } 
+            });
+          }
+        });
       },
-      error: (error) => {
-        console.log(error);
-
-        if(error.name === "TimeOutError"){
+      error: (error: HttpErrorResponse | TimeoutError) => {
+        if (error instanceof TimeoutError){
           this.onSubmit();
+          this.codeForm.reset();
           return;
         }
+
+      const msg = (error as HttpErrorResponse).error?.msg || 'Ha ocurrido un error inesperado';
         
         Swal.fire({
-          title: 'Error',
-          text: 'Ocurrio un error :(',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
+          title: "Ocurrió un error! :(",
+          text: msg,
+          icon: "error",
+          confirmButtonColor: "#489dba",
+          confirmButtonText: "Cerrar",
         });
+
+        this.codeForm.reset();
       },
       complete: () => {
         setTimeout(() => (this.submitting = false), 1000);
@@ -128,4 +157,44 @@ export class AuthCodeComponent implements AfterViewInit{
   onTimerFinished() {
     console.log('El contador terminó');
   }
+
+  send2FACode() {
+    this.authService.send2FACode(this.email).pipe(timeout(15000), take(1)).subscribe({
+      next: (response) => {
+        if (response.result) {
+          Swal.fire({
+            title: "Se ha enviado un nuevo código de verificación",
+            text: "No olvides revisar la carpeta de spam.",
+            icon: "success",
+            confirmButtonColor: "#489dba",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.countDown.restart();
+            }
+          });
+          this.countDown.restart();
+        }
+      },
+      error: (error: HttpErrorResponse | TimeoutError) => {
+        //console.log(error);
+
+        if (error instanceof TimeoutError) {
+          this.onSubmit();
+          return;
+        }
+
+        const msg = (error as HttpErrorResponse).error?.msg || 'Ha ocurrido un error inesperado';
+
+        Swal.fire({
+          title: "Ocurrió un error! :(",
+          text: msg,
+          icon: "error",
+          confirmButtonColor: "#489dba",
+          confirmButtonText: "Cerrar",
+        });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {}  
 }

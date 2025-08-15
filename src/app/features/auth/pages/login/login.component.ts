@@ -6,8 +6,9 @@ import { Route, Router, RouterModule } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorMessagesComponent } from '../../../../shared/components/error-messages/error-messages.component';
 import { AuthService } from '../../../../core/services/auth.service';
-import { timeout } from 'rxjs';
+import { take, timeout, TimeoutError } from 'rxjs';
 import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -55,23 +56,60 @@ export class LoginComponent {
         const email = response.data?.email;
         const codeType = '2FA';
 
-         this.router.navigate(['auth-code'], { queryParams: { email, codeType } });
+         this.router.navigate(['auth-code'], { state: { email, codeType } });
+      },
+      error: (error: HttpErrorResponse | TimeoutError) => {
+
+        if (error instanceof TimeoutError) {
+          this.onSubmit();
+          return;
+        }
+
+        const msg = (error as HttpErrorResponse).error?.msg || 'Ha ocurrido un error inesperado';
+
+        if (msg === 'La cuenta no ha sido verificada.') {
+            Swal.fire({
+              title: msg,
+              text: "Solicita un nuevo enlace para verificar tu cuenta.",
+              icon: "info",
+              confirmButtonColor: "#489dba",
+              confirmButtonText: "Reenviar enlace",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.resendVerificationEmail();
+              }
+            });
+        } else {
+          Swal.fire({
+            title: "Ocurrió un error! :(",
+            text: msg,
+            icon: "error",
+            confirmButtonColor: "#489dba",
+            confirmButtonText: "Cerrar",
+          })
+        }
+      }
+    });
+  }
+
+  resendVerificationEmail() {
+     const email = this.loginForm.get('email')?.value;
+     console.log(email);
+
+     this.authService.resendEmailVerification(email).pipe(timeout(15000), take(1)).subscribe({
+      next: (response) => {
+        if (response.result) {
+          Swal.fire({
+            title: "Correo de verificación enviado",
+            text: "Se ha enviado un nuevo correo de verificación, no olvides revisar la carpeta de spam.",
+            icon: "success",
+            confirmButtonColor: "#489dba",
+          });
+        }
       },
       error: (error) => {
         console.log(error);
-
-        if(error.name === "TimeOutError"){
-            this.onSubmit();
-            return;
-        }
-
-        Swal.fire({
-          title: 'Error',
-          text: 'Ocurrio un error :(',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
       }
-    });
+     });
   }
 }

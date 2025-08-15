@@ -18,6 +18,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
   formattedTime: string = '';
   private destroy$ = new Subject<void>();
   private isBrowser: boolean;
+  private restart$ = new Subject<void>();
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -31,6 +32,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
     timer(0, 1000).pipe(
       takeUntil(this.destroy$),
+      takeUntil(this.restart$),
       map(tick => this.duration - tick)
     ).subscribe(remaining => {
       if (remaining >= 0) {
@@ -46,6 +48,24 @@ export class CountDownComponent implements OnInit, OnDestroy {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${m}:${s < 10 ? '0' + s : s}`;
+  }
+
+  restart() {
+    this.restart$.next();
+    this.formattedTime = this.formatTime(this.duration);
+
+    timer(0, 1000).pipe(
+      takeUntil(this.destroy$),
+      takeUntil(this.restart$),
+      map(tick => this.duration - tick)
+    ).subscribe(remaining => {
+      if (remaining >= 0) {
+        this.formattedTime = this.formatTime(remaining);
+      } else {
+        this.finished.emit();
+        this.destroy$.next();
+      }
+    });
   }
 
   ngOnDestroy() {

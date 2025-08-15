@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-server-error',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './server-error.component.css'
 })
 export class ServerErrorComponent {
+  code = 500;
 
+  constructor(private router: Router) {
+    this.code = this.router.getCurrentNavigation()?.extras.state?.['code'] ?? 500;
+  }
 }

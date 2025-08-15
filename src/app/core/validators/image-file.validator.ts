@@ -7,7 +7,7 @@ export class ImageFileValidator {
     if (!file) return null;
 
     if (file instanceof File) {
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
       return allowedTypes.includes(file.type) ? null : { fileType: true };
     }
 

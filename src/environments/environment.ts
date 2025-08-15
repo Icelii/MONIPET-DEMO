@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrlBase: `http://143.198.155.28/api/`,
+  apiUrlBase: `https://monipet.site/api/`,
   production: true,
 };

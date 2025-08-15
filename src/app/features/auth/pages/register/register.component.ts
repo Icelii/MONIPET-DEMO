@@ -71,6 +71,7 @@ export class RegisterComponent {
     }
 
     const data: RegisterData = this.registerForm.value;
+    const email = this.registerForm.get('email')?.value;
 
     this.authService.register(data).pipe(timeout(15000), take(1)).subscribe({
       next: (response) => {
@@ -81,7 +82,15 @@ export class RegisterComponent {
             confirmText: 'Reenviar correo',
             cancelText: 'Ir al inicio de sesión <img src="/icons/arrow-narrow-right.svg" alt="">',
             onConfirm: () => {
-              // Acción para reenviar correo
+              this.authService.resendEmailVerification(email).pipe(timeout(15000), take(1)).subscribe({
+                next: (response) => {
+                  Swal.fire({
+                    title: "Correo de verificación enviado",
+                    text: "Se ha enviado un nuevo correo de verificación, no olvides revisar la carpeta de spam.",
+                    icon: "success"
+                  });
+                }
+              });
             },
             onCancel: () => {
               this.router.navigate(['/login']);

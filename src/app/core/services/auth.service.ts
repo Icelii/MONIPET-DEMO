@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
-import { data2FA, LoginData, RegisterData } from '../../core/interfaces/user'
+import { checkPassword, data2FA, LoginData, RegisterData } from '../../core/interfaces/user'
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { currentUser } from '../stores/auth.store';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,14 +55,42 @@ export class AuthService {
       tap(() => {
         if (this.isBrowser) {
           localStorage.removeItem('auth_token');
-          //localStorage.clear();
           this.token = null;
+          currentUser.set(null);
         }
       })
     );
   }
 
-  getUserInfo(): Observable<any> {
-    return this.http.get(`${this.baseUrl}me`);
+  getUserInfo() {
+    this.http.get<any>(`${this.baseUrl}me`).subscribe({
+      next: (response) => {
+        if (response.result) {
+          currentUser.set(response.data);
+        } else {
+          currentUser.set(null);
+        }
+      },
+      error: (error) => {
+        currentUser.set(null);
+        //console.warn('No hay sesión iniciada o error en /me', error);
+      }
+    });
+  }
+
+  checkPassword(password: checkPassword): Observable<any> {
+    return this.http.post(`${this.baseUrl}verify_password`, password);
+  }
+
+  resendEmailVerification(email: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}email/resend-verification`, {email: email});
+  }
+
+  send2FACode(email: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}2fa/send`, {email: email});
+  }
+
+  recoveryPass(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}recovery-pass`, data);
   }
 }
