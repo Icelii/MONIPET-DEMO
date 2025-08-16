@@ -23,10 +23,111 @@ export class ReportsComponent {
   loading = signal(true);
   selectedReportIndex: number | null = null;
 
+  //FILTROS
+  fromDateFilter = signal<string | null>(null);
+  typeFilter = signal<string>('todo');
+  toDateFilter = signal<string | null>(null);
+  searchFilter = signal<string>('');
+
+  private getYMD = (dateStr: string) => {
+    const d = new Date(dateStr);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  filteredReports = computed(() => {
+    const all = this.reports() || [];
+    const from = this.fromDateFilter();
+    const to = this.toDateFilter();
+    const type = this.typeFilter();
+    const search = this.searchFilter().trim();
+
+    return all.filter((app: any) => {
+      let ok = true;
+
+      if (type !== 'todo' && type) {
+        ok = ok && app.type?.toLowerCase() === type.toLowerCase();
+      }
+
+      const appDateStr = this.getYMD(app.date);
+
+      if (from) {
+        ok = ok && appDateStr >= from;
+      }
+
+      if (to) {
+        ok = ok && appDateStr <= to;
+      }
+
+      if (search) {
+        ok = ok && app.index.toString().includes(search);
+      }
+
+      return ok;
+    });
+  });
+
+  // PAGINACION
+  p = signal(1);
+  perPage = 5;  
+
+  paginatedReports = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.filteredReports().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.filteredReports().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
+
   constructor(private reportService: ReportService) {}
 
   ngOnInit() {
     this.getReports();
+  }
+
+  onSelectChange(event: Event, filter: 'status' | 'type') {
+    const select = event.target as HTMLSelectElement | null;
+    if (!select) return;
+    if (filter === 'type') this.typeFilter.set(select.value);
+
+    this.p.set(1);
+  }
+
+  onDateChange(event: Event, filter: 'from' | 'to') {
+    const input = event.target as HTMLInputElement | null;
+    if (!input) return;
+
+    if (filter === 'from') {
+      this.fromDateFilter.set(input.value);
+
+      const to = this.toDateFilter();
+      if (to && to < input.value) {
+        this.toDateFilter.set(input.value);
+        const toEl = document.getElementById('toDate') as HTMLInputElement;
+        if (toEl) toEl.value = input.value;
+      }
+    } else {
+      this.toDateFilter.set(input.value);
+    }
+
+    this.p.set(1);
+  }
+
+  onSearchChange(event: Event) {
+    const input = event.target as HTMLInputElement | null;
+    if (!input) return;
+    this.searchFilter.set(input.value);
+
+    this.p.set(1);
   }
 
   deleteReport(reportIndex: number) {
@@ -86,6 +187,7 @@ export class ReportsComponent {
       next: (response) => {
         if (response.result) {
           reports.set(response.data);
+          console.log(reports());
           this.loading.set(false);
         } else {
           reports.set([]);

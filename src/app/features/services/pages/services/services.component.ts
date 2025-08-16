@@ -19,10 +19,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './services.component.css',
 })
 export class ServicesComponent implements OnInit {
-  p: number = 1;
   filtrosForm: FormGroup;
   dropdownOpen = false;
-  services: any[] = [];
+  services = signal<any[]>([]);
   serviciosSeleccionados= computed(() => selectedServices());
   options = [false, false, false];
   loading = signal(true);
@@ -33,6 +32,26 @@ export class ServicesComponent implements OnInit {
   filteredServices = signal<any[]>([]);
   appliedFilters: { categorias: string[] } = { categorias: [] };
   @ViewChild('resultados') resultadosRef!: ElementRef;
+  submitted = signal(false);
+
+  //PAGINACION
+  p = signal(1);
+  perPage = 4; 
+
+  paginatedServices = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.filteredServices().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.filteredServices().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
 
   constructor(private authService: AuthService, private fb: FormBuilder, private serviceService: ServiceService, private router: Router) {
     this.filtrosForm = this.fb.group({});
@@ -55,18 +74,18 @@ export class ServicesComponent implements OnInit {
     this.serviceService.getServices().pipe(timeout(15000), take(1)).subscribe({
       next: (response) => {
         if (response.result) {
-          this.services = response.data;
-          this.filteredServices.set([...this.services]);
+          this.services.set(response.data);
+          this.filteredServices.set([...this.services()]);
           console.log('SERVICIOS: ', this.filteredServices());
           this.loading.set(false);
         } else {
-          this.services = [];
+          this.services.set([]);
           this.filteredServices.set([]);
           this.loading.set(false);
         }
       },
       error: (error) => {
-        this.services = [];
+        this.services.set([]);
         this.filteredServices.set([]);
         this.loading.set(false);
         console.log(error);
@@ -85,7 +104,7 @@ export class ServicesComponent implements OnInit {
 
   get selectedServiceNames(): string[] {
     return this.serviciosSeleccionados()
-      .map((id: any) => this.services.find(s => s.id === id))
+      .map((id: any) => this.services().find(s => s.id === id))
       .filter((s: any) => s)
       .map((s: any) => s!.service);
   }
@@ -134,11 +153,13 @@ export class ServicesComponent implements OnInit {
       .map(cat => cat.tipo);
 
     this.filteredServices.set(
-      this.services.filter(service => 
+      this.services().filter(service => 
         selectedTypes.length === 0 || selectedTypes.includes(service.type.type_service)
       )
     );
-    this.p = 1;
+
+    this.submitted.set(true);
+    this.p.set(1);
 
   /*  setTimeout(() => {
       this.resultadosRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -153,19 +174,23 @@ export class ServicesComponent implements OnInit {
   applySearch() {
     const text = this.searchText();
     this.filteredServices.set(
-      this.services.filter(service =>
+      this.services().filter(service =>
         service.service.toLowerCase().includes(text)
       )
     );
+
+    this.p.set(1);
   }
 
   applyFilters() {
     const { categorias } = this.appliedFilters;
 
     this.filteredServices.set(
-      this.services.filter(service => {
+      this.services().filter(service => {
         return categorias.length === 0 || categorias.includes(service.service);
       })
     );
+
+    this.p.set(1);
   }
 }

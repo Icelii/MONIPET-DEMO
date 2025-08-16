@@ -55,19 +55,15 @@
     <!-- CARDS -->
     <div class="row mt-2 mt-sm-4 g-2 mb-5">
       @defer (when !loadingPets() && !loadingProducts()) {
-        <ng-container *ngIf="pets() !== null">
-          <div *ngFor="let pet of pets()" class="col-6 col-md-4 col-lg-3">
+        @for (pet of pets(); track pet.id) {
+          <div class="col-6 col-md-4 col-lg-3">
             <app-pet-cards [name]="pet.name" [gender]="pet.gender" [birthday]="pet.birthday" [photo_link]="pet.pet_photos[0]?.photo_link" [pet_id]="pet.id"></app-pet-cards>
           </div>
-        </ng-container>
-
-        <ng-container *ngIf="pets() === null">
-            <ng-container *ngIf="products() === null">
-              <div class="d-flex flex-column justify-content-center align-content-center">
-                <h5 class="text-muted">No hay mascotas disponibles 😿</h5>
-              </div>
-            </ng-container>
-        </ng-container>
+        } @empty {
+          <div class="d-flex flex-column justify-content-center align-content-center">
+            <h5 class="text-muted">No hay mascotas disponibles 😿</h5>
+          </div>
+        }
       } @placeholder {
         <ngx-skeleton-loader
               count="4"
@@ -139,21 +135,18 @@
       <div class="row mt-2 mt-sm-4 g-3 g-sm-2 mb-5">
 
         @defer (when !loadingPets() && !loadingProducts()) {
-          <ng-container *ngIf="products() === null">
-            <div class="d-flex flex-column justify-content-center align-content-center">
-              <h5 class="text-muted">No hay productos disponibles 😿</h5>
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="products() !== null">
-            <div *ngFor="let product of products()" class="col-6 col-md-4 col-lg-3">
+          @for (product of products(); track product.id) {
+            <div class="col-6 col-md-4 col-lg-3">
               <!-- CARD PRODUCTO -->
               <app-product-cards [product_id]="product.id" [name]="product.name" [price]="+product.price" [discount]="+product.discount"
                 [photo_link]="product.product_photos?.[0]?.photo_link" [categories]="product.categoryNames"
               ></app-product-cards>
             </div> 
-          </ng-container>
-
+          } @empty {
+            <div class="d-flex flex-column justify-content-center align-content-center">
+              <h5 class="text-muted">No hay productos disponibles 😿</h5>
+            </div>
+          }
         } @placeholder {
           <ngx-skeleton-loader
                 count="4"

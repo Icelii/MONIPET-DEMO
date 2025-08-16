@@ -28,6 +28,27 @@ export class AdoptionAppointmentDetailComponent implements OnInit {
   loading = signal(true);
   cancelAppointmentForm: FormGroup;
 
+  //PAGINACION
+  p = signal(1);
+  perPage = 2;
+
+  paginatedPets = computed(() => {
+    const pets = this.appointment().appointment_pets || [];
+    const start = (this.p() - 1) * this.perPage;
+    return pets.slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => {
+    const pets = this.appointment().appointment_pets || [];
+    return Math.ceil(pets.length / this.perPage) || 1;
+  });
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
+
   constructor(private route: ActivatedRoute, private appointmentService: AppointmentService, private fb: FormBuilder) {
     this.cancelAppointmentForm = this.fb.group({
       'status': ['Cancelada']

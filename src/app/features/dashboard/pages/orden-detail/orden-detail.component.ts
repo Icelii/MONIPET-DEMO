@@ -18,8 +18,28 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class OrdenDetailComponent {
   orderId!: number;
   order: any = {};
-  p: number = 1;
   loading = signal(true);
+
+  //PAGINACION
+  p: number = 1;        
+  itemsPerPage: number = 3; 
+
+  get totalPages(): number {
+    if (!this.order?.details) return 1;
+    return Math.ceil(this.order.details.length / this.itemsPerPage);
+  }
+
+  get paginatedDetails() {
+    if (!this.order?.details) return [];
+    const start = (this.p - 1) * this.itemsPerPage;
+    return this.order.details.slice(start, start + this.itemsPerPage);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.p = page;
+    }
+  }
 
   constructor(private route: ActivatedRoute, private ordenService: OrdenService) {}
 

@@ -85,8 +85,6 @@ export class NewPasswordComponent implements OnInit {
         });
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
-        console.log(error);
-
         if (error instanceof TimeoutError){
           this.onSubmit();
           return;

@@ -21,7 +21,28 @@ export class ServiceAppointmentDetailComponent implements OnInit {
   appointmentId!: number;
   appointment = computed(() => appointmentDetail());
   loading = signal(true);
-  p: number = 1;
+
+
+  //PAGINACION
+  p = signal(1);
+  perPage = 2;
+
+  paginatedServices = computed(() => {
+    const services = this.appointment().details || [];
+    const start = (this.p() - 1) * this.perPage;
+    return services.slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => {
+    const services = this.appointment().details || [];
+    return Math.ceil(services.length / this.perPage) || 1;
+  });
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
 
   constructor(private route: ActivatedRoute, private appointmentService: AppointmentService ) {}
 

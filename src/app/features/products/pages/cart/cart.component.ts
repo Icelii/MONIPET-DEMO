@@ -10,7 +10,7 @@ import { LoaderElementsComponent } from '../../../../shared/components/loader-el
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, OrderResumeComponent, RouterModule, LoaderElementsComponent],
+  imports: [CommonModule, OrderResumeComponent, RouterModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
@@ -20,6 +20,25 @@ export class CartComponent implements OnInit {
   quantities = signal<{ [productId: string]: number }>({});
   selectedItems: Set<number> = new Set();
   selectAllChecked = false;
+
+  //PAGINACION
+  p = signal(1);
+  perPage = 3; 
+
+  paginatedItems = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.productList().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.productList().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
 
   constructor(private productService: ProductService) {
     effect(() => {

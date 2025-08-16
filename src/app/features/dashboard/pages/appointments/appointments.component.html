@@ -3,51 +3,114 @@
 
 <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-3">
     <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-md-4 gap-3">
-    <select class="selectCustomDash" formControlName="status">
+    <select class="selectCustomDash" (change)="onSelectChange($event, 'status')">
         <option hidden disabled selected value="">Estado</option>
         <option value="todo">Todo</option>
         <option value="pendiente">Pendiente</option>
-        <option value="entregado">Finalizado</option>
-        <option value="cancelado">cancelado</option>
+        <option value="entregado">Finalizada</option>
+        <option value="cancelada">Cancelada</option>
     </select>
     
-    <select class="selectCustomDash" formControlName="type">
+    <select class="selectCustomDash" (change)="onSelectChange($event, 'type')" formControlName="type">
         <option hidden disabled selected value="">Tipo</option>
         <option value="todo">Todo</option>
-        <option value="">Estetica</option>
-        <option value="">Medica</option>
+        <option value="Adoptiva">Adoptiva</option>
+        <option value="Medica">Medica</option>
+        <option value="Estetica">Estetica</option>
+        <option value="Otro">Otro</option>
     </select>
 
       <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between gap-2">
         <h2 class="dateRate mb-0">Desde:</h2>
-        <input type="date" class="dateRange">
+        <input type="date" class="dateRange" id="fromDate" (change)="onDateChange($event, 'from')">
+
         <h2 class="dateRate mb-0">Hasta:</h2>
-        <input type="date" class="dateRange">
+        <input type="date" class="dateRange" id="toDate" (change)="onDateChange($event, 'to')">
       </div>
     </div>
     <div class="searchBar">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-        <input type="text" placeholder="Buscar cita...">
+        <input type="text" placeholder="Buscar cita..." (input)="onSearchChange($event)">
     </div>
 </div>
 
 <div class="row mt-4">
     @defer (when !loading()) {
-        @for (appointment of appointments(); track appointment.id) {
+        @for (appointment of paginatedAppointments(); track appointment.id) {
             <div class="col-12 col-md-6 col-lg-6 mb-3">
-                <app-appointment-card (updated)="getAppointments()" [id]="appointment.id" [adoption]="appointment.type_appointment === 'Adoptiva'" [status]="appointment.status" [price]="appointment.total_price" [desc]="appointment.descripcion" [date]="appointment.date | date: 'dd MMMM yyyy hh:mm a' | titlecase"></app-appointment-card>
+                <app-appointment-card (updated)="getAppointments()" [id]="appointment.id" [medical]="appointment.type_appointment === 'Medica'" [adoption]="appointment.type_appointment === 'Adoptiva'" [status]="appointment.status" [price]="appointment.total_price" [desc]="appointment.descripcion" [date]="appointment.date | date: 'dd MMMM yyyy hh:mm a' | titlecase"></app-appointment-card>
             </div>
         } @empty {
-            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
-                <h5 class="text-muted">No tienes citas realizadas 😿</h5>
-            </div>
+            @if (appointments().length === 0) {
+                <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                    <h5 class="text-muted">No tienes citas realizadas 😿</h5>
+                </div>
+            }
+
+            @else {
+                <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                    <h5 class="text-muted">No hay resultados 😿</h5>
+                </div> 
+            }
         }
 
-        <ng-container *ngIf="appointments()">
-            <div class="mt-4 d-flex align-items-center justify-content-center">
-                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" [responsive]="true"></pagination-controls>
-            </div>
-        </ng-container>
+               <!-- PAGINACION CELULAR -->
+        <div class="d-flex d-md-none pagination mt-4 d-flex justify-content-center align-items-center" *ngIf="totalPages() > 1">
+            <button type="button" class="btn controlPages me-3" [disabled]="p() === 1" (click)="goToPage(p() - 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M5 12l4 4" />
+                <path d="M5 12l4 -4" />
+              </svg>
+            </button>
+            <span class="mx-2 pageNumbermovil">{{ p() }} / {{ totalPages() }}</span>
+            <button type="button" class="btn controlPages ms-3" [disabled]="p() === totalPages()" (click)="goToPage(p() + 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M15 16l4 -4" />
+                <path d="M15 8l4 4" />
+              </svg>
+            </button>
+          </div>
+
+            <div class="d-none d-md-flex pagination mt-4" *ngIf="totalPages() > 1">
+                  <button type="button" title="previous page" class="btn controlPages me-4" [disabled]="p() === 1"
+                      (click)="goToPage(p() - 1)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="me-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M5 12l4 4" />
+                      <path d="M5 12l4 -4" />
+                      </svg>
+                      Anterior
+                  </button>
+
+                  <ng-container *ngFor="let i of [].constructor(totalPages()); let idx = index">
+                      <button type="button" class="btn page-number" [class.page-active]="p() === idx + 1"
+                      (click)="goToPage(idx + 1)">
+                      {{ idx + 1 }}
+                      </button>
+                  </ng-container>
+
+                  <button type="button" title="next page" class="btn controlPages ms-4" [disabled]="p() === totalPages()"
+                      (click)="goToPage(p() + 1)">
+                      Siguiente
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="ms-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M15 16l4 -4" />
+                      <path d="M15 8l4 4" />
+                      </svg>
+                  </button>
+        </div>
     } @placeholder {
         <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
             <app-loader-elements></app-loader-elements>

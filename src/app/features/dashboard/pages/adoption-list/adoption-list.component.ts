@@ -32,6 +32,25 @@ export class AdoptionListComponent implements OnInit {
       );
   });
 
+  // PAGINACION
+  p = signal(1);
+  perPage = 4;  
+
+  paginatedPets = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.filteredPets().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.filteredPets().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
+
   constructor(private petService: PetService, private router: Router) {
     effect(() => {
       const ids = this.cartIds();
@@ -78,6 +97,8 @@ export class AdoptionListComponent implements OnInit {
     } else {
       this.selectedPets.set([...current, petId]);
     }
+
+    this.p.set(1);
   }
 
   onPetRemoved() {

@@ -98,7 +98,6 @@ export class RegisterComponent {
           });
       },
       error: (error) => {
-        console.log(error);
         if(error.name === "TimeOutError"){
             this.onSubmit();
             return;

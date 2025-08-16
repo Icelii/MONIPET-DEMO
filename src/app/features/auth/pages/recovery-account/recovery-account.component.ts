@@ -44,9 +44,7 @@ export class RecoveryAccountComponent {
               this.router.navigate(['auth-code'], { state: { email, codeType } });
             }
           },
-          error: (error: HttpErrorResponse | TimeoutError) => {
-            //console.log(error);
-    
+          error: (error: HttpErrorResponse | TimeoutError) => {  
             if (error instanceof TimeoutError) {
               this.onSubmit();
               return;
