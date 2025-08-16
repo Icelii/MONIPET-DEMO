@@ -27,9 +27,9 @@
             <app-error-messages [control]="getControl('pet_id')" version="m" label="Este campo"></app-error-messages>
         </div>
 
-        <label for="description" class="mt-4 form-label">Descripción</label>
-        <textarea id="description" formControlName="description" class="form-control customInputs" autocapitalize="on" wrap="hard" minlength="20" maxlength="500" spellcheck="true" rows="8" placeholder="Agrega información adicional que debamos considerar, como necesidades especiales, comportamiento, alergias, entre otros."></textarea>
-        <app-error-messages [control]="getControl('description')" version="m" label="Este campo"></app-error-messages>
+        <label for="descripcion" class="mt-4 form-label">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion" class="form-control customInputs" autocapitalize="on" wrap="hard" minlength="20" maxlength="500" spellcheck="true" rows="8" placeholder="Agrega información adicional que debamos considerar, como necesidades especiales, comportamiento, alergias, entre otros."></textarea>
+        <app-error-messages [control]="getControl('descripcion')" version="m" label="Este campo"></app-error-messages>
 
         <button *ngIf="!service" type="submit" class="mt-4 btn btnMakeAppointment">
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#fff"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="me-1 icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>

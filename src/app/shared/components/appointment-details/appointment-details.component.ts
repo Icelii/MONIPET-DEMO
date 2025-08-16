@@ -47,7 +47,7 @@ export class AppointmentDetailsComponent {
       date: ['', [Validators.required]],
       status: ['Pendiente'],
       type_appointment: [this.type],
-      description: ['', [Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú0-9.,¡!¿?()\"'\\s-]*$"), Validators.minLength(20), Validators.maxLength(500)]],
+      descripcion: ['', [Validators.pattern("^[A-Za-zÑñÁÉÍÓÚáéíóú0-9.,¡!¿?()\"'\\s-]*$"), Validators.minLength(20), Validators.maxLength(500)]],
       total_price: [null],
     });
 
@@ -122,7 +122,6 @@ export class AppointmentDetailsComponent {
       return this.appointmentForm.controls[name];
   }
   
-
   private formatTime(date: Date): string {
     const h = String(date.getHours()).padStart(2, '0');
     const m = String(date.getMinutes()).padStart(2, '0');
@@ -167,12 +166,13 @@ export class AppointmentDetailsComponent {
       });
 
       const { day, hour, pet_id, ...payloadAdoption } = this.appointmentForm.value;
+      console.log(payloadAdoption);
 
       this.appointmentService.scheduleAdoption(payloadAdoption).pipe(timeout(15000), take(1)).subscribe({
         next: (response) => {
           if (response.result) {
             const appointmentPetsPayload = {
-              appointment_id: response.data.appointment_id,
+              appointment_id: response.data.appointment_id, 
               pet_id: this.pets,
               type_appointment: 'Adoptiva'
             };
