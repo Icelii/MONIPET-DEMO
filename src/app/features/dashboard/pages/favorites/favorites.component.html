@@ -10,21 +10,86 @@
     </div>
     <div class="searchBar">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="var(--scondary-text)"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-        <input type="text" placeholder="Buscar producto...">
+        <input type="text" placeholder="Buscar producto..." (input)="onSearchChange($event)">
     </div>
 </div>
 
 <div class="row mt-4">
     @defer (when !loading()) {
-        @for (favProduct of favProducts(); track favProduct.id) {
+        @for (favProduct of paginatedFavorites(); track favProduct.id) {
             <!-- CARDS -->
             <div class="col-6 col-md-4 col-lg-3 mb-3">
                 <app-product-favorite-card [id]="favProduct.id" [name]="favProduct.name" [discount]="+favProduct.discount" [price]="+favProduct.price" [photo_link]="favProduct.product_photos?.[0]?.photo_link"></app-product-favorite-card>
             </div>
         } @empty {
-            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
-                <h5 class="text-muted">No tienes productos favoritos 😿</h5>
-            </div>
+            @if (favProducts().length === 0) {
+                <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                    <h5 class="text-muted">No tienes productos favoritos 😿</h5>
+                </div>
+            }
+
+            @else {
+                <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                    <h5 class="text-muted">No hay resultados 😿</h5>
+                </div>  
+            }
         }
+                <!-- PAGINACION CELULAR -->
+        <div class="d-flex d-md-none pagination mt-4 d-flex justify-content-center align-items-center" *ngIf="totalPages() > 1">
+            <button type="button" class="btn controlPages me-3" [disabled]="p() === 1" (click)="goToPage(p() - 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M5 12l4 4" />
+                <path d="M5 12l4 -4" />
+              </svg>
+            </button>
+            <span class="mx-2 pageNumbermovil">{{ p() }} / {{ totalPages() }}</span>
+            <button type="button" class="btn controlPages ms-3" [disabled]="p() === totalPages()" (click)="goToPage(p() + 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M15 16l4 -4" />
+                <path d="M15 8l4 4" />
+              </svg>
+            </button>
+          </div>
+
+       <div class="d-none d-md-flex pagination mt-4" *ngIf="totalPages() > 1">
+                  <button type="button" title="previous page" class="btn controlPages me-4" [disabled]="p() === 1"
+                      (click)="goToPage(p() - 1)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="me-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M5 12l4 4" />
+                      <path d="M5 12l4 -4" />
+                      </svg>
+                      Anterior
+                  </button>
+
+                  <ng-container *ngFor="let i of [].constructor(totalPages()); let idx = index">
+                      <button type="button" class="btn page-number" [class.page-active]="p() === idx + 1"
+                      (click)="goToPage(idx + 1)">
+                      {{ idx + 1 }}
+                      </button>
+                  </ng-container>
+
+                  <button type="button" title="next page" class="btn controlPages ms-4" [disabled]="p() === totalPages()"
+                      (click)="goToPage(p() + 1)">
+                      Siguiente
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="ms-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M15 16l4 -4" />
+                      <path d="M15 8l4 4" />
+                      </svg>
+                  </button>
+        </div>
     }
 </div>

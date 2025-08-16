@@ -176,8 +176,6 @@ export class AuthCodeComponent implements AfterViewInit, OnDestroy{
         }
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
-        //console.log(error);
-
         if (error instanceof TimeoutError) {
           this.onSubmit();
           return;

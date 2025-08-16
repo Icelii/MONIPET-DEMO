@@ -144,6 +144,8 @@ export class AddPetComponent {
             timer: 1500,
             showConfirmButton: false,
           }).then((result) => {
+              this.addPetForm.reset();
+              this.updloadedImage = null;
               this.closeModal();
               this.saved.emit();
           });
@@ -160,7 +162,6 @@ export class AddPetComponent {
         }
       },
       error: (error) => {
-        console.log(error);
       }
     });
   }

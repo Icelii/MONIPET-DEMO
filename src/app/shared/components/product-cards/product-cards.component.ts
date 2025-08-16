@@ -96,7 +96,6 @@ export class ProductCardsComponent {
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
         this.loading.set(false);
-        console.log(error);
       }
     });
   }

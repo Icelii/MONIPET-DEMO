@@ -1,3 +1,4 @@
+
 import { Component, computed, effect, OnInit, signal } from '@angular/core';
 import { OrderCardComponent } from "../../components/order-card/order-card.component";
 import { userOrders } from '../../../../core/stores/orders.store';
@@ -19,22 +20,66 @@ import { LoaderElementsComponent } from '../../../../shared/components/loader-el
 export class OrdersComponent implements OnInit {
   user = computed(() => currentUser());
   orders = computed(() => userOrders());
-  p: number = 1;
   loading = signal(true);
-  searchText = signal('');
+  minToDate: string | null = null;
 
-  allOrders = computed(() => {
-    const orders = this.orders();
-    if (!orders) return [];
+  //FILTROS
+  statusFilter = signal<string>('todo');
+  fromDateFilter = signal<string | null>(null);
+  toDateFilter = signal<string | null>(null);
+  searchFilter = signal<string>('');
 
-    return orders.map((order: any) => {
-      const totalQuantity = order.details.reduce((acc: number, detail: any) => acc + detail.quantity, 0);
-      return {
-        ...order,
-        totalQuantity
-      };
+  filteredOrders = computed(() => {
+    const all = this.orders() || [];
+    const status = this.statusFilter();
+    const from = this.fromDateFilter();
+    const to = this.toDateFilter();
+    const search = this.searchFilter();
+
+    const formatDate = (dateStr: string) => dateStr.split(' ')[0];
+
+    return all.filter((app: any) => {
+      let ok = true;
+
+      if (status !== 'todo' && status) {
+        ok = ok && app.status?.toLowerCase() === status.toLowerCase();
+      }
+
+      if (from) {
+        ok = ok && formatDate(app.purchase_date) >= from;
+      }
+
+      if (to) {
+        ok = ok && formatDate(app.purchase_date) <= to;
+      }
+
+      if (search) {
+        //const searchId = Number(search);
+        ok = ok && app.id.toString().includes(search);
+      }
+
+      return ok;
     });
   });
+
+  // PAGINACION
+  p = signal(1);
+  perPage = 3;  
+
+  paginatedOrders = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.filteredOrders().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.filteredOrders().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
 
   constructor(private ordenService: OrdenService) {
     effect(() => {
@@ -47,6 +92,40 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onDateChange(event: Event, filter: 'from' | 'to') {
+    const input = event.target as HTMLInputElement | null;
+    if (!input) return;
+    if (filter === 'from') {
+      this.fromDateFilter.set(input.value);
+
+      const to = this.toDateFilter();
+      if (to && to < input.value) {
+        this.toDateFilter.set(input.value);
+        (document.getElementById('toDate') as HTMLInputElement).value = input.value;
+      }
+    } else {
+      this.toDateFilter.set(input.value);
+    }
+
+    this.p.set(1);
+  }
+
+  onSelectChange(event: Event, filter: 'status' | 'type') {
+    const select = event.target as HTMLSelectElement | null;
+    if (!select) return;
+    if (filter === 'status') this.statusFilter.set(select.value);
+
+    this.p.set(1);
+  }
+
+  onSearchChange(event: Event) {
+    const input = event.target as HTMLInputElement | null;
+    if (!input) return;
+    this.searchFilter.set(input.value);
+
+    this.p.set(1);
+  }
 
   getOrders() {
     this.ordenService.getOrders(this.user().id).pipe(timeout(15000), take(1)).subscribe({

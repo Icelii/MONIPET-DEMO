@@ -453,3 +453,44 @@ select.form-control option::checkmark {
 .btn.btnClose:active svg {
   stroke: var(--danger-color);
 }
+
+/* PAGINACION */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding-top: 5px;
+}
+
+.pagination .page-number {
+  color: var(--scondary-text);
+  font-weight: 600;
+}
+
+.pagination > .page-active {
+  background: var(--input-color);
+  color: var(--text-principal);
+}
+
+.pagination .controlPages {
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.pagination .controlPages:active,
+.pagination .controlPages:focus-visible {
+  background-color: var(--secondary-color-shadow);
+  color: white !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pagination .pageNumbermovil {
+  color: var(--text-principal);
+  font-weight: 600;
+}

@@ -17,10 +17,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './products.component.css',
 })
 export class ProductsComponent implements OnInit {
-  products: any[] = [];
+  products = signal<any[]>([]);
   filtrosForm: FormGroup;
   dropdownOpen = false;
-  p: number = 1;
   loading = signal(true);
 
   //PARA FILTROS
@@ -30,6 +29,26 @@ export class ProductsComponent implements OnInit {
   precioFiltro: [number, number] = [0, 1000];
   appliedFilters: { categorias: string[], precio: [number, number] } = { categorias: [], precio: [0, 1000] };
   @ViewChild('resultados') resultadosRef!: ElementRef;
+  submitted = signal(false);
+
+  //PAGINACION
+  p = signal(1);
+  perPage = 12; 
+
+  paginatedProducts = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.filteredProducts().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.filteredProducts().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
     this.filtrosForm = this.fb.group({});
@@ -45,20 +64,20 @@ export class ProductsComponent implements OnInit {
       next: (response) => {
         if (response.result) {
           const filteredProducts = response.data.filter((product: any) => product.stock > 0);
-          this.products = filteredProducts;
+          this.products.set(filteredProducts);
 
-          this.filteredProducts.set([...this.products]);
+          this.filteredProducts.set([...this.products()]);
 
           this.loading.set(false);
         } else {
-          this.products = [];
+          this.products.set([]);
           this.filteredProducts.set([]);
           this.loading.set(false);
         }
       },
       error: (error) => {
         console.log(error);
-        this.products = [];
+        this.products.set([]);
         this.filteredProducts.set([]);
         this.loading.set(false);
       }
@@ -101,6 +120,7 @@ export class ProductsComponent implements OnInit {
 
   onPriceChange(values: [number, number]) {
     this.precioFiltro = values;
+    this.p.set(1);
   }
   
   onSubmit() {
@@ -113,6 +133,8 @@ export class ProductsComponent implements OnInit {
     };
 
     this.applyFilters();
+    this.submitted.set(true);
+    this.p.set(1);
 
     setTimeout(() => {
       this.resultadosRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -128,7 +150,7 @@ export class ProductsComponent implements OnInit {
     const text = this.searchText().toLowerCase().trim();
 
     this.filteredProducts.set(
-      this.products.filter(product =>
+      this.products().filter(product =>
         !text || product.name.toLowerCase().includes(text)
       )
     );
@@ -139,12 +161,14 @@ export class ProductsComponent implements OnInit {
     const [minPrice, maxPrice] = precio;
 
     this.filteredProducts.set(
-      this.products.filter(product => {
+      this.products().filter(product => {
         const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
         const matchesCategory = categorias.length === 0 || 
           (product.categories ?? []).some((c: any) => categorias.includes(c.category));
         return matchesPrice && matchesCategory;
       })
     );
+
+    this.p.set(1);
   }
 }

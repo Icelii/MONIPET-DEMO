@@ -45,7 +45,6 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       error: (error) => {
         this.petsAdoption.set([]);
         this.loading.set(false);
-        console.log(error);
       }
     });
   }

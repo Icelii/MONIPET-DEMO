@@ -1,4 +1,4 @@
-import { Component, ElementRef, signal, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';;
 import { PetCardsComponent } from "../../../../shared/components/pet-cards/pet-cards.component";
@@ -16,18 +16,36 @@ import { LoaderElementsComponent } from '../../../../shared/components/loader-el
   styleUrl: './adopt.component.css'
 })
 export class AdoptComponent {
-  pets: any[] = [];
-  filteredPets: any[] = [];
-  filteredPetsAfterSubmit: any[] = [];
+  pets = signal<any[]>([]);
+  filteredPets = signal<any[]>([]);
+  filteredPetsAfterSubmit = signal<any[]>([]);
   typesPet: any[] = [];
   filtrosForm: FormGroup;
   breeds: any[] = [];
   loading = signal(true);
-  p: number = 1;
   edadOptions = ['Cachorro', 'Joven', 'Adulto', 'Senior'];
   generoOptions = ['Macho', 'Hembra', 'Desconocido'];
   submitted = false;
   @ViewChild('resultados') resultadosRef!: ElementRef;
+
+  //PAGINACION
+  p = signal(1);
+  perPage = 12;  
+
+  paginatedPets = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.filteredPets().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.filteredPets().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
   
   constructor(private fb: FormBuilder, private route: Router, private petService: PetService){
     this.filtrosForm = this.fb.group({
@@ -61,13 +79,12 @@ export class AdoptComponent {
     this.petService.getPets().pipe(timeout(15000), take(1)).subscribe({
       next: (response) => {
         if (response.result) {
-          this.pets = response.data.filter((pet: any) => pet.status === 'No adoptado');
+          this.pets.set(response.data.filter((pet: any) => pet.status === 'No adoptado'));
+          this.filteredPets.set([...this.pets()]);
           this.loading.set(false);
-          this.filteredPets = [...this.pets];
         }
       },
       error: (error) => {
-        console.log(error);
         this.loading.set(false);
       }
     });
@@ -81,7 +98,6 @@ export class AdoptComponent {
         }
       },
       error: (error) => {
-        console.log(error);
       }
     });
   }
@@ -94,7 +110,6 @@ export class AdoptComponent {
         }
       },
       error: (error) => {
-        console.log(error);
       }
     });
   }
@@ -112,7 +127,7 @@ export class AdoptComponent {
   applyFilters() {
     const { generos, tipos, razas, edades } = this.filtrosForm.value;
 
-    this.filteredPets = this.pets.filter(pet => {
+    const filtered  = this.pets().filter(pet => {
       if (
         generos?.length &&
         !generos.some((g: string) => g.toLowerCase().trim() === (pet.gender || '').toLowerCase().trim())
@@ -136,7 +151,8 @@ export class AdoptComponent {
       return true;
     });
 
-    this.p = 1;
+    this.filteredPets.set(filtered);
+    this.p.set(1);
   }
 
   onSubmit() {
@@ -148,7 +164,7 @@ export class AdoptComponent {
     this.submitted = true;
     this.applyFilters();
 
-    this.filteredPetsAfterSubmit = [...this.filteredPets];
+    this.filteredPetsAfterSubmit.set([...this.filteredPets()]);
 
     setTimeout(() => {
       this.resultadosRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -77,7 +77,6 @@ export class AppointmentCardComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
       }
     });
   }

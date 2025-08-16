@@ -69,15 +69,30 @@
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-4">
         @defer (when !loading()) {
           <h2 #resultados class="title2 text-break mb-2 mb-sm-0 mb-lg-0">
-            {{
-              filteredServices().length === 0
-                ? '0 resultados'
-                : filteredServices().length === services.length
-                  ? 'Todo'
-                  : filteredServices().length === 1
-                  ? '1 resultado'
-                  : filteredServices().length + ' resultados'
-            }}
+            <ng-container *ngIf="submitted(); else searchTitle">
+              {{
+                filteredServices().length === 0
+                  ? '0 resultados'
+                  : filteredServices().length === services().length
+                    ? 'Todo'
+                    : filteredServices().length === 1
+                      ? '1 resultado'
+                      : filteredServices().length + ' resultados'
+              }}
+            </ng-container>
+
+            <ng-template #searchTitle>
+              <!-- Resultado de búsqueda dinámica -->
+              {{
+                searchText()
+                  ? (filteredServices().length === 0
+                      ? '0 resultados'
+                      : filteredServices().length === 1
+                        ? '1 resultado'
+                        : filteredServices().length + ' resultados')
+                  : 'Todo'
+              }}
+            </ng-template>
           </h2>
         } @placeholder {
           <h2 class="title2 text-break mb-2 mb-sm-0 mb-lg-0">Todo</h2>
@@ -90,15 +105,82 @@
 
       <div class="row g-2">
         @defer (when !loading()) {
-          @for (service of filteredServices(); track service.id) {
+          @for (service of paginatedServices(); track service.id) {
             <div class="col-sm-6 mb-3 mb-sm-0">
               <app-service-card [service_id]="service.id" [isSelected]="serviciosSeleccionados().includes(service.id)" (selectionChange)="onServiceSelectionChange($event)" [service]="service.service" [typeService]="service.type.type_service " [medical]="service.type.id" [price]="+service.price" [discounts]="+service.discounts"></app-service-card>
             </div>
           } @empty {
-            <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
-              <h5 class="text-muted">No hay resultados 😿</h5>
-            </div>
+            @if (services.length === 0) {
+              <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                <h5 class="text-muted">No hay servicios disponibles 😿</h5>
+              </div>
+            }
+
+            @else {
+              <div class="mt-5 mb-4 d-flex flex-row justify-content-center align-content-center">
+                <h5 class="text-muted">No hay resultados 😿</h5>
+              </div>
+            }
           }
+
+                  <!-- PAGINACION CELULAR -->
+        <div class="d-flex d-md-none pagination mt-4 d-flex justify-content-center align-items-center" *ngIf="totalPages() > 1">
+            <button type="button" class="btn controlPages me-3" [disabled]="p() === 1" (click)="goToPage(p() - 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M5 12l4 4" />
+                <path d="M5 12l4 -4" />
+              </svg>
+            </button>
+            <span class="mx-2 pageNumbermovil">{{ p() }} / {{ totalPages() }}</span>
+            <button type="button" class="btn controlPages ms-3" [disabled]="p() === totalPages()" (click)="goToPage(p() + 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M15 16l4 -4" />
+                <path d="M15 8l4 4" />
+              </svg>
+            </button>
+          </div>
+
+       <div class="d-none d-md-flex pagination mt-4" *ngIf="totalPages() > 1">
+                  <button type="button" title="previous page" class="btn controlPages me-4" [disabled]="p() === 1"
+                      (click)="goToPage(p() - 1)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="me-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M5 12l4 4" />
+                      <path d="M5 12l4 -4" />
+                      </svg>
+                      Anterior
+                  </button>
+
+                  <ng-container *ngFor="let i of [].constructor(totalPages()); let idx = index">
+                      <button type="button" class="btn page-number" [class.page-active]="p() === idx + 1"
+                      (click)="goToPage(idx + 1)">
+                      {{ idx + 1 }}
+                      </button>
+                  </ng-container>
+
+                  <button type="button" title="next page" class="btn controlPages ms-4" [disabled]="p() === totalPages()"
+                      (click)="goToPage(p() + 1)">
+                      Siguiente
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="ms-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M15 16l4 -4" />
+                      <path d="M15 8l4 4" />
+                      </svg>
+                  </button>
+        </div>
+          
         } @placeholder {
           <div class="w-100 d-flex justify-content-center align-items-center py-5">
             <app-loader-elements></app-loader-elements>

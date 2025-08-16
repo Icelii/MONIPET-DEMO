@@ -60,7 +60,6 @@ export class DetailsComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
         this.loading.set(false);
       }
     });
