@@ -155,7 +155,6 @@ export class ReportsComponent {
             }
           },
           error: (error: HttpErrorResponse | TimeoutError) => {
-            console.log(error);
           }
         });
       }
@@ -187,7 +186,6 @@ export class ReportsComponent {
       next: (response) => {
         if (response.result) {
           reports.set(response.data);
-          console.log(reports());
           this.loading.set(false);
         } else {
           reports.set([]);
@@ -197,7 +195,6 @@ export class ReportsComponent {
       error: (error: HttpErrorResponse | TimeoutError) => {
         reports.set([]);
         this.loading.set(false);
-        console.log(error);
       }
     });
   }

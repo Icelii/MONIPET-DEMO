@@ -71,8 +71,6 @@ export class NewPasswordComponent implements OnInit {
 
     const data = this.newPasswordForm.value;
 
-    console.log('FORM VALUES:', data);
-
     this.authService.recoveryPass(data).pipe(timeout(15000), take(1)).subscribe({
       next: (response) => {
         Swal.fire({

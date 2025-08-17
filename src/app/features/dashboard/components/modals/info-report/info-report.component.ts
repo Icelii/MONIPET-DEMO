@@ -49,12 +49,12 @@ export class InfoReportComponent {
       next: (response) => {
         if (response.result) {
           report.set(response.data);
-          console.log('REPORTE INFO: ', report());
+          //console.log('REPORTE INFO: ', report());
           this.loading.set(false);
         }
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }

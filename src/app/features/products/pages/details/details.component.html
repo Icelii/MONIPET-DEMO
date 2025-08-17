@@ -108,7 +108,7 @@
     <div class="row">
         <h4 class="subtitle mt-2 mb-4">Reseñas</h4>
 
-        @for (comment of productComments(); track comment.index) {
+        @for (comment of paginatedComments(); track comment.index) {
             <div class="col-12 col-md-6 col-lg-6 mb-3 mb-sm-5 mb-lg-5">
                 <app-comment-card [title]="comment.title" [comment]="comment.comment" [date]="comment.date" [rate]="comment.rate"></app-comment-card>
             </div>
@@ -117,6 +117,64 @@
                 <h5 class="text-muted">No hay reseñas 😿</h5>
             </div>
         }
+
+                          <!-- PAGINACION CELULAR -->
+        <div class="d-flex d-md-none pagination mt-4 d-flex justify-content-center align-items-center" *ngIf="totalPages() > 1">
+            <button type="button" class="btn controlPages me-3" [disabled]="p() === 1" (click)="goToPage(p() - 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M5 12l4 4" />
+                <path d="M5 12l4 -4" />
+              </svg>
+            </button>
+            <span class="mx-2 pageNumbermovil">{{ p() }} / {{ totalPages() }}</span>
+            <button type="button" class="btn controlPages ms-3" [disabled]="p() === totalPages()" (click)="goToPage(p() + 1)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l14 0" />
+                <path d="M15 16l4 -4" />
+                <path d="M15 8l4 4" />
+              </svg>
+            </button>
+          </div>
+
+       <div class="d-none d-md-flex pagination mt-4" *ngIf="totalPages() > 1">
+                  <button type="button" title="previous page" class="btn controlPages me-4" [disabled]="p() === 1"
+                      (click)="goToPage(p() - 1)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="me-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M5 12l4 4" />
+                      <path d="M5 12l4 -4" />
+                      </svg>
+                      Anterior
+                  </button>
+
+                  <ng-container *ngFor="let i of [].constructor(totalPages()); let idx = index">
+                      <button type="button" class="btn page-number" [class.page-active]="p() === idx + 1"
+                      (click)="goToPage(idx + 1)">
+                      {{ idx + 1 }}
+                      </button>
+                  </ng-container>
+
+                  <button type="button" title="next page" class="btn controlPages ms-4" [disabled]="p() === totalPages()"
+                      (click)="goToPage(p() + 1)">
+                      Siguiente
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="ms-2 icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M5 12l14 0" />
+                      <path d="M15 16l4 -4" />
+                      <path d="M15 8l4 4" />
+                      </svg>
+                  </button>
+        </div>
     </div>
 
     <div class="row mt-5">

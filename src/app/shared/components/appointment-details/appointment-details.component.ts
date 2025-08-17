@@ -1,4 +1,4 @@
-import { Component, computed, effect, Input, SimpleChanges } from '@angular/core';
+import { Component, computed, effect, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { OrderResumeComponent } from '../order-resume/order-resume.component';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -35,6 +35,8 @@ export class AppointmentDetailsComponent {
   userPets: any[] = [];
   @Input() selectedServices: any = {};
   appointmentData: any;
+  @ViewChild(OrderResumeComponent) orderResumeRef!: OrderResumeComponent;
+
 
   constructor(private fb: FormBuilder, private appointmentService: AppointmentService, private confirmAlert: ConfirmAlertService, private router: Router,
     private petService: PetService
@@ -68,7 +70,7 @@ export class AppointmentDetailsComponent {
       });
     }
 
-    console.log('RECIVIDOS DESDE EL APPOINTMENT: ', this.selectedServices);
+    //console.log('RECIVIDOS DESDE EL APPOINTMENT: ', this.selectedServices);
   }
 
   ngOnInit() {
@@ -119,7 +121,7 @@ export class AppointmentDetailsComponent {
       }
 
   getControl(name: string): AbstractControl {
-      return this.appointmentForm.controls[name];
+    return this.appointmentForm.controls[name];
   }
   
   private formatTime(date: Date): string {
@@ -147,7 +149,7 @@ export class AppointmentDetailsComponent {
         }
       },
       error: (error) => {
-        console.log(error);
+       //console.log(error);
       }
     });
   }
@@ -177,7 +179,7 @@ export class AppointmentDetailsComponent {
               type_appointment: 'Adoptiva'
             };
 
-            console.log('PETS APPOINTMENT: ', appointmentPetsPayload);
+            //console.log('PETS APPOINTMENT: ', appointmentPetsPayload);
 
             this.appointmentService.appointmentPets(appointmentPetsPayload).pipe(timeout(15000), take(1)).subscribe({
               next: (response) => {
@@ -191,13 +193,13 @@ export class AppointmentDetailsComponent {
                 });
               },
               error: (error) => {
-                console.log(error);
+                //console.log(error);
               }
             })
           }
         },
         error: (error) => {
-          console.log(error);
+          //console.log(error);
         }
       });
     }
@@ -207,8 +209,8 @@ export class AppointmentDetailsComponent {
           total_price: this.total,
         });
 
-          const types = ['Medica', 'Estetica'];
-          const randomType = types[Math.floor(Math.random() * types.length)];
+        const types = ['Medica', 'Estetica'];
+        const randomType = types[Math.floor(Math.random() * types.length)];
 
         const services = this.selectedServices.map((s: any) => ({
             service_id: s.service_id,
@@ -225,10 +227,14 @@ export class AppointmentDetailsComponent {
         };
 
         this.appointmentData = finalPayload;
+
+        setTimeout(() => {
+          this.orderResumeRef.payment();
+        });
     }
   }
 
   payment(finalPayload: any) {
-    console.log('Ejecutando pago con payload:', finalPayload);
+    //console.log('Ejecutando pago con payload:', finalPayload);
   }
 }

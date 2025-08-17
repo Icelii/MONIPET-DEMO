@@ -104,4 +104,9 @@
 </div>
 
 <app-edit-pet (updated)="onPetUpdated()" [photo_id]="photo_id" [id]="id" [isOpen]="showModal" (closed)="onModalClosed()"></app-edit-pet>
-<app-info-pet [petId]="id" [isOpen]="showInfoModal" (closed)="onInfoModalClosed()"></app-info-pet>
+<app-info-pet
+  *ngIf="showInfoModal"
+  [id]="id"
+  [isOpen]="showInfoModal"
+  (closed)="onInfoModalClosed()">
+</app-info-pet>

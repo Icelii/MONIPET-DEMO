@@ -80,7 +80,7 @@ export class VerifyPasswordModalComponent {
         }
       },
       error: (error) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }

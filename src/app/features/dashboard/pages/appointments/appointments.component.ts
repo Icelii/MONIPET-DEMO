@@ -142,7 +142,7 @@ export class AppointmentsComponent implements OnInit {
       if (response.result) {
         userAppointments.set(response.data);
         this.loading.set(false);
-        console.log('CITAS: ', userAppointments());
+        //console.log('CITAS: ', userAppointments());
       } else {
         userAppointments.set([]);
         this.loading.set(false);
@@ -151,7 +151,7 @@ export class AppointmentsComponent implements OnInit {
     error: (error) => {
       userAppointments.set([]);
       this.loading.set(false);
-      console.log(error);
+      //console.log(error);
     }
   });
  }

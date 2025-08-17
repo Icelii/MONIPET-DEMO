@@ -68,7 +68,7 @@ export class OrderCardComponent {
         }
       },
       error: (error) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }

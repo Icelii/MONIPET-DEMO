@@ -76,7 +76,7 @@ export class ReportComponent {
         }
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }

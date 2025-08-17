@@ -174,7 +174,7 @@ export class EditPetComponent {
         }
       },
       error: (error) => {
-        console.error('Error al subir imagen: ', error);
+        //console.error('Error al subir imagen: ', error);
       }
     });
   }
@@ -187,7 +187,7 @@ export class EditPetComponent {
         }
       },
       error: (error) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }
@@ -242,7 +242,7 @@ export class EditPetComponent {
         }
       },
       error: (error) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }

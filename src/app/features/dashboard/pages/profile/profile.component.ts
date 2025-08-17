@@ -6,11 +6,12 @@ import { ConfirmAlertService } from '../../../../core/services/alerts/confirm-al
 import { VerifyPasswordModalComponent } from "../../components/modals/verify-password-modal/verify-password-modal.component";
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../../core/services/auth.service';
-import { take, timeout } from 'rxjs';
+import { take, timeout, TimeoutError } from 'rxjs';
 import { UserService } from '../../../../core/services/user.service';
 import { response } from 'express';
 import { currentUser } from '../../../../core/stores/auth.store';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -113,6 +114,9 @@ export class ProfileComponent implements OnInit {
         }).then((result) => {
           this.authService.getUserInfo(); 
         });
+      }, 
+      error: (error: HttpErrorResponse | TimeoutError) => {
+        
       }
     });
   }

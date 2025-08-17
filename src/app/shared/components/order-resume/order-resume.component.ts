@@ -114,8 +114,8 @@ export class OrderResumeComponent implements OnInit {
         }
       },
       error: (error) => {
-          console.log(error);
-        }
+        //console.log(error);
+      }
     });
   }
 
@@ -154,8 +154,8 @@ export class OrderResumeComponent implements OnInit {
         }
       },
       error: (error) => {
-          console.log(error);
-        }
+        //console.log(error);
+      }
     });
   }
 
@@ -171,8 +171,6 @@ export class OrderResumeComponent implements OnInit {
         });
         return;
       }
-
-      //const amountInCents = Math.round(total * 100);
 
       this.stripeService.createPaymentIntent(total, { type: 'order'})
         .subscribe(async res => {
@@ -194,7 +192,7 @@ export class OrderResumeComponent implements OnInit {
           }
 
           if (result?.paymentIntent?.status === 'succeeded') {
-            console.log('CARRITO INFO: ', this.cartProducts);
+            //console.log('CARRITO INFO: ', this.cartProducts);
             this.stripeService.confirmPayment(result.paymentIntent.id, { products: this.cartProducts })
               .subscribe({
                 next: (resp) => {
@@ -233,8 +231,6 @@ export class OrderResumeComponent implements OnInit {
         return;
       }
 
-      //const amountInCents = Math.round(total * 100);
-
       const metadata = {
         ...this.appointmentData,
         services: JSON.stringify(this.appointmentData.services),
@@ -242,7 +238,7 @@ export class OrderResumeComponent implements OnInit {
         total_price: total.toString()
       };
 
-      console.log('METADATA: ', metadata);
+      //console.log('METADATA: ', metadata);
 
       this.stripeService.createPaymentIntent(total, { type: 'appointment'})
         .subscribe(async res => {

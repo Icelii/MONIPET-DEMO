@@ -76,7 +76,7 @@ export class ProductsComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
+        //console.log(error);
         this.products.set([]);
         this.filteredProducts.set([]);
         this.loading.set(false);
@@ -113,7 +113,7 @@ export class ProductsComponent implements OnInit {
         }
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }
@@ -147,11 +147,14 @@ export class ProductsComponent implements OnInit {
   }
 
   applySearch() {
-    const text = this.searchText().toLowerCase().trim();
+    const normalize = (str: string) =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const text = normalize(this.searchText().trim());
 
     this.filteredProducts.set(
       this.products().filter(product =>
-        !text || product.name.toLowerCase().includes(text)
+        !text || normalize(product.name).includes(text)
       )
     );
   }

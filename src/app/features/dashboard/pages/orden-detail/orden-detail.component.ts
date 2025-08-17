@@ -60,7 +60,7 @@ export class OrdenDetailComponent {
       },
       error: (error) => {
         this.loading.set(false);
-        console.log(error);
+        //console.log(error);
       }
     });
   }

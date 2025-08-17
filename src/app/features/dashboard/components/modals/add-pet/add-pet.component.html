@@ -109,7 +109,7 @@
                     <div class="col-md-6">
                         <label class="form-label" for="height">Altura</label>
                         <input (input)="onHeightInput($event)" [min]="1" [max]="90" type="number" id="height" formControlName="height" class="w-100 form-control customInputs" 
-                        placeholder="Altura en metros"/>
+                        placeholder="Altura en cm"/>
                         <app-error-messages [control]="getControl('height')" unidad="m" version="m" label="Este campo"></app-error-messages>
                     </div>
                 </div>

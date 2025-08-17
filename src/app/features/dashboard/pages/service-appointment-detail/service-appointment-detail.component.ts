@@ -22,7 +22,6 @@ export class ServiceAppointmentDetailComponent implements OnInit {
   appointment = computed(() => appointmentDetail());
   loading = signal(true);
 
-
   //PAGINACION
   p = signal(1);
   perPage = 2;
@@ -67,7 +66,6 @@ export class ServiceAppointmentDetailComponent implements OnInit {
       error: (error) => {
         appointmentDetail.set({});
         this.loading.set(false);
-        console.log(error);
       }
     });
   }

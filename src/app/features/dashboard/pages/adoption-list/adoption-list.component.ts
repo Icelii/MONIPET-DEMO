@@ -22,14 +22,15 @@ export class AdoptionListComponent implements OnInit {
   loading = signal(true);
 
   filteredPets = computed(() => {
-      const text = this.searchText().toLowerCase().trim();
-      const allPets = this.pets() as any [];
-  
-      if (!text) return allPets;
-  
-      return allPets?.filter(pet =>
-        pet.name.toLowerCase().includes(text)
-      );
+    const normalize = (str: string) =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const text = normalize(this.searchText().trim());
+    const allPets = this.pets() as any[];
+
+    if (!text) return allPets;
+
+    return allPets.filter(pet => normalize(pet.name).includes(text));
   });
 
   // PAGINACION
@@ -82,7 +83,7 @@ export class AdoptionListComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error(error);
+        //console.error(error);
         this.selectedPets.set([]);
         this.pets.set([]);
         this.loading.set(false);
