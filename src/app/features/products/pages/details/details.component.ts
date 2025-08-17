@@ -31,7 +31,6 @@ export class DetailsComponent {
   priceDiscount = signal<number>(0);
   loading = signal(true);
   loadingComments = signal(true);
-  p: number = 1;
   productComments = computed(() => comments());
   commentForm: FormGroup;
   userRating: number = 0;
@@ -40,6 +39,25 @@ export class DetailsComponent {
 
   favs = usefavList();
   isInFavList = computed(() => this.favs().includes(this.productId));
+
+  //PAGINACION
+  p = signal(1);
+  perPage = 4;
+
+  paginatedComments = computed(() => {
+    const start = (this.p() - 1) * this.perPage;
+    return this.productComments().slice(start, start + this.perPage);
+  });
+
+  totalPages = computed(() => 
+    Math.ceil(this.productComments().length / this.perPage)
+  );
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p.set(page);
+    }
+  }
   
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private productService: ProductService, private fb: FormBuilder){
     this.commentForm = this.fb.group({
@@ -74,7 +92,7 @@ export class DetailsComponent {
       },
       error: (error) => {
         this.loading.set(false);
-        console.log(error);
+        //console.log(error);
       }
     });
   }
@@ -91,7 +109,7 @@ export class DetailsComponent {
         }
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }
@@ -177,7 +195,7 @@ export class DetailsComponent {
         }
       },
       error: (error) => {
-        console.log(error);
+        //console.log(error);
       } 
     });
   }

@@ -10,6 +10,7 @@ import { LoaderElementsComponent } from '../../../../shared/components/loader-el
 import { addServiceToSelection, removeServiceFromSelection, selectedServices } from '../../../../core/stores/appointments.store';
 import { AuthService } from '../../../../core/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-services',
@@ -76,7 +77,7 @@ export class ServicesComponent implements OnInit {
         if (response.result) {
           this.services.set(response.data);
           this.filteredServices.set([...this.services()]);
-          console.log('SERVICIOS: ', this.filteredServices());
+          //console.log('SERVICIOS: ', this.filteredServices());
           this.loading.set(false);
         } else {
           this.services.set([]);
@@ -88,7 +89,7 @@ export class ServicesComponent implements OnInit {
         this.services.set([]);
         this.filteredServices.set([]);
         this.loading.set(false);
-        console.log(error);
+        //console.log(error);
       }
     });
   }
@@ -111,7 +112,10 @@ export class ServicesComponent implements OnInit {
 
   executeIfCanSchedule(action: () => void) {
     if (this.serviciosSeleccionados().length === 0) {
-      alert('Debes seleccionar al menos un servicio');
+      Swal.fire({
+        title: "Debes seleccionar al menos un servicio",
+        icon: "warning"
+      });
       return;
     }
 
@@ -142,7 +146,7 @@ export class ServicesComponent implements OnInit {
         }
       },
       error: (error:  HttpErrorResponse | TimeoutError) => {
-        console.log(error);
+        //console.log(error);
       }
     });
   }
@@ -172,10 +176,14 @@ export class ServicesComponent implements OnInit {
   }
 
   applySearch() {
-    const text = this.searchText();
+    const normalize = (str: string) =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const text = normalize(this.searchText());
+
     this.filteredServices.set(
       this.services().filter(service =>
-        service.service.toLowerCase().includes(text)
+        normalize(service.service).includes(text)
       )
     );
 

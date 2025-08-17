@@ -69,7 +69,7 @@ export class AdoptionAppointmentDetailComponent implements OnInit {
         next: (response) => {
           if (response.result) {
             appointmentDetail.set(response.data);
-            console.log('DATOS: ', appointmentDetail());
+            //console.log('DATOS: ', appointmentDetail());
             this.loading.set(false);
           } else {
             appointmentDetail.set({});
@@ -79,7 +79,7 @@ export class AdoptionAppointmentDetailComponent implements OnInit {
         error: (error) => {
           appointmentDetail.set({});
           this.loading.set(false);
-          console.log(error);
+          //console.log(error);
         },
       });
   }
@@ -122,7 +122,7 @@ export class AdoptionAppointmentDetailComponent implements OnInit {
           }
         },
         error: (error) => {
-          console.log(error);
+          //console.log(error);
         },
       });
   }

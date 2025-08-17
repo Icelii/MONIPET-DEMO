@@ -141,7 +141,7 @@ export class OrdersComponent implements OnInit {
       error: (error) => {
         userOrders.set([]);
         this.loading.set(false);
-        console.log(error);
+        //console.log(error);
       }
     });
   }

@@ -29,14 +29,15 @@ export class PetsComponent {
   showInfoModal = false;
 
   filteredPets = computed(() => {
-    const text = this.searchText().toLowerCase().trim();
-    const allPets = this.pets() as any [];
+    const normalize = (str: string) =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const text = normalize(this.searchText().trim());
+    const allPets = this.pets() as any[];
 
     if (!text) return allPets;
 
-    return allPets?.filter(pet =>
-      pet.name.toLowerCase().includes(text)
-    );
+    return allPets.filter(pet => normalize(pet.name).includes(text));
   });
 
   // FILTROS
@@ -91,7 +92,7 @@ export class PetsComponent {
       error: (error) => {
         userPets.set([]);
         this.loading.set(false);
-        console.log(error);
+        //console.log(error);
       }
     });
   }

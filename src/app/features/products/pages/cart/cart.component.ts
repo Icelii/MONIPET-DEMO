@@ -87,7 +87,7 @@ export class CartComponent implements OnInit {
         //console.log('CARRITO: ', this.productList());
       },
       error: (error) => {
-        console.log(error);
+        //console.log(error);
         this.productList.set([]);
         this.quantities.set({});
       }
@@ -179,8 +179,8 @@ export class CartComponent implements OnInit {
     const selectedProds = this.selectedProducts;
     const quantities = this.quantities();
     
-    console.log('Getter - Selected products:', selectedProds);
-    console.log('Getter - Quantities:', quantities);
+    //console.log('Getter - Selected products:', selectedProds);
+    //console.log('Getter - Quantities:', quantities);
     
     return selectedProds.map(product => ({
       id: product.id,

@@ -25,7 +25,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.queryParamsSub = this.route.queryParams.subscribe((params: any) => {
       this.services = params['services'] ? JSON.parse(params['services']) : [];
-      console.log('IDs servicios: ', this.services);
+      //console.log('IDs servicios: ', this.services);
       this.getServicesList();
     });
   }
@@ -40,7 +40,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
             price: s.price,
             discount: s.discounts ?? 0.00
           }));
-          console.log('SERVICIOS PARA LA CITA: ', response.data);
+          //console.log('SERVICIOS PARA LA CITA: ', response.data);
         } else {
           this.servicesSelected.set([]);
           this.selectedServiceIds = [];
@@ -51,7 +51,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         this.servicesSelected.set([]);
         this.selectedServiceIds = [];
         this.loading.set(false);
-        console.log(error);
+        //console.log(error);
       }
     });
   }

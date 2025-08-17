@@ -155,7 +155,7 @@ export class AuthCodeComponent implements AfterViewInit, OnDestroy{
   }
 
   onTimerFinished() {
-    console.log('El contador terminó');
+    //console.log('El contador terminó');
   }
 
   send2FACode() {

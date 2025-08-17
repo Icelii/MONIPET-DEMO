@@ -21,17 +21,15 @@ export class FavoritesComponent implements OnInit {
   searchFilter = signal<string>('');
 
   filteredFavorites = computed(() => {
+    const normalize = (str: string) =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
     const all = this.favProducts() || [];
-    const search = this.searchFilter().toLowerCase().trim();
+    const search = normalize(this.searchFilter().trim());
 
     return all.filter((app: any) => {
-      let ok = true;
-
-      if (search) {
-        ok = ok && app.name.toLowerCase().includes(search);
-      }
-
-      return ok;
+      if (!search) return true;
+      return normalize(app.name).includes(search);
     });
   });
 
@@ -84,7 +82,7 @@ export class FavoritesComponent implements OnInit {
       error: (error) => {
         this.favProducts.set([]);
         this.loading.set(false);
-        console.log(error);
+        //console.log(error);
       }
     });
   }
