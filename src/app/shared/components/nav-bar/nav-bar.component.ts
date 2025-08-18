@@ -1,13 +1,14 @@
-import { CommonModule, isPlatformBrowser} from '@angular/common';
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, signal, Signal, Input, computed, effect} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, signal, computed } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { BehaviorSubject, Subscription, take, timeout } from 'rxjs';
+import { Subscription, take, timeout } from 'rxjs';
 import { UserService } from '../../../core/services/user.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { currentUser } from '../../../core/stores/auth.store';
 
 declare var bootstrap: any;
+
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -23,7 +24,12 @@ export class NavBarComponent implements OnInit, OnDestroy {
   loading = signal(true);
   notifications: any[] = [];
 
-  constructor(private authService: AuthService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private userService: UserService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.getNotifications();
@@ -35,24 +41,32 @@ export class NavBarComponent implements OnInit, OnDestroy {
       }
 
       this.routerSub = this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd && this.offcanvasInstance) {
-          this.offcanvasInstance.hide();
+        if (event instanceof NavigationEnd) {
+          if (this.offcanvasInstance) {
+            this.offcanvasInstance.hide();
+          }
+          document.body.style.overflow = '';
+          document.body.classList.remove('offcanvas-backdrop', 'modal-open');
+          const backdrop = document.querySelector('.offcanvas-backdrop');
+          if (backdrop) backdrop.remove();
         }
-        this.resetBodyScroll();
       });
     }
   }
 
-navigateAndClose(url: string) {
-  this.router.navigate([url]);
-}
+  navigateAndClose(url: string) {
+    if (this.offcanvasInstance) {
+      this.offcanvasInstance.hide();
+    }
 
-  private resetBodyScroll() {
-    document.body.classList.remove('offcanvas-backdrop', 'modal-open');
-    document.body.style.removeProperty('overflow');
+    setTimeout(() => {
+      document.body.style.overflow = '';
+      document.body.classList.remove('offcanvas-backdrop', 'modal-open');
+      const backdrop = document.querySelector('.offcanvas-backdrop');
+      if (backdrop) backdrop.remove();
 
-    const backdrop = document.querySelector('.offcanvas-backdrop');
-    if (backdrop) backdrop.remove();
+      this.router.navigate([url]);
+    }, 200);
   }
 
   getNotifications() {
@@ -65,31 +79,21 @@ navigateAndClose(url: string) {
             message: noti.data.message,
             read_at: noti.read_at
           }));
-          this.loading.set(false);
-          //console.log('NOTIS:', this.notifications);
-        } else {
-          this.loading.set(false);
-          //console.log('Respuesta recibida sin estructura esperada:', response);
         }
-      },
-      error: (error) => {
         this.loading.set(false);
-        //console.error(error);
+      },
+      error: () => {
+        this.loading.set(false);
       }
     });
   }
 
   markAsRead(noti: any) {
     if (noti.read_at) return;
-
     this.userService.markAsRead(noti.id).subscribe({
-      next: () => {
-        noti.read_at = new Date().toISOString();
-      },
-      error: (error) => {
-        //console.error('Error marcando notificación como leída', error);
-      }
-    })
+      next: () => (noti.read_at = new Date().toISOString()),
+      error: () => {}
+    });
   }
 
   get hasUnreadNotifications(): boolean {
