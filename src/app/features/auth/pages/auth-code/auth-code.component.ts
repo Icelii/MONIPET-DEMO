@@ -120,8 +120,7 @@ export class AuthCodeComponent implements AfterViewInit, OnDestroy{
             this.authService.saveToken(response.data.token);
             this.authService.getUserInfo();
             setTimeout(() => {
-              //this.router.navigate(['/']);
-              window.location.href = '/';
+              this.router.navigate(['/']);
             }, 100);
           } else if (this.type === 'Recovery') {
            this.router.navigate(['new-password'], { 
@@ -177,8 +176,12 @@ export class AuthCodeComponent implements AfterViewInit, OnDestroy{
         }
       },
       error: (error: HttpErrorResponse | TimeoutError) => {
+        if (error instanceof TimeoutError) {
+          this.onSubmit();
+          return;
+        }
+
         const msg = (error as HttpErrorResponse).error?.msg || 'Ha ocurrido un error inesperado';
-        this.codeForm.reset();
 
         Swal.fire({
           title: "Ocurrió un error! :(",
