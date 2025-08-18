@@ -120,8 +120,7 @@ export class AuthCodeComponent implements AfterViewInit, OnDestroy{
             this.authService.saveToken(response.data.token);
             this.authService.getUserInfo();
             setTimeout(() => {
-              //this.router.navigate(['/']);
-              window.location.href = '/';
+              this.router.navigate(['/']);
             }, 100);
           } else if (this.type === 'Recovery') {
            this.router.navigate(['new-password'], { 
