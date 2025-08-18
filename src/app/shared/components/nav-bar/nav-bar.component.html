@@ -115,8 +115,8 @@
               </div>
 
             <ng-container *ngIf="!loginStatus()">
-                <a class="link-Login mb-0" (click)="navigateAndClose('/login')">Iniciar sesión</a>
-                <a class="btn btn-Register" (click)="navigateAndClose('/register')">Registrarse</a>
+                <a class="link-Login mb-0" href="/login">Iniciar sesión</a>
+                <a class="btn btn-Register" href="/register">Registrarse</a>
             </ng-container>
         } @placeholder {
             <ngx-skeleton-loader
