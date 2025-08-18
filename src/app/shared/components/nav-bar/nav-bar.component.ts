@@ -46,7 +46,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
     if (this.offcanvasInstance) {
       this.offcanvasInstance.hide();
     }
-    this.router.navigate([url]);
+
+    setTimeout(() => {
+      document.body.style.overflow = '';
+      const backdrop = document.querySelector('.offcanvas-backdrop');
+      if (backdrop) backdrop.remove();
+
+      this.router.navigate([url]);
+    }, 200);
   }
 
   getNotifications() {
