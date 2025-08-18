@@ -19,6 +19,7 @@ declare var bootstrap: any;
 export class NavBarComponent implements OnInit, OnDestroy {
   private offcanvasInstance: any;
   private routerSub!: Subscription;
+  private isOffcanvasOpen = false;
   loginStatus = computed(() => !!currentUser());
   user = computed(() => currentUser());
   loading = signal(true);
@@ -35,41 +36,95 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.getNotifications();
 
     if (isPlatformBrowser(this.platformId)) {
-      const element = document.getElementById('offcanvasNavbar');
-      if (element) {
-        this.offcanvasInstance = bootstrap.Offcanvas.getOrCreateInstance(element);
-      }
+      this.initializeOffcanvas();
+      this.setupRouterSubscription();
+    }
+  }
 
-      this.routerSub = this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          if (this.offcanvasInstance) {
-            this.offcanvasInstance.hide();
-          }
-          document.body.style.overflow = '';
-          document.body.classList.remove('offcanvas-backdrop', 'modal-open');
-          const backdrop = document.querySelector('.offcanvas-backdrop');
-          if (backdrop) backdrop.remove();
-        }
+  private initializeOffcanvas(): void {
+    const element = document.getElementById('offcanvasNavbar');
+    if (element) {
+      this.offcanvasInstance = bootstrap.Offcanvas.getOrCreateInstance(element);
+      
+      element.addEventListener('show.bs.offcanvas', () => {
+        this.isOffcanvasOpen = true;
+      });
+
+      element.addEventListener('hide.bs.offcanvas', () => {
+        this.isOffcanvasOpen = false;
+        this.forceScrollRestore();
+      });
+
+      element.addEventListener('hidden.bs.offcanvas', () => {
+        this.forceScrollRestore();
       });
     }
   }
 
-  navigateAndClose(url: string) {
+  private setupRouterSubscription(): void {
+    this.routerSub = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.closeOffcanvasAndRestoreScroll();
+      }
+    });
+  }
+
+  private closeOffcanvasAndRestoreScroll(): void {
+    if (this.offcanvasInstance && this.isOffcanvasOpen) {
+      this.offcanvasInstance.hide();
+    }
+    
+    setTimeout(() => {
+      this.forceScrollRestore();
+    }, 100);
+  }
+
+  private forceScrollRestore(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const body = document.body;
+    const html = document.documentElement;
+    
+    body.classList.remove('modal-open', 'offcanvas-backdrop');
+    html.classList.remove('modal-open');
+    
+    body.style.overflow = '';
+    body.style.paddingRight = '';
+    html.style.overflow = '';
+    
+    const backdrops = document.querySelectorAll('.offcanvas-backdrop, .modal-backdrop');
+    backdrops.forEach(backdrop => backdrop.remove());
+    
+    if (this.isMobileDevice()) {
+      body.style.touchAction = '';
+      body.style.overflowY = 'auto';
+      body.style.position = '';
+      body.style.width = '';
+      body.style.height = '';
+      
+      setTimeout(() => {
+        window.scrollTo(0, window.scrollY);
+      }, 50);
+    }
+  }
+
+  private isMobileDevice(): boolean {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+           window.innerWidth <= 768;
+  }
+
+  navigateAndClose(url: string): void {
     if (this.offcanvasInstance) {
       this.offcanvasInstance.hide();
     }
 
     setTimeout(() => {
-      document.body.style.overflow = '';
-      document.body.classList.remove('offcanvas-backdrop', 'modal-open');
-      const backdrop = document.querySelector('.offcanvas-backdrop');
-      if (backdrop) backdrop.remove();
-
+      this.forceScrollRestore();
       this.router.navigate([url]);
-    }, 200);
+    }, 150);
   }
 
-  getNotifications() {
+  getNotifications(): void {
     this.userService.getNotifications().pipe(timeout(15000), take(1)).subscribe({
       next: (response) => {
         if (response && response.data) {
@@ -88,7 +143,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     });
   }
 
-  markAsRead(noti: any) {
+  markAsRead(noti: any): void {
     if (noti.read_at) return;
     this.userService.markAsRead(noti.id).subscribe({
       next: () => (noti.read_at = new Date().toISOString()),
@@ -100,15 +155,20 @@ export class NavBarComponent implements OnInit, OnDestroy {
     return this.notifications.some(noti => !noti.read_at);
   }
 
-  logout() {
+  logout(): void {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['/login']);
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.routerSub) {
       this.routerSub.unsubscribe();
+    }
+    
+    // Limpiar al destruir el componente
+    if (isPlatformBrowser(this.platformId)) {
+      this.forceScrollRestore();
     }
   }
 }
