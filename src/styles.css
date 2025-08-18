@@ -34,6 +34,8 @@
 html,
 body {
   height: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
 body {
@@ -493,4 +495,9 @@ select.form-control option::checkmark {
 .pagination .pageNumbermovil {
   color: var(--text-principal);
   font-weight: 600;
+}
+
+body.offcanvas-backdrop,
+body.modal-open {
+  overflow: auto !important;
 }
