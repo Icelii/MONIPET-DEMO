@@ -38,15 +38,21 @@ export class NavBarComponent implements OnInit, OnDestroy {
         if (event instanceof NavigationEnd && this.offcanvasInstance) {
           this.offcanvasInstance.hide();
         }
+        this.resetBodyScroll();
       });
     }
   }
 
-  navigateAndClose(url: string) {
-    if (this.offcanvasInstance) {
-      this.offcanvasInstance.hide();
-    }
-    this.router.navigate([url]);
+navigateAndClose(url: string) {
+  this.router.navigate([url]);
+}
+
+  private resetBodyScroll() {
+    document.body.classList.remove('offcanvas-backdrop', 'modal-open');
+    document.body.style.removeProperty('overflow');
+
+    const backdrop = document.querySelector('.offcanvas-backdrop');
+    if (backdrop) backdrop.remove();
   }
 
   getNotifications() {
