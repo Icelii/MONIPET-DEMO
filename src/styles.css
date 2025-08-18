@@ -494,3 +494,8 @@ select.form-control option::checkmark {
   color: var(--text-principal);
   font-weight: 600;
 }
+
+body.offcanvas-backdrop,
+body.modal-open {
+  overflow: auto !important;
+}
