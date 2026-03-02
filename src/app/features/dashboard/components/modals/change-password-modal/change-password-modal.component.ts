@@ -77,21 +77,17 @@ export class ChangePasswordModalComponent {
 
     const userData = this.changePasswordForm.value;
 
-    this.userService.updateUserInfo(this.userId, userData).pipe(timeout(15000), take(1)).subscribe({
-          next: (response) => {
-            Swal.fire({
-              title: "Contraseña actualizada!",
-              icon: "success",
-              timer: 1500,
-              confirmButtonColor: "#489dba"
-            }).then((result) => {
-              this.closeModal();
-              this.closeModalWithBlur();
-              this.changePasswordForm.reset();
-              this.changePasswordForm.markAsPristine();
-              this.changePasswordForm.markAsUntouched();
-            });
-          }
+    Swal.fire({
+      title: "Contraseña actualizada!",
+      icon: "success",
+      timer: 1500,
+      confirmButtonColor: "#489dba"
+    }).then((result) => {
+      this.closeModal();
+      this.closeModalWithBlur();
+      this.changePasswordForm.reset();
+      this.changePasswordForm.markAsPristine();
+      this.changePasswordForm.markAsUntouched();
     });
   }
 }

@@ -1,0 +1,41 @@
+[
+  {
+    "id": 101,
+    "status": "Personal",
+    "name": "Luna",
+    "breed_id": 12,
+    "birthday": "2022-03-10",
+    "gender": "Hembra",
+    "size": "Mediana",
+    "weight": 14.5,
+    "height": 45.0,
+    "photo": "https://i.pinimg.com/736x/cf/c2/c4/cfc2c4e6125b82a1e221fc7d552216ff.jpg",
+    "spayed": true
+  },
+  {
+    "id": 102,
+    "status": "Personal",
+    "name": "Max",
+    "breed_id": 5,
+    "birthday": "2021-11-25",
+    "gender": "Macho",
+    "size": "Grande",
+    "weight": 32.85,
+    "height": 65.2,
+    "photo": "https://i.pinimg.com/736x/93/97/4b/93974b692f5aa6e518ab1db983ef56ff.jpg",
+    "spayed": false
+  },
+  {
+    "id": 103,
+    "status": "Personal",
+    "name": "Pequeño José",
+    "breed_id": 28,
+    "birthday": "2023-01-05",
+    "gender": "Macho",
+    "size": "Pequeña",
+    "weight": 4.2,
+    "height": 22.0,
+    "photo": "https://i.pinimg.com/736x/ae/05/66/ae0566a1e4466c509a129a642c2b35ae.jpg",
+    "spayed": true
+  }
+]

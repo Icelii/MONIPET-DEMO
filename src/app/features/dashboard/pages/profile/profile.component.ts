@@ -12,6 +12,8 @@ import { response } from 'express';
 import { currentUser } from '../../../../core/stores/auth.store';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import userInfo from '../../../../../../public/json/userInfo.json';
+
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -102,22 +104,13 @@ export class ProfileComponent implements OnInit {
     }
 
     const data = this.updateInfoForm.value;
-    //console.log('FORM VALUES:', data);
-
-   this.userService.updateUserInfo(this.user().id, data).pipe(timeout(15000), take(1)).subscribe({
-      next: (response) => {
-        Swal.fire({
-          title: "Datos actualizados!",
-          icon: "success",
-          timer: 1500,
-          confirmButtonColor: "#489dba"
-        }).then((result) => {
-          this.authService.getUserInfo(); 
-        });
-      }, 
-      error: (error: HttpErrorResponse | TimeoutError) => {
-        
-      }
+    Swal.fire({
+      title: "Datos actualizados!",
+      icon: "success",
+      timer: 1500,
+      confirmButtonColor: "#489dba"
+    }).then((result) => {
+      this.authService.getUserInfo(); 
     });
   }
 

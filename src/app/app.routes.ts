@@ -37,7 +37,6 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: UserDashboardLayoutComponent,
-    canActivateChild: [tokenDashboardGuard],
     children: [
       { path: 'profile', loadComponent: () => import('./features/dashboard/pages/profile/profile.component').then(c => c.ProfileComponent) },
       { path: 'pets', loadComponent: () => import('./features/dashboard/pages/pets/pets.component').then(c => c.PetsComponent) },

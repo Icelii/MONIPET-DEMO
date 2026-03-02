@@ -8,6 +8,7 @@ import { currentUser } from '../../../../../core/stores/auth.store';
 import { take, timeout } from 'rxjs';
 import Swal from 'sweetalert2';
 import { userPets } from '../../../../../core/stores/pets.store';
+import breedsList from '../../../../../../../public/json/breeds.json';
 
 @Component({
   selector: 'app-add-pet',
@@ -24,7 +25,7 @@ export class AddPetComponent {
   addPetForm: FormGroup;
   updloadedImage: any;
   fechaMaxima: string = '';
-  breeds = signal<any[]>([]);
+  breeds = signal(breedsList);
   @Output() saved = new EventEmitter<void>();
 
   constructor(private fb:  FormBuilder, private petService: PetService) {
@@ -43,12 +44,10 @@ export class AddPetComponent {
   }
   
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['userId'] && this.userId) {
-    }
   }
 
   ngOnInit() {
-    this.getBreeds();
+    //this.getBreeds();
 
     const hoy = new Date();
     const fecha = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
@@ -135,22 +134,16 @@ export class AddPetComponent {
       }
     }
 
-    this.petService.addPet(formData).pipe(timeout(15000), take(1)).subscribe({
-      next: (response) => {
-        if (response.result) {
-          Swal.fire({
-            title: "Mascota registrada!",
-            icon: "success",
-            timer: 1500,
-            showConfirmButton: false,
-          }).then((result) => {
-              this.addPetForm.reset();
-              this.updloadedImage = null;
-              this.closeModal();
-              this.saved.emit();
-          });
-        }
-      }
+    Swal.fire({
+      title: "Mascota registrada!",
+      icon: "success",
+      timer: 1500,
+      showConfirmButton: false,
+    }).then((result) => {
+        this.addPetForm.reset();
+        this.updloadedImage = null;
+        this.closeModal();
+        this.saved.emit();
     });
   }
 

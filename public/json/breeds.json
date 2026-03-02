@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "type_pet_id": 1,
+    "breed": "Golden Retriever"
+  },
+  {
+    "id": 2,
+    "type_pet_id": 1,
+    "breed": "Pastor Alemán"
+  },
+  {
+    "id": 3,
+    "type_pet_id": 1,
+    "breed": "Chihuahua"
+  },
+  {
+    "id": 4,
+    "type_pet_id": 2,
+    "breed": "Siamés"
+  },
+  {
+    "id": 5,
+    "type_pet_id": 2,
+    "breed": "Persa"
+  },
+  {
+    "id": 6,
+    "type_pet_id": 2,
+    "breed": "Maine Coon"
+  },
+  {
+    "id": 7,
+    "type_pet_id": 3,
+    "breed": "Canario"
+  },
+  {
+    "id": 8,
+    "type_pet_id": 3,
+    "breed": "Perico Australiano"
+  }
+]

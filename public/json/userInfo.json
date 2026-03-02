@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "name": "María José",
+  "last_name": "García",
+  "last_name2": "López",
+  "gender": "femenino",
+  "birth_date": "2005-05-15",
+  "email": "maria.jose@ejemplo.com"
+}

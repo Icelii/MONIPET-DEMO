@@ -24,8 +24,6 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
-    this.auth.getUserInfo();
-
     if (isPlatformBrowser(this.platformId)) {
       this.router.events
         .pipe(filter(event => event instanceof NavigationEnd))

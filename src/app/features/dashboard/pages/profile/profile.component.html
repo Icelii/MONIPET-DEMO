@@ -6,7 +6,7 @@
     <div class="profile-card" *ngIf="user() as userData">
         @defer (when user()) {
           <div class="image">
-            <img [src]="getGenderIcon()" alt="Avatar" class="profile-img">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" alt="Avatar" class="profile-img">
           </div>
         } @placeholder {
           <div class="spinner-border text-secondary m-5" role="status"></div>
@@ -76,7 +76,7 @@
           <option hidden disabled selected value="">Seleccionar</option>
           <option value="femenino">Femenino</option>
           <option value="masculino">Masculino</option>
-          <option value="39 tipos de gays">39 tipos de gays🏳️‍🌈</option>
+          <option value="otro">Prefiero no decir</option>
         </select>
         <app-error-messages [control]="getControl('gender')" version="m" label="Este campo"></app-error-messages>
       </div>

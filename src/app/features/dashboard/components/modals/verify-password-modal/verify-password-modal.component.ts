@@ -66,22 +66,12 @@ export class VerifyPasswordModalComponent {
     }
 
     const userData = this.verifyPasswordForm.value;
-    console.log('FORM VALUES:', userData);
 
-    this.authService.checkPassword(userData).pipe(timeout(15000), take(1)).subscribe({
-      next: (response) => {
-        if (response.result) {
-          this.showModal.set(true);
-          this.closeModal();
-          this.closeModalWithBlur();
-          this.verifyPasswordForm.reset();
-          this.verifyPasswordForm.markAsPristine();
-          this.verifyPasswordForm.markAsUntouched();
-        }
-      },
-      error: (error) => {
-        //console.log(error);
-      }
-    });
+    this.showModal.set(true);
+    this.closeModal();
+    this.closeModalWithBlur();
+    this.verifyPasswordForm.reset();
+    this.verifyPasswordForm.markAsPristine();
+    this.verifyPasswordForm.markAsUntouched();
   }
 }

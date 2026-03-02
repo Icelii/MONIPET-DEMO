@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "type_pet": "Perro",
+    "icono": "assets/icons/dog-face.svg"
+  },
+  {
+    "id": 2,
+    "type_pet": "Gato",
+    "icono": "assets/icons/cat-face.svg"
+  },
+  {
+    "id": 3,
+    "type_pet": "Ave",
+    "icono": "assets/icons/bird.svg"
+  }
+]

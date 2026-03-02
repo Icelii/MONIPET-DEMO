@@ -33,8 +33,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getNotifications();
-
     if (isPlatformBrowser(this.platformId)) {
       this.initializeOffcanvas();
       this.setupRouterSubscription();
