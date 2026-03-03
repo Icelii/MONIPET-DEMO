@@ -1,0 +1,42 @@
+{
+    "result": true,
+    "msg": "Producto encontrado",
+    "error_code": null,
+    "data": {
+        "id": 4,
+        "name": "Collar ajustable café",
+        "description": null,
+        "price": "60.00",
+        "stock": 40,
+        "discount": "0.00",
+        "created_at": "2026-03-02T16:40:41.000000Z",
+        "updated_at": "2026-03-02T16:40:41.000000Z",
+        "deleted_at": null,
+        "product_photos": [
+            {
+                "id": 4,
+                "product_id": 4,
+                "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/products/collar_ajustable_caf%C3%A9_688adbf58bc2d.jpeg",
+                "created_at": "2026-03-02T16:40:41.000000Z",
+                "updated_at": "2026-03-02T16:40:41.000000Z",
+                "deleted_at": null
+            }
+        ],
+        "categories": [
+            {
+                "id": 5,
+                "category": "Collares",
+                "type_category_id": 2,
+                "created_at": "2026-03-02T16:40:41.000000Z",
+                "updated_at": "2026-03-02T16:40:41.000000Z",
+                "deleted_at": null,
+                "pivot": {
+                    "product_id": 4,
+                    "category_id": 5,
+                    "id": 4,
+                    "deleted_at": null
+                }
+            }
+        ]
+    }
+}

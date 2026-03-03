@@ -1,0 +1,208 @@
+{
+    "result": true,
+    "msg": "Los productos fueron encontrados",
+    "error_code": null,
+    "data": [
+        {
+            "id": 1,
+            "name": "Croquetas para perro adulto",
+            "description": null,
+            "price": "299.99",
+            "stock": 50,
+            "discount": "20.00",
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "product_photos": [
+                {
+                    "id": 1,
+                    "product_id": 1,
+                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/products/croquetas_para_perro_adulto_688adb8ef089b.jpeg",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            ],
+            "categories": [
+                {
+                    "id": 1,
+                    "category": "Croquetas",
+                    "type_category_id": 1,
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null,
+                    "pivot": {
+                        "product_id": 1,
+                        "category_id": 1
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Shampoo antiséptico para perros",
+            "description": null,
+            "price": "89.50",
+            "stock": 35,
+            "discount": "0.00",
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "product_photos": [
+                {
+                    "id": 2,
+                    "product_id": 2,
+                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/products/shampoo_antis%C3%A9ptico_para_perros_688adbad5f366.jpeg",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            ],
+            "categories": [
+                {
+                    "id": 2,
+                    "category": "Snacks",
+                    "type_category_id": 1,
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null,
+                    "pivot": {
+                        "product_id": 2,
+                        "category_id": 2
+                    }
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Pelota de goma con sonido",
+            "description": null,
+            "price": "45.00",
+            "stock": 75,
+            "discount": "5.00",
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "product_photos": [
+                {
+                    "id": 3,
+                    "product_id": 3,
+                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/products/pelota_de_goma_con_sonido_688adbb86e527.jpeg",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            ],
+            "categories": [
+                {
+                    "id": 3,
+                    "category": "Pelotas",
+                    "type_category_id": 3,
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null,
+                    "pivot": {
+                        "product_id": 3,
+                        "category_id": 3
+                    }
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Collar ajustable café",
+            "description": null,
+            "price": "60.00",
+            "stock": 40,
+            "discount": "0.00",
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "product_photos": [
+                {
+                    "id": 4,
+                    "product_id": 4,
+                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/products/collar_ajustable_caf%C3%A9_688adbf58bc2d.jpeg",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            ],
+            "categories": [
+                {
+                    "id": 5,
+                    "category": "Collares",
+                    "type_category_id": 2,
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null,
+                    "pivot": {
+                        "product_id": 4,
+                        "category_id": 5
+                    }
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Comedero Inteligente 1",
+            "description": null,
+            "price": "100.00",
+            "stock": 0,
+            "discount": "10.00",
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "product_photos": [
+                {
+                    "id": 5,
+                    "product_id": 5,
+                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/products/snacks_de_pollo_para_entrenamiento_688adc062fad8.jpeg",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            ],
+            "categories": [
+                {
+                    "id": 6,
+                    "category": "Comedero",
+                    "type_category_id": 6,
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null,
+                    "pivot": {
+                        "product_id": 5,
+                        "category_id": 6
+                    }
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Collar con gps",
+            "description": null,
+            "price": "200.00",
+            "stock": 0,
+            "discount": "10.00",
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "product_photos": [],
+            "categories": [
+                {
+                    "id": 7,
+                    "category": "GPS",
+                    "type_category_id": 6,
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null,
+                    "pivot": {
+                        "product_id": 6,
+                        "category_id": 7
+                    }
+                }
+            ]
+        }
+    ]
+}

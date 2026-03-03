@@ -1,0 +1,50 @@
+{
+    "result": true,
+    "msg": "Mascota encontrada",
+    "error_code": null,
+    "data": {
+        "id": 3,
+        "breed_id": 4,
+        "name": "Mishi",
+        "birthday": "2021-01-15",
+        "gender": "Hembra",
+        "spayed": 1,
+        "size": "Chico",
+        "weight": "5.30",
+        "height": "25.00",
+        "description": "Gatita muy cariñosa.",
+        "status": "No adoptado",
+        "user_id": null,
+        "uid": null,
+        "created_at": "2026-03-02T16:40:41.000000Z",
+        "updated_at": "2026-03-02T16:40:41.000000Z",
+        "deleted_at": null,
+        "breed": {
+            "id": 4,
+            "type_pet_id": 2,
+            "breed": "Siamés",
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "type_pet": {
+                "id": 2,
+                "type_pet": "Gato",
+                "icono": "https://example.com/icons/gato.png",
+                "created_at": "2026-03-02T16:40:41.000000Z",
+                "updated_at": "2026-03-02T16:40:41.000000Z",
+                "deleted_at": null
+            }
+        },
+        "user": null,
+        "pet_photos": [
+            {
+                "id": 3,
+                "pet_id": 3,
+                "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/pets/mishi_6899b47536e5c.jpeg",
+                "created_at": "2026-03-02T16:40:41.000000Z",
+                "updated_at": "2026-03-02T16:40:41.000000Z",
+                "deleted_at": null
+            }
+        ]
+    }
+}
