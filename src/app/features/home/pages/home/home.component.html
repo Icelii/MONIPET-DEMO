@@ -53,7 +53,7 @@
      <h2>Ellos están buscando un hogar 🐾</h2>
 
     <!-- CARDS -->
-    <div class="row mt-2 mt-sm-4 g-2 mb-5">
+    <div class="row w-100 mt-2 mt-sm-4 g-2 mb-5">
       @defer (when !loadingPets() && !loadingProducts()) {
         @for (pet of pets(); track pet.id) {
           <div class="col-6 col-md-4 col-lg-3">

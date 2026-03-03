@@ -41,7 +41,7 @@
                 {
                     "id": 1,
                     "pet_id": 1,
-                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/pets/max_68983e6574fb9.jpg",
+                    "photo_link": "/jsonImages/PerroEnojado.jpg",
                     "created_at": "2026-03-02T16:40:41.000000Z",
                     "updated_at": "2026-03-02T16:40:41.000000Z",
                     "deleted_at": null
