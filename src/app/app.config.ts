@@ -6,7 +6,8 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { tokenHandlerInterceptor } from './core/interceptors/token-handler.interceptor';
 import { LOCALE_ID } from '@angular/core';
 import { loaderInterceptor } from './core/interceptors/loader.interceptor';
-import { errorHttpInterceptor } from './core/interceptors/error-http.interceptor';
+
+import { mockBackendInterceptor } from './core/interceptors/mock-backend.interceptor';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -21,6 +22,11 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes, inMemoryScrollingFeture), 
     provideClientHydration(), 
-    provideHttpClient(withFetch(), withInterceptors([tokenHandlerInterceptor, loaderInterceptor]))
+
+    provideHttpClient(withFetch(), withInterceptors([
+      mockBackendInterceptor, 
+      tokenHandlerInterceptor, 
+      loaderInterceptor
+    ]))
   ]
 };

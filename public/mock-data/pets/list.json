@@ -1,0 +1,109 @@
+{
+    "result": true,
+    "msg": "Listado de mascotas",
+    "error_code": null,
+    "data": [
+        {
+            "id": 1,
+            "breed_id": 1,
+            "name": "Max",
+            "birthday": "2020-05-10",
+            "gender": "Macho",
+            "spayed": 1,
+            "size": "Grande",
+            "weight": "30.50",
+            "height": "60.00",
+            "description": "Perro activo y amigable.",
+            "status": "No adoptado",
+            "user_id": null,
+            "uid": null,
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "breed": {
+                "id": 1,
+                "type_pet_id": 1,
+                "breed": "Labrador Retriever",
+                "created_at": "2026-03-02T16:40:41.000000Z",
+                "updated_at": "2026-03-02T16:40:41.000000Z",
+                "deleted_at": null,
+                "type_pet": {
+                    "id": 1,
+                    "type_pet": "Perro",
+                    "icono": "https://example.com/icons/perro.png",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            },
+            "user": null,
+            "pet_photos": [
+                {
+                    "id": 1,
+                    "pet_id": 1,
+                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/pets/max_68983e6574fb9.jpg",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "breed_id": 2,
+            "name": "Luna",
+            "birthday": "2019-08-20",
+            "gender": "Hembra",
+            "spayed": 0,
+            "size": "Mediano",
+            "weight": "20.00",
+            "height": "45.00",
+            "description": "Bulldog muy tranquila.",
+            "status": "Personal",
+            "user_id": 2,
+            "uid": null,
+            "created_at": "2026-03-02T16:40:41.000000Z",
+            "updated_at": "2026-03-02T16:40:41.000000Z",
+            "deleted_at": null,
+            "breed": {
+                "id": 2,
+                "type_pet_id": 1,
+                "breed": "Bulldog",
+                "created_at": "2026-03-02T16:40:41.000000Z",
+                "updated_at": "2026-03-02T16:40:41.000000Z",
+                "deleted_at": null,
+                "type_pet": {
+                    "id": 1,
+                    "type_pet": "Perro",
+                    "icono": "https://example.com/icons/perro.png",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            },
+            "user": {
+                "id": 2,
+                "user_type_id": 3,
+                "name": "Monipet",
+                "last_name": "Ventas",
+                "last_name2": "",
+                "email": "chivasmonipet@gmail.com",
+                "gender": "39 tipos de gays",
+                "birth_date": "2004-09-03T05:00:00.000000Z",
+                "created_at": "2026-03-02T16:40:41.000000Z",
+                "updated_at": "2026-03-02T16:40:41.000000Z",
+                "deleted_at": null
+            },
+            "pet_photos": [
+                {
+                    "id": 2,
+                    "pet_id": 2,
+                    "photo_link": "https://monipetresources.sfo3.digitaloceanspaces.com/pets/luna_68981ca0b7c8f.jpeg",
+                    "created_at": "2026-03-02T16:40:41.000000Z",
+                    "updated_at": "2026-03-02T16:40:41.000000Z",
+                    "deleted_at": null
+                }
+            ]
+        }
+    ]
+}
